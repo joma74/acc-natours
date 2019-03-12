@@ -190,7 +190,7 @@ module.exports = {
 
   fonts: {
     sans: [
-      "Luckiest Guy",
+      "Lato",
       "system-ui",
       "BlinkMacSystemFont",
       "-apple-system",
@@ -275,7 +275,7 @@ module.exports = {
     hairline: 100,
     thin: 200,
     light: 300,
-    normal: 400,
+    regular: 400,
     medium: 500,
     semibold: 600,
     bold: 700,
@@ -914,7 +914,7 @@ module.exports = {
   */
 
   options: {
-    prefix: "",
+    prefix: "tw-",
     important: false,
     separator: ":",
   },
