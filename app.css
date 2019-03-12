@@ -8,6 +8,8 @@
 
 @import "src/assets/css/debug-grid";
 
+@import "src/assets/css/main";
+
 /* https://tailwindcss.com/docs/adding-new-utilities/
    Tailwind will intelligently group the responsive versions 
    into its existing media queries which are output at the very 
