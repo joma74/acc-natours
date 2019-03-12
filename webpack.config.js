@@ -137,7 +137,7 @@ const webpackConfig = [
       }),
       new HtmlWebpackPlugin({
         template: "src/template.html",
-        title: "Template",
+        title: "Natours | Exciting tours for adventurous people",
       }),
       new webpack.NamedModulesPlugin(),
       new HardSourceWebpackPlugin({
