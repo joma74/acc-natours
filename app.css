@@ -1,0 +1,16 @@
+@import "tailwindcss/preflight";
+
+@import "src/assets/css/fonts";
+
+@import "tailwindcss/components";
+
+@import "tailwindcss/utilities";
+
+@import "src/assets/css/debug-grid";
+
+/* https://tailwindcss.com/docs/adding-new-utilities/
+   Tailwind will intelligently group the responsive versions 
+   into its existing media queries which are output at the very 
+   end of the stylesheet. This ensures that any responsive utilities 
+   will always take precedence over unprefixed utilities. 
+*/

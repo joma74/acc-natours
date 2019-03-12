@@ -1,0 +1,12 @@
+{
+    "path-autocomplete.pathMappings": {
+        "@components": "${folder}/src/js/components",
+        "@css": "${folder}/src/assets/css",
+        "@font": "${folder}/src/assets/fonts",
+        "@home": "${folder}",
+        "@html": "${folder}/src/html",
+        "@img": "${folder}/src/assets/img",
+        "@js": "${folder}/src/js",
+        "@svg": "${folder}/src/assets/svg",
+    }
+}
