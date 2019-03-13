@@ -1,6 +1,6 @@
 {
   "config": {
-    "app_svrdev_port": 8080,
+    "app_svrdev_port": 6070,
     "target": "target",
     "reports": "target/reports",
     "screenshots": "target/reports/screenshots/actual/",
@@ -10,7 +10,7 @@
   "scripts": {
     "js_frmt": "./node_modules/.bin/prettier --config ${PWD}/.prettierrc --write './src/js/**/*.js' './src/tests/**/*.js'",
     "clean": "del 'target/*' '!.gitkeep'",
-    "serve": "cross-env NODE_ENV=development webpack-dev-server --watch --no-progress --config=webpack.config.js",
+    "serve": "cross-env NODE_ENV=development webpack-dev-server --watch --no-progress --config=config/webpack.config.js",
     "test": "npm-run-all clean testcafe",
     "testcafe": "testcafe 'firefox:headless,chrome:headless --no-sandbox --disable-gpu' -S -s $npm_package_config_screenshots -p $npm_package_config_screenshot_path_pattern -r spec,xunit:$npm_package_config_reports/report.xml src/tests/index-test.js",
     "test-cafe-live": "testcafe 'chrome' -L -S -s $npm_package_config_screenshots -p $npm_package_config_screenshot_path_pattern -r spec src/tests/index-test.js",

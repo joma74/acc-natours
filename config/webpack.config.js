@@ -1,5 +1,6 @@
 const path = require("path")
 const webpack = require("webpack")
+const ENVAPPSRVPORT = require("./env/ENVAPPSRVPORT")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin")
@@ -10,23 +11,23 @@ const prettyFormat = require("pretty-format")
  * @type {import("webpack-dev-server").Configuration}
  */
 const devServer = {
-  port: 8080,
+  port: parseInt(ENVAPPSRVPORT.getVDev()),
   watchContentBase: false,
   hot: true,
   stats: "errors-only",
-  host: "0.0.0.0",
+  host: "localhost",
 }
 
 const webpack_aliase = {
-  "@components": path.resolve(__dirname, "src/js/components/"),
-  "@css": path.resolve(__dirname, "src/assets/css/"),
-  "@font": path.resolve(__dirname, "src/assets/fonts/"),
-  "@home": path.resolve(__dirname),
-  "@html": path.resolve(__dirname, "src/html/"),
-  "@icon": path.resolve(__dirname, "src/assets/icons/"),
-  "@img": path.resolve(__dirname, "src/assets/img/"),
-  "@js": path.resolve(__dirname, "src/js/"),
-  "@svg": path.resolve(__dirname, "src/assets/svg/"),
+  "@components": path.resolve(__dirname, "..", "src/js/components/"),
+  "@css": path.resolve(__dirname, "..", "src/assets/css/"),
+  "@font": path.resolve(__dirname, "..", "src/assets/fonts/"),
+  "@home": path.resolve(__dirname, ".."),
+  "@html": path.resolve(__dirname, "..", "src/html/"),
+  "@icon": path.resolve(__dirname, "..", "src/assets/icons/"),
+  "@img": path.resolve(__dirname, "..", "src/assets/img/"),
+  "@js": path.resolve(__dirname, "..", "src/js/"),
+  "@svg": path.resolve(__dirname, "..", "src/assets/svg/"),
 }
 
 /**
