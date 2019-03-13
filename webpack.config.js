@@ -147,16 +147,20 @@ const webpackConfig = [
         title: "Template",
       }),
       new webpack.NamedModulesPlugin(),
+      new webpack.HotModuleReplacementPlugin(),
       new HardSourceWebpackPlugin({
         // Clean up large, old caches automatically.
         cachePrune: {
           // Caches younger than `maxAge` are not considered for deletion. They must
           // be at least this (default: 2 days) old in milliseconds.
-          maxAge: 2 * 24 * 60 * 60 * 1000,
+          maxAge: 1 * 24 * 60 * 60 * 1000,
           // All caches together must be larger than `sizeThreshold` before any
           // caches will be deleted. Together they must be at least this
           // (default: 10 MB) big in bytes.
           sizeThreshold: 10 * 1024 * 1024,
+        },
+        configHash: function() {
+          return process.env.NODE_ENV
         },
         info: {
           // 'debug', 'log', 'info', 'warn', or 'error'.
