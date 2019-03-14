@@ -1,2 +1,19 @@
+* {
+  @apply .tw-p-0 .tw-bg-no-repeat;
+}
+
+body {
+  color: hsl(0, 0%, 47%);
+  @apply .tw-p-8;
+}
+
 .header {
+  height: 95vh;
+  background-image: linear-gradient(
+      to right bottom,
+      hsla(111, 55%, 64%, 0.8),
+      hsla(160, 64%, 43%, 0.8)
+    ),
+    url("~@img/hero.jpg");
+  @apply .tw-bg-cover .tw-bg-top;
 }
