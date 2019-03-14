@@ -8,7 +8,7 @@ const _rootRel = path.relative(".", "..")
  * @param {...string} args
  * @returns {string} an absolute path
  */
-function rootAbs(args) {
+function rootAbs(...args) {
   args = Array.prototype.slice.call(arguments, 0)
   return path.join.apply(path, [_root].concat(args))
 }
@@ -18,7 +18,7 @@ function rootAbs(args) {
  * @param {...string} args
  * @returns {string} an absolute path
  */
-function rootRel(args) {
+function rootRel(...args) {
   args = Array.prototype.slice.call(arguments, 0)
   return path.join.apply(path, [_rootRel].concat(args))
 }

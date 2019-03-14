@@ -1,4 +1,4 @@
-const path = require("path")
+const helpers = require("./helpers")
 const webpack = require("webpack")
 const ENVAPPSRVPORT = require("./env/ENVAPPSRVPORT")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
@@ -19,15 +19,15 @@ const devServer = {
 }
 
 const webpack_aliase = {
-  "@components": path.resolve(__dirname, "..", "src/js/components/"),
-  "@css": path.resolve(__dirname, "..", "src/assets/css/"),
-  "@font": path.resolve(__dirname, "..", "src/assets/fonts/"),
-  "@home": path.resolve(__dirname, ".."),
-  "@html": path.resolve(__dirname, "..", "src/html/"),
-  "@icon": path.resolve(__dirname, "..", "src/assets/icons/"),
-  "@img": path.resolve(__dirname, "..", "src/assets/img/"),
-  "@js": path.resolve(__dirname, "..", "src/js/"),
-  "@svg": path.resolve(__dirname, "..", "src/assets/svg/"),
+  "@components": helpers.rootAbs("src/js/components/"),
+  "@css": helpers.rootAbs("src/assets/css/"),
+  "@font": helpers.rootAbs("src/assets/fonts/"),
+  "@home": helpers.rootAbs(),
+  "@html": helpers.rootAbs("src/html/"),
+  "@icon": helpers.rootAbs("src/assets/icons/"),
+  "@img": helpers.rootAbs("src/assets/img/"),
+  "@js": helpers.rootAbs("src/js/"),
+  "@svg": helpers.rootAbs("src/assets/svg/"),
 }
 
 /**
@@ -112,9 +112,11 @@ const node = {
  */
 const webpackConfig = [
   {
-    entry: "./src/js/index",
+    entry: {
+      app: "./src/js/index",
+    },
     output: {
-      path: path.resolve(__dirname, "dist"),
+      path: helpers.rootAbs("dist"),
       filename: "[name].js",
     },
     devServer,
@@ -175,7 +177,7 @@ const webpackConfig = [
   {
     entry: "./src/js/dummy",
     output: {
-      path: path.resolve(__dirname, "build"),
+      path: helpers.rootAbs("build"),
       filename: "dummy.js",
     },
     resolve: {
@@ -197,7 +199,7 @@ const webpackConfig = [
       // @ts-ignore
       new DiskPlugin({
         output: {
-          path: path.resolve(__dirname, "build"),
+          path: helpers.rootAbs("build"),
         },
         files: [
           {
