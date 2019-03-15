@@ -1,19 +1,88 @@
 * {
-  @apply .tw-p-0 .tw-bg-no-repeat;
+  @apply .tw-bg-no-repeat;
 }
 
 body {
+  --accnat-body-padding: 2rem;
   color: hsl(0, 0%, 47%);
-  @apply .tw-p-8;
+  padding: var(--accnat-body-padding);
 }
 
 .header {
-  height: 95vh;
+  height: calc(100vh - 2 * var(--accnat-body-padding));
   background-image: linear-gradient(
       to right bottom,
       hsla(111, 55%, 64%, 0.8),
       hsla(160, 64%, 43%, 0.8)
     ),
     url("~@img/hero.jpg");
+  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   @apply .tw-bg-cover .tw-bg-top;
+}
+
+.logo-box {
+  @apply .tw-absolute;
+  top: calc(var(--accnat-body-padding) + 1rem);
+  left: calc(var(--accnat-body-padding) + 1rem);
+}
+
+.logo {
+  @apply tw-h-12;
+}
+
+.text-box {
+  @apply .mu-position-center .tw-relative; /* absolute would also 
+  been an option iff there would be a parent elm being relative  */
+  @apply .tw-inline-block; /* else the child does not shrink 
+  and hence does not center horizontally*/
+}
+
+.heading-primary {
+  backface-visibility: hidden; /* else elm moves slightly down 
+  at the end of the animation */
+  @apply .tw-uppercase .tw-text-white .tw-font-regular;
+}
+
+.heading-primary-main {
+  letter-spacing: 2rem;
+  animation: moveInLeft 2s ease-in-out;
+  @apply .tw-block .tw-text-5xl;
+}
+
+.heading-primary-sub {
+  letter-spacing: 0.38rem;
+  animation: moveInRight 2s ease-in-out;
+  @apply .tw-block .tw-font-bold;
+}
+
+@keyframes moveInLeft {
+  0% {
+    opacity: 0;
+    transform: translateX(-8rem);
+  }
+
+  80% {
+    transform: translateX(1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes moveInRight {
+  0% {
+    opacity: 0;
+    transform: translateX(8rem);
+  }
+
+  80% {
+    transform: translateX(-1rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
