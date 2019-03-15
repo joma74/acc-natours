@@ -147,7 +147,7 @@ const webpackConfig = [
       }),
       new HtmlWebpackPlugin({
         template: "src/template.html",
-        title: "Template",
+        title: "Natours | Outdoor touring",
       }),
       new webpack.NamedModulesPlugin(),
       new webpack.HotModuleReplacementPlugin(),
@@ -156,7 +156,7 @@ const webpackConfig = [
         cachePrune: {
           // Caches younger than `maxAge` are not considered for deletion. They must
           // be at least this (default: 2 days) old in milliseconds.
-          maxAge: 1 * 24 * 60 * 60 * 1000,
+          maxAge: 1 * 60 * 60,
           // All caches together must be larger than `sizeThreshold` before any
           // caches will be deleted. Together they must be at least this
           // (default: 10 MB) big in bytes.
