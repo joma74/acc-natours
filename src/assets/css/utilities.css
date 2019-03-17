@@ -4,6 +4,10 @@
   padding: 0;
 }
 
+a {
+  text-decoration-line: none;
+}
+
 /* Positioning mode has to be defined */
 .mu-position-center {
   top: 50%;
