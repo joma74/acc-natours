@@ -4,7 +4,8 @@
 
 body {
   --accnat-body-padding: 2rem;
-  color: hsl(0, 0%, 47%);
+  --accnat-primary-color: hsl(0, 0%, 47%);
+  color: var(--accnat-primary-color);
   padding: var(--accnat-body-padding);
 }
 
@@ -27,7 +28,7 @@ body {
 }
 
 .logo {
-  @apply tw-h-12;
+  @apply tw-h-10;
 }
 
 .text-box {
@@ -35,12 +36,14 @@ body {
   been an option iff there would be a parent elm being relative  */
   @apply .tw-inline-block; /* else the child does not shrink 
   and hence does not center horizontally*/
+  @apply .tw-text-center;
 }
 
 .heading-primary {
   backface-visibility: hidden; /* else elm moves slightly down 
   at the end of the animation */
   @apply .tw-uppercase .tw-text-white .tw-font-regular;
+  @apply .tw-mb-6;
 }
 
 .heading-primary-main {
@@ -50,9 +53,53 @@ body {
 }
 
 .heading-primary-sub {
-  letter-spacing: 0.38rem;
+  letter-spacing: 0.2rem;
   animation: moveInRight 2s ease-in-out;
   @apply .tw-block .tw-font-bold;
+}
+
+.btn {
+  transition: all 0.25s;
+  backface-visibility: hidden; /* else elm moves slightly down 
+  at the end of the animation */
+  @apply .tw-inline-block .tw-rounded-full .tw-uppercase .tw-px-6 .tw-py-4;
+  @apply .tw-relative;
+}
+
+.btn::after {
+  content: "";
+  display: inherit;
+  transition: all 0.4s;
+  @apply .tw-absolute .tw-pin;
+  @apply .tw-w-full .tw-h-full .tw-rounded-full .tw-z--1;
+}
+
+.btn:hover {
+  transform: translateY(-0.25rem);
+  @apply .tw-shadow-lg;
+}
+
+.btn:hover::after {
+  transform: scaleX(1.25) scaleY(1.6);
+  @apply tw-opacity-0;
+}
+
+.btn:active {
+  transform: translateY(-0.12rem);
+  @apply .tw-shadow-md;
+}
+
+.btn-white {
+  color: var(--accnat-primary-color);
+  @apply .tw-bg-white;
+}
+
+.btn-white::after {
+  @apply .tw-bg-white;
+}
+
+.btn-animated {
+  animation: moveInBottom 1.25s ease-in-out 0.75s backwards;
 }
 
 @keyframes moveInLeft {
@@ -84,5 +131,21 @@ body {
   100% {
     opacity: 1;
     transform: translateX(0);
+  }
+}
+
+@keyframes moveInBottom {
+  0% {
+    opacity: 0;
+    transform: translateY(4rem);
+  }
+
+  80% {
+    transform: translateY(-0.5rem);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
