@@ -3,6 +3,7 @@ body {
   --accnat-primary-color: hsl(0, 0%, 47%);
   color: var(--accnat-primary-color);
   padding: var(--accnat-body-padding);
+  overflow-x: hidden; /* https://css-tricks.com/findingfixing-unintended-body-overflow/ */
 }
 
 .header {
@@ -33,6 +34,7 @@ body {
   @apply .tw-inline-block; /* else the child does not shrink 
   and hence does not center horizontally*/
   @apply .tw-text-center;
+  @apply .tw-max-w-full;
 }
 
 .heading-primary {
@@ -49,15 +51,16 @@ body {
 }
 
 .heading-primary-sub {
-  letter-spacing: 0.2rem;
+  letter-spacing: 1rem;
   animation: moveInRight 2s ease-in-out;
-  @apply .tw-block .tw-font-bold;
+  @apply .tw-block .tw-font-bold .tw-text-sm .tw-leadingrel-6xl;
 }
 
 .btn {
   transition: all 0.25s;
   backface-visibility: hidden; /* else elm moves slightly down 
   at the end of the animation */
+  @apply .tw-text-2xl;
   @apply .tw-inline-block .tw-rounded-full .tw-uppercase .tw-px-6 .tw-py-4;
   @apply .tw-relative;
 }
