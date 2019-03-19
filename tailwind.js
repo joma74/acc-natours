@@ -26,6 +26,8 @@ View the full documentation at https://tailwindcss.com.
 
 let defaultConfig = require("tailwindcss/defaultConfig")()
 
+const _ = require("lodash")
+
 /*
 |-------------------------------------------------------------------------------
 | Colors                                    https://tailwindcss.com/docs/colors
@@ -304,6 +306,7 @@ module.exports = {
     tight: 1.25,
     normal: 1.5,
     loose: 2,
+    hero: 3,
   },
 
   /*
@@ -932,6 +935,43 @@ module.exports = {
       // center: true,
       // padding: '1rem',
     }),
+    function({ e, addUtilities }) {
+      /*
+        |-----------------------------------------------------------------------------
+        | Relative Leading (line height)              https://tailwindcss.com/docs/line-height
+        |-----------------------------------------------------------------------------
+        |
+        | Here is where you define your line height values, or as we call
+        | them in Tailwind, leadings.
+        |
+        | Class name: .leadingrel-{size}
+        | CSS property: line-height
+        |
+        */
+
+      const leadingrelConf = {
+        xs: ".75rem", // 12px
+        sm: ".875rem", // 14px
+        base: "1rem", // 16px
+        lg: "1.125rem", // 18px
+        xl: "1.25rem", // 20px
+        "2xl": "1.5rem", // 24px
+        "3xl": "1.875rem", // 30px
+        "4xl": "2.25rem", // 36px
+        "5xl": "3rem", // 48px
+        "6xl": "3.5rem", // 56px
+      }
+
+      const leadingrelUtilities = _.map(leadingrelConf, (value, key) => {
+        return {
+          [`.${e(`leadingrel-${key}`)}`]: {
+            "line-height": `${value}`,
+          },
+        }
+      })
+
+      addUtilities(leadingrelUtilities)
+    },
   ],
 
   /*
