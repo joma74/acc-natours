@@ -3,7 +3,6 @@ body {
   --accnat-primary-color: hsl(0, 0%, 47%);
   color: var(--accnat-primary-color);
   padding: var(--accnat-body-padding);
-  overflow-x: hidden; /* https://css-tricks.com/findingfixing-unintended-body-overflow/ */
 }
 
 .header {
@@ -34,7 +33,7 @@ body {
   @apply .tw-inline-block; /* else the child does not shrink 
   and hence does not center horizontally*/
   @apply .tw-text-center;
-  @apply .tw-max-w-full;
+  @apply .tw-max-w-full .tw-w-full;
 }
 
 .heading-primary {
@@ -42,12 +41,22 @@ body {
   at the end of the animation */
   @apply .tw-uppercase .tw-text-white .tw-font-regular;
   @apply .tw-mb-6;
+  @apply .tw-overflow-scroll; /* else text overflows even the
+  body, then shows empty extra screen to the x (nobody 
+  understands why)*/
+  -ms-overflow-style: none; /*  IE 10+ */
+  overflow: -moz-scrollbars-none; /* Firefox */
+}
+
+.heading-primary::-webkit-scrollbar {
+  width: 0 !important; /* // Safari and Chrome */
 }
 
 .heading-primary-main {
   letter-spacing: 2rem;
   animation: moveInLeft 2s ease-in-out;
   @apply .tw-block .tw-text-5xl;
+  @apply .whitespace-no-wrap;
 }
 
 .heading-primary-sub {
