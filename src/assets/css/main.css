@@ -1,5 +1,8 @@
 $accnat-body-padding: 2rem;
 
+$color-primary: hsla(111, 55%, 64%, 0.8);
+$color-primary-light: hsla(160, 64%, 43%, 0.8);
+
 body {
   --accnat-primary-color: hsl(0, 0%, 47%);
   color: var(--accnat-primary-color);
@@ -10,8 +13,8 @@ body {
   height: calc(100vh - calc(2 * $accnat-body-padding));
   background-image: linear-gradient(
       to right bottom,
-      hsla(111, 55%, 64%, 0.8),
-      hsla(160, 64%, 43%, 0.8)
+      $color-primary,
+      $color-primary-light
     ),
     url("~@img/hero.jpg");
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
@@ -19,9 +22,9 @@ body {
 }
 
 .header__logo-box {
-  @apply .tw-absolute;
   top: calc($accnat-body-padding + 1rem);
   left: calc($accnat-body-padding + 1rem);
+  @apply .tw-absolute;
 }
 
 .header__logo {
@@ -47,10 +50,10 @@ body {
   understands why)*/
   -ms-overflow-style: none; /*  IE 10+ */
   overflow: -moz-scrollbars-none; /* Firefox */
-}
 
-.heading-primary::-webkit-scrollbar {
-  width: 0 !important; /* // Safari and Chrome */
+  &::-webkit-scrollbar {
+    width: 0 !important; /* // Safari and Chrome */
+  }
 }
 
 .heading-primary--main {
@@ -73,38 +76,38 @@ body {
   @apply .tw-text-2xl;
   @apply .tw-inline-block .tw-rounded-full .tw-uppercase .tw-px-6 .tw-py-4;
   @apply .tw-relative;
-}
 
-.btn::after {
-  content: "";
-  display: inherit;
-  transition: all 0.4s;
-  @apply .tw-absolute .tw-pin;
-  @apply .tw-w-full .tw-h-full .tw-rounded-full .tw-z--1;
-}
+  &::after {
+    content: "";
+    display: inherit;
+    transition: all 0.4s;
+    @apply .tw-absolute .tw-pin;
+    @apply .tw-w-full .tw-h-full .tw-rounded-full .tw-z--1;
+  }
 
-.btn:hover {
-  transform: translateY(-0.25rem);
-  @apply .tw-shadow-lg;
-}
+  &:hover {
+    transform: translateY(-0.25rem);
+    @apply .tw-shadow-lg;
 
-.btn:hover::after {
-  transform: scaleX(1.25) scaleY(1.6);
-  @apply tw-opacity-0;
-}
+    &::after {
+      transform: scaleX(1.25) scaleY(1.6);
+      @apply .tw-opacity-0;
+    }
+  }
 
-.btn:active {
-  transform: translateY(-0.12rem);
-  @apply .tw-shadow-md;
+  &:active {
+    transform: translateY(-0.12rem);
+    @apply .tw-shadow-md;
+  }
 }
 
 .btn--white {
   color: var(--accnat-primary-color);
   @apply .tw-bg-white;
-}
 
-.btn--white::after {
-  @apply .tw-bg-white;
+  &::after {
+    @apply .tw-bg-white;
+  }
 }
 
 .btn--animated {
