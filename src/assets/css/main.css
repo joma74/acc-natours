@@ -1,12 +1,13 @@
+$accnat-body-padding: 2rem;
+
 body {
-  --accnat-body-padding: 2rem;
   --accnat-primary-color: hsl(0, 0%, 47%);
   color: var(--accnat-primary-color);
-  padding: var(--accnat-body-padding);
+  padding: $accnat-body-padding;
 }
 
 .header {
-  height: calc(100vh - 2 * var(--accnat-body-padding));
+  height: calc(100vh - calc(2 * $accnat-body-padding));
   background-image: linear-gradient(
       to right bottom,
       hsla(111, 55%, 64%, 0.8),
@@ -19,8 +20,8 @@ body {
 
 .header__logo-box {
   @apply .tw-absolute;
-  top: calc(var(--accnat-body-padding) + 1rem);
-  left: calc(var(--accnat-body-padding) + 1rem);
+  top: calc($accnat-body-padding + 1rem);
+  left: calc($accnat-body-padding + 1rem);
 }
 
 .header__logo {
