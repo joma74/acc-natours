@@ -17,17 +17,17 @@ body {
   @apply .tw-bg-cover .tw-bg-top;
 }
 
-.logo-box {
+.header__logo-box {
   @apply .tw-absolute;
   top: calc(var(--accnat-body-padding) + 1rem);
   left: calc(var(--accnat-body-padding) + 1rem);
 }
 
-.logo {
+.header__logo {
   @apply tw-h-10;
 }
 
-.text-box {
+.header__text-box {
   @apply .mu-position-center .tw-relative; /* absolute would also 
   been an option iff there would be a parent elm being relative  */
   @apply .tw-inline-block; /* else the child does not shrink 
@@ -52,15 +52,15 @@ body {
   width: 0 !important; /* // Safari and Chrome */
 }
 
-.heading-primary-main {
-  letter-spacing: 2rem;
+.heading-primary--main {
+  @include bal-letter-by-indent(2rem);
   animation: moveInLeft 2s ease-in-out;
   @apply .tw-block .tw-text-5xl;
   @apply .whitespace-no-wrap;
 }
 
-.heading-primary-sub {
-  letter-spacing: 1rem;
+.heading-primary--sub {
+  @include bal-letter-by-indent(1rem);
   animation: moveInRight 2s ease-in-out;
   @apply .tw-block .tw-font-bold .tw-text-sm .tw-leadingrel-6xl;
 }
@@ -97,16 +97,16 @@ body {
   @apply .tw-shadow-md;
 }
 
-.btn-white {
+.btn--white {
   color: var(--accnat-primary-color);
   @apply .tw-bg-white;
 }
 
-.btn-white::after {
+.btn--white::after {
   @apply .tw-bg-white;
 }
 
-.btn-animated {
+.btn--animated {
   animation: moveInBottom 1.25s ease-in-out 0.75s backwards;
 }
 

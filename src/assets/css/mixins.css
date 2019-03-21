@@ -1,0 +1,5 @@
+/* balances letter spacing by text indent  */
+@mixin bal-letter-by-indent($mu-letter-spacing: 1rem) {
+  letter-spacing: $mu-letter-spacing;
+  text-indent: $mu-letter-spacing;
+}

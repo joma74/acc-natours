@@ -9,7 +9,9 @@
         "responsive",
         "if",
         "for",
-        "each"
+        "each",
+        "mixin",
+        "include"
       ]
     }],
     "block-no-empty": null,
