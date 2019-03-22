@@ -23,7 +23,8 @@
     "**/@types/extract-text-webpack-plugin": "^2",
     "**/@types/html-webpack-plugin": "^2",
     "**/@types/webpack": "^3",
-    "**/@types/webpack-dev-server": "^2"
+    "**/@types/webpack-dev-server": "^2",
+    "**/postcss": "~7"
   },
   "devDependencies": {
     "@types/extract-text-webpack-plugin": "^2",
