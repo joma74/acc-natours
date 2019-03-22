@@ -1,11 +1,11 @@
 $accnat-body-padding: 2rem;
 
-$color-primary: hsla(111, 55%, 64%, 0.8);
-$color-primary-light: hsla(160, 64%, 43%, 0.8);
+$color-theme-light: hsla(111, 55%, 64%, 0.8);
+$color-theme: hsla(160, 64%, 43%, 0.8);
 
 body {
-  --accnat-primary-color: hsl(0, 0%, 47%);
-  color: var(--accnat-primary-color);
+  --accnat-theme-color: hsl(0, 0%, 47%);
+  color: var(--accnat-theme-color);
   padding: $accnat-body-padding;
 }
 
@@ -13,8 +13,8 @@ body {
   height: calc(100vh - calc(2 * $accnat-body-padding));
   background-image: linear-gradient(
       to right bottom,
-      $color-primary,
-      $color-primary-light
+      $color-theme-light,
+      $color-theme
     ),
     url("~@img/hero.jpg");
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
