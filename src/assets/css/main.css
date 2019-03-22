@@ -9,7 +9,7 @@ body {
   padding: $accnat-body-padding;
 }
 
-.header {
+@block header {
   height: calc(100vh - calc(2 * $accnat-body-padding));
   background-image: linear-gradient(
       to right bottom,
@@ -19,28 +19,28 @@ body {
     url("~@img/hero.jpg");
   clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
   @apply .tw-bg-cover .tw-bg-top;
-}
 
-.header__logo-box {
-  top: calc($accnat-body-padding + 1rem);
-  left: calc($accnat-body-padding + 1rem);
-  @apply .tw-absolute;
-}
+  @element logo-box {
+    top: calc($accnat-body-padding + 1rem);
+    left: calc($accnat-body-padding + 1rem);
+    @apply .tw-absolute;
+  }
 
-.header__logo {
-  @apply tw-h-10;
-}
+  @element logo {
+    @apply tw-h-10;
+  }
 
-.header__text-box {
-  @apply .mu-position-center .tw-relative; /* absolute would also 
+  @element text-box {
+    @apply .mu-position-center .tw-relative; /* absolute would also 
   been an option iff there would be a parent elm being relative  */
-  @apply .tw-inline-block; /* else the child does not shrink 
+    @apply .tw-inline-block; /* else the child does not shrink 
   and hence does not center horizontally*/
-  @apply .tw-text-center;
-  @apply .tw-max-w-full .tw-w-full;
+    @apply .tw-text-center;
+    @apply .tw-max-w-full .tw-w-full;
+  }
 }
 
-.heading-primary {
+@block heading-primary {
   backface-visibility: hidden; /* else elm moves slightly down 
   at the end of the animation */
   @apply .tw-uppercase .tw-text-white .tw-font-regular;
@@ -54,22 +54,22 @@ body {
   &::-webkit-scrollbar {
     width: 0 !important; /* // Safari and Chrome */
   }
+
+  @modifier main {
+    @include bal-letter-by-indent(2rem);
+    animation: moveInLeft 2s ease-in-out;
+    @apply .tw-block .tw-text-5xl;
+    @apply .whitespace-no-wrap;
+  }
+
+  @modifier sub {
+    @include bal-letter-by-indent(1rem);
+    animation: moveInRight 2s ease-in-out;
+    @apply .tw-block .tw-font-bold .tw-text-sm .tw-leadingrel-6xl;
+  }
 }
 
-.heading-primary--main {
-  @include bal-letter-by-indent(2rem);
-  animation: moveInLeft 2s ease-in-out;
-  @apply .tw-block .tw-text-5xl;
-  @apply .whitespace-no-wrap;
-}
-
-.heading-primary--sub {
-  @include bal-letter-by-indent(1rem);
-  animation: moveInRight 2s ease-in-out;
-  @apply .tw-block .tw-font-bold .tw-text-sm .tw-leadingrel-6xl;
-}
-
-.btn {
+@block btn {
   transition: all 0.25s;
   backface-visibility: hidden; /* else elm moves slightly down 
   at the end of the animation */
@@ -99,19 +99,19 @@ body {
     transform: translateY(-0.12rem);
     @apply .tw-shadow-md;
   }
-}
 
-.btn--white {
-  color: var(--accnat-primary-color);
-  @apply .tw-bg-white;
-
-  &::after {
+  @modifier white {
+    color: var(--accnat-primary-color);
     @apply .tw-bg-white;
-  }
-}
 
-.btn--animated {
-  animation: moveInBottom 1.25s ease-in-out 0.75s backwards;
+    &::after {
+      @apply .tw-bg-white;
+    }
+  }
+
+  @modifier animated {
+    animation: moveInBottom 1.25s ease-in-out 0.75s backwards;
+  }
 }
 
 @keyframes moveInLeft {

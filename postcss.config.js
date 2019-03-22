@@ -9,6 +9,8 @@ module.exports = {
     // @ts-ignore
     require("postcss-calc"),
     // @ts-ignore
+    require("postcss-atrule-bem"),
+    // @ts-ignore
     require("postcss-nesting"),
     // @ts-ignore
     require("tailwindcss")("./tailwind.js"),

@@ -6,6 +6,8 @@
     "at-rule-no-unknown": [ true, {
       "ignoreAtRules": [
         "apply",
+        "block",
+        "element",
         "extends",
         "tailwind",
         "responsive",
@@ -13,6 +15,7 @@
         "for",
         "each",
         "mixin",
+        "modifier",
         "include"
       ]
     }],
