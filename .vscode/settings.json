@@ -9,5 +9,6 @@
     "@img": "${folder}/src/assets/img",
     "@js": "${folder}/src/js",
     "@svg": "${folder}/src/assets/svg"
-  }
+  },
+  "html-css-class-completion.includeGlobPattern": "src/assets/css/**/*.{css,html}"
 }
