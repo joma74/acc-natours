@@ -1,17 +1,3 @@
-/* I will set those myself */
-*,
-*::after,
-*::before {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-  background-repeat: no-repeat;
-}
-
-a {
-  text-decoration-line: none;
-}
-
 /* Positioning mode has to be defined */
 .mu-position-center {
   top: 50%;

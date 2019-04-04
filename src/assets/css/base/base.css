@@ -1,0 +1,19 @@
+/* I will set those myself */
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  background-repeat: no-repeat;
+}
+
+body {
+  --accnat-theme-color: hsl(0, 0%, 47%);
+  color: var(--accnat-theme-color);
+  padding: $accnat-body-padding;
+}
+
+a {
+  text-decoration-line: none;
+}

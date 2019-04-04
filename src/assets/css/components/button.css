@@ -1,0 +1,44 @@
+@block btn {
+  transition: all 0.25s;
+  backface-visibility: hidden; /* else elm moves slightly down 
+  at the end of the animation */
+  @apply .tw-text-2xl;
+  @apply .tw-inline-block .tw-rounded-full .tw-uppercase .tw-px-6 .tw-py-4;
+  @apply .tw-relative;
+
+  &::after {
+    content: "";
+    display: inherit;
+    transition: all 0.4s;
+    @apply .tw-absolute .tw-pin;
+    @apply .tw-w-full .tw-h-full .tw-rounded-full .tw-z--1;
+  }
+
+  &:hover {
+    transform: translateY(-0.25rem);
+    @apply .tw-shadow-lg;
+
+    &::after {
+      transform: scaleX(1.25) scaleY(1.6);
+      @apply .tw-opacity-0;
+    }
+  }
+
+  &:active {
+    transform: translateY(-0.12rem);
+    @apply .tw-shadow-md;
+  }
+
+  @modifier white {
+    color: var(--accnat-primary-color);
+    @apply .tw-bg-white;
+
+    &::after {
+      @apply .tw-bg-white;
+    }
+  }
+
+  @modifier animated {
+    animation: moveInBottom 1.25s ease-in-out 0.75s backwards;
+  }
+}

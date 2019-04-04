@@ -59,7 +59,7 @@ body {
     @include bal-letter-by-indent(2rem);
     animation: moveInLeft 2s ease-in-out;
     @apply .tw-block .tw-text-5xl;
-    @apply .whitespace-no-wrap;
+    @apply .tw-whitespace-no-wrap;
   }
 
   @modifier sub {
