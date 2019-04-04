@@ -1,0 +1,29 @@
+{
+  "plugins": ["stylelint-prettier"],
+  "extends": "stylelint-config-recommended",
+  "ignoreFiles": ["./build/**/*", "./dist/**/*", "./node_modules/**/*"],
+  "rules": {
+    "selector-nested-pattern": "^&",
+    "at-rule-no-unknown": [
+      true,
+      {
+        "ignoreAtRules": [
+          "apply",
+          "block",
+          "element",
+          "extends",
+          "tailwind",
+          "responsive",
+          "if",
+          "for",
+          "each",
+          "mixin",
+          "modifier",
+          "include"
+        ]
+      }
+    ],
+    "block-no-empty": null,
+    "unit-whitelist": ["em", "rem", "%", "ch", "vh", "vw", "s"]
+  }
+}
