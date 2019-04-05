@@ -3,3 +3,11 @@
   letter-spacing: $mu-letter-spacing;
   text-indent: $mu-letter-spacing;
 }
+
+@mixin clearfix {
+  &::after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}

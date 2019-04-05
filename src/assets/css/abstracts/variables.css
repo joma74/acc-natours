@@ -1,4 +1,11 @@
+/* LAYOUT */
 $accnat-body-padding: 2rem;
 
+/* COLORS */
 $color-theme-light: hsla(111, 55%, 64%, 0.8);
 $color-theme: hsla(160, 64%, 43%, 0.8);
+
+/* GRID */
+$grid-width: 71.25rem;
+$gutter-vertical: 5rem;
+$gutter-horizontal: 4rem;
