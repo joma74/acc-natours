@@ -1,18 +1,10 @@
 @import "tailwindcss/preflight";
 
-@import "src/assets/css/fonts";
-
 @import "tailwindcss/components";
 
 @import "tailwindcss/utilities";
 
-@import "src/assets/css/debug-grid";
-
-@import "src/assets/css/mixins";
-
-@import "src/assets/css/utilities";
-
-@import "src/assets/css/main";
+@import "src/assets/css/**/*.css";
 
 /* https://tailwindcss.com/docs/adding-new-utilities/
    Tailwind will intelligently group the responsive versions 

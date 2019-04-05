@@ -1,7 +1,7 @@
 module.exports = function(postcss) {
   return postcss([
     // @ts-ignore
-    require("postcss-import"),
+    require("postcss-easy-import"),
     // @ts-ignore
     require("postcss-advanced-variables")({
       variables: { cssenv: "iamdevlper" },
