@@ -26,3 +26,29 @@
     @apply .tw-block .tw-font-bold .tw-text-sm .tw-leadingrel-6xl;
   }
 }
+
+.heading-secondary {
+  background-image: linear-gradient(to right, $color-theme-light, $color-theme);
+  transition: all 0.2s;
+  max-width: calc(100% - 4rem);
+  @apply .tw-inline-block;
+  @include bal-letter-by-indent(0.1em);
+  @apply .tw-text-5xl .tw-uppercase .tw-font-bold .mu-wk-clip-bg-to-text;
+
+  &:hover {
+    transform: skewY(2deg) skewX(10deg) scale(1.05);
+    text-shadow: 0.5rem 1rem 2rem hsla(0, 0%, 0%, 0.2);
+  }
+}
+
+.heading-tertiary {
+  @apply .tw-text-2xl .tw-uppercase .tw-font-bold .tw-mb-4;
+}
+
+.paragraph {
+  @apply .tw-text-2xl;
+
+  &:not(:last-child) {
+    @apply .tw-mb-8;
+  }
+}

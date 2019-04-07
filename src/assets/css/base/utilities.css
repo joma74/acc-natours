@@ -25,3 +25,8 @@
 .mu-leading-byfont {
   line-height: normal;
 }
+
+.mu-wk-clip-bg-to-text {
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}

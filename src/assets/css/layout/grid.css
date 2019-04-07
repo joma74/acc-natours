@@ -1,6 +1,6 @@
 .row {
   max-width: $grid-width;
-  background-color: lightgray;
+  /* background-color: lightgray; */
   @apply .mu-margin-center-justify;
 
   &:not(:last-child) {
@@ -11,7 +11,7 @@
 
   & [class^="col-"] {
     float: left;
-    background-color: red;
+    /* background-color: red; */
 
     &:not(:last-child) {
       margin-right: $gutter-horizontal;

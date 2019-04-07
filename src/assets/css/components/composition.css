@@ -1,0 +1,28 @@
+@block composition {
+  @apply .tw-relative;
+
+  @element photo {
+    width: 55%;
+    @apply tw-shadow-md .tw-absolute;
+
+    @modifier p1 {
+      top: -2rem;
+      @apply .tw-pin-l;
+    }
+
+    @modifier p2 {
+      top: 2rem;
+      @apply .tw-pin-r;
+    }
+
+    @modifier p3 {
+      top: 6rem;
+      @apply .mu-position-center-justify;
+    }
+
+    &:hover {
+      transform: scale(1.05);
+      @apply .tw-shadow-lg;
+    }
+  }
+}

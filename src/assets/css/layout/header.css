@@ -1,12 +1,12 @@
 @block header {
-  height: calc(100vh - calc(2 * $accnat-body-padding));
+  height: calc($accnat-header-height-cf);
   background-image: linear-gradient(
       to right bottom,
       $color-theme-light,
       $color-theme
     ),
     url("~@img/hero.jpg");
-  clip-path: polygon(0 0, 100% 0, 100% 75vh, 0 100%);
+  clip-path: polygon(0 0, 100% 0, 100% $accnat-header-br-y, 0 100%);
   @apply .tw-bg-cover .tw-bg-top;
 
   @element logo-box {

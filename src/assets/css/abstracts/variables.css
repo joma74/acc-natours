@@ -1,9 +1,13 @@
 /* LAYOUT */
 $accnat-body-padding: 2rem;
+$accnat-header-height-cf: 100vh - 2 * $accnat-body-padding;
+$accnat-header-br-y: 75vh;
+$accnat-about-tr-y-cf: $accnat-header-height-cf - $accnat-header-br-y;
 
 /* COLORS */
 $color-theme-light: hsla(111, 55%, 64%, 0.8);
 $color-theme: hsla(160, 64%, 43%, 0.8);
+$color-grey-light: hsl(0, 0%, 96%);
 
 /* GRID */
 $grid-width: 71.25rem;

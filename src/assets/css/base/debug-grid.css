@@ -10,7 +10,7 @@
 */
 @if $cssenv == development {
   body {
-    opacity: 0.6;
+    opacity: 1;
   }
 
   .debug-grid-8 {

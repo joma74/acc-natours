@@ -42,3 +42,20 @@
     animation: moveInBottom 1.25s ease-in-out 0.75s backwards;
   }
 }
+
+.btn-text {
+  color: $color-theme;
+  border-bottom-color: $color-theme;
+  @apply .tw-inline-block .tw-text-2xl .tw-border-b-2 .tw-p-1;
+
+  &:hover {
+    background-color: $color-theme;
+    transform: translateY(-0.25rem);
+    @apply .tw-shadow-lg .tw-text-white;
+  }
+
+  &:active {
+    transform: translateY(-0.12rem);
+    @apply .tw-shadow-md;
+  }
+}

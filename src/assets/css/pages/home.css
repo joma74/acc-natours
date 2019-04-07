@@ -1,0 +1,5 @@
+.section-about {
+  background-color: $color-grey-light;
+  padding: 25rem 0;
+  margin-top: calc(-1 * ($accnat-about-tr-y-cf));
+}
