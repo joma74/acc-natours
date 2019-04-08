@@ -1,8 +1,10 @@
 @block composition {
+
   @apply .tw-relative;
 
   @element photo {
     width: 55%;
+    outline-offset: 0.5rem;
     @apply tw-shadow-md .tw-absolute;
 
     @modifier p1 {
@@ -18,11 +20,27 @@
     @modifier p3 {
       top: 6rem;
       @apply .mu-position-center-justify;
+
+      &:hover {
+        left: 50%;
+        transform: translateX(-50%) scale(1.05);
+        @apply .tw-shadow-lg;
+      }
     }
 
     &:hover {
+      outline: 1rem solid $color-theme;
       transform: scale(1.05);
-      @apply .tw-shadow-lg;
+      @apply .tw-shadow-lg .tw-z-1;
     }
+  }
+
+  &:hover .composition__photo:not(:hover):not([class$='p3']) {
+      transform: scale(0.9);
+  }
+
+  &:hover .composition__photo:not(:hover)[class$='--p3'] {
+    left: 50%;
+    transform: translateX(-50%) scale(0.9);
   }
 }
