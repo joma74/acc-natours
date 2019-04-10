@@ -1,5 +1,4 @@
 @block composition {
-
   @apply .tw-relative;
 
   @element photo {
@@ -35,11 +34,11 @@
     }
   }
 
-  &:hover .composition__photo:not(:hover):not([class$='p3']) {
-      transform: scale(0.9);
+  &:hover .composition__photo:not(:hover):not([class$="p3"]) {
+    transform: scale(0.9);
   }
 
-  &:hover .composition__photo:not(:hover)[class$='--p3'] {
+  &:hover .composition__photo:not(:hover)[class$="--p3"] {
     left: 50%;
     transform: translateX(-50%) scale(0.9);
   }

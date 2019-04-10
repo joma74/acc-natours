@@ -8,6 +8,7 @@ $accnat-about-tr-y-cf: $accnat-header-height-cf - $accnat-header-br-y;
 $color-theme-light: hsla(111, 55%, 64%, 0.8);
 $color-theme: hsla(160, 64%, 43%, 0.8);
 $color-grey-light: hsl(0, 0%, 96%);
+$color-white: hsla(1, 100%, 100%, 1.0);
 
 /* GRID */
 $grid-width: 71.25rem;
