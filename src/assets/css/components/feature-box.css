@@ -1,14 +1,24 @@
 @block feature-box {
-
   background-color: hsla(1, 100%, 100%, 0.8);
 
   @apply .tw-p-4 .tw-text-center .tw-rounded-sm .tw-shadow-md;
 
   @element icon {
-    
-    @apply tw-w-8 tw-h-8 tw-fill-current;
+    --color-stop-1: #a770ef;
+    --color-stop-2: red;
+    --rotate-by: 45;
+
+    fill: url(#gradient-horizontal) currentColor;
+
+    @apply .tw-w-16 .tw-h-16;
   }
 
   @element text {
   }
+}
+
+#gradient-horizontal {
+  --color-stop-1: $color-theme;
+  --color-stop-2: red;
+  --to-y: 100%;
 }
