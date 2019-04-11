@@ -14,5 +14,12 @@
     ),
     url("~@img/nat-4.jpg");
   margin-top: calc(-1 * ($accnat-about-tr-y-cf));
+
+  transform: skewY(-7deg);
+
   @apply .tw-bg-cover .tw-bg-top;
+
+  & > * {
+    transform: skewY(7deg);
+  }
 }

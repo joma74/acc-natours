@@ -42,7 +42,11 @@
 }
 
 .heading-tertiary {
-  @apply .tw-text-xl .tw-uppercase .tw-font-bold .tw-mb-4;
+  @apply .tw-text-lg .tw-uppercase .tw-font-bold .tw-mb-4;
+}
+
+.heading-tertiary-smaller {
+  @apply .heading-tertiary .tw-text-base;
 }
 
 .paragraph {

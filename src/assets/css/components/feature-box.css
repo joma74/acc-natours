@@ -11,7 +11,7 @@
     /* See https://fvsch.com/svg-gradient-fill#Changing gradient colors with CSS variables */
     fill: url(#gradient-tl-br-solo) $color-theme-light;
 
-    @apply .tw-w-16 .tw-h-16;
+    @apply .tw-w-12 .tw-h-12 .tw-m-4;
   }
 
   &:hover {
