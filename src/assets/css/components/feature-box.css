@@ -4,11 +4,9 @@
   @apply .tw-p-4 .tw-text-center .tw-rounded-sm .tw-shadow-md;
 
   @element icon {
-    --color-stop-1: #a770ef;
-    --color-stop-2: red;
-    --rotate-by: 45;
 
-    fill: url(#gradient-horizontal) currentColor;
+    /* See https://fvsch.com/svg-gradient-fill#Changing gradient colors with CSS variables */
+    fill: url(#gradient-tl-br-solo) $color-theme-light;
 
     @apply .tw-w-16 .tw-h-16;
   }
@@ -17,8 +15,8 @@
   }
 }
 
-#gradient-horizontal {
-  --color-stop-1: $color-theme;
-  --color-stop-2: red;
-  --to-y: 100%;
+#gradient-tl-br-solo {
+  /* See https://fvsch.com/svg-gradient-fill#Changing gradient colors with CSS variables */
+  --color-stop-1: $color-theme-light;
+  --color-stop-2: $color-theme;
 }
