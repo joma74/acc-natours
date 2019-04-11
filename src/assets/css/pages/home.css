@@ -14,4 +14,5 @@
     ),
     url("~@img/nat-4.jpg");
   margin-top: calc(-1 * ($accnat-about-tr-y-cf));
+  @apply .tw-bg-cover .tw-bg-top;
 }
