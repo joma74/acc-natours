@@ -4,6 +4,11 @@
   @element photo {
     width: 55%;
     outline-offset: 0.5rem;
+
+    transition: all 0.4s;
+    backface-visibility: hidden; /* else elm moves slightly down 
+  at the end of the animation */
+
     @apply tw-shadow-md .tw-absolute;
 
     @modifier p1 {

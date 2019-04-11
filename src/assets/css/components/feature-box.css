@@ -1,14 +1,22 @@
 @block feature-box {
   background-color: hsla(1, 100%, 100%, 0.8);
 
+  transition: all 0.3s;
+  backface-visibility: hidden; /* else elm moves slightly down 
+  at the end of the animation */
+
   @apply .tw-p-4 .tw-text-center .tw-rounded-sm .tw-shadow-md;
 
   @element icon {
-
     /* See https://fvsch.com/svg-gradient-fill#Changing gradient colors with CSS variables */
     fill: url(#gradient-tl-br-solo) $color-theme-light;
 
     @apply .tw-w-16 .tw-h-16;
+  }
+
+  &:hover {
+    transform: translateY(-1rem) scale(1.05);
+    @apply .tw-shadow-lg;
   }
 
   @element text {

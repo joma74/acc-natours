@@ -46,6 +46,11 @@
 .btn-text {
   color: $color-theme;
   border-bottom-color: $color-theme;
+
+  transition: all 0.4s;
+  backface-visibility: hidden; /* else elm moves slightly down 
+  at the end of the animation */
+
   @apply .tw-inline-block .tw-text-2xl .tw-border-b-2 .tw-p-1;
 
   &:hover {
