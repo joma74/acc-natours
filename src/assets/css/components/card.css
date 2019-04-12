@@ -1,0 +1,14 @@
+@block card {
+
+  @element side {
+    height: 50rem;
+
+    transition: all 0.8s;
+
+    @apply .tw-bg-red-light;
+  }
+
+  &:hover .card__side {
+    transform: rotateY(180deg);
+  }
+}

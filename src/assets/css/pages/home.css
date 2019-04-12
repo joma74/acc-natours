@@ -15,3 +15,9 @@
     url("~@img/nat-4.jpg");
   margin-top: calc(-1 * ($accnat-about-tr-y-cf));
 }
+
+.section-tours {
+  background-color: $color-grey-light;
+  padding: 25rem 0 50rem 0;
+  margin-top: calc(-1 * ($accnat-about-tr-y-cf));
+}

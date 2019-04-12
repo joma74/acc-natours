@@ -4,7 +4,6 @@
   @apply .tw-p-4 .tw-text-center .tw-rounded-sm .tw-shadow-md;
 
   @element icon {
-
     /* See https://fvsch.com/svg-gradient-fill#Changing gradient colors with CSS variables */
     fill: url(#gradient-tl-br-solo) $color-theme-light;
 
