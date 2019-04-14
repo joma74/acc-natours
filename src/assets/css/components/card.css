@@ -1,14 +1,79 @@
 @block card {
+  height: 50rem;
+
+  @apply .tw-relative;
 
   @element side {
-    height: 50rem;
+    transition: all 0.8s ease;
+    backface-visibility: hidden;
 
-    transition: all 0.8s;
+    @apply .tw-absolute .tw-pin .tw-rounded-sm .tw-overflow-hidden .tw-shadow-lg;
 
-    @apply .tw-bg-red-light;
+    @modifier front {
+
+      @apply .tw-bg-white;
+    }
+
+    @modifier front-1 {
+    }
+
+    @modifier front-2 {
+    }
+
+    @modifier front-3 {
+    }
+
+    @modifier back {
+      transform: rotateY(180deg);
+    }
+
+    @modifier back-1 {
+      background-image: linear-gradient(to right bottom, #F2D024, #DE751F);
+    }
+
+    @modifier back-2 {
+    }
+
+    @modifier back-3 {
+    }
   }
 
-  &:hover .card__side {
-    transform: rotateY(180deg);
+  &:hover .card__side--front {
+    transform: rotateY(-180deg);
+  }
+
+  &:hover .card__side--back {
+    transform: rotateY(0deg);
+  }
+
+  @element picture {
+    height: 12rem;
+
+    background-blend-mode: screen;
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+
+    @apply .tw-bg-cover .tw-bg-center;
+
+    @modifier 1 {
+      background-image: linear-gradient(to right bottom, #F2D024, #DE751F), url("~@img/nat-5.jpg");
+    }
+    @modifier 2 {
+      background-image: linear-gradient(to right bottom, #F2D024, #DE751F), url("~@img/nat-5.jpg");
+    }
+    @modifier 3 {
+      background-image: linear-gradient(to right bottom, #F2D024, #DE751F), url("~@img/nat-5.jpg");
+    }
+  }
+
+  @element heading {
+
+    background-color: #DE751F; 
+    top: 9rem;
+    right: 1rem;
+     
+    @apply .tw-absolute .tw-text-right .tw-font-light .tw-text-white .tw-uppercase;
+  }
+
+  @element details {
   }
 }
