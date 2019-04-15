@@ -9,6 +9,8 @@ module.exports = function(postcss) {
     // @ts-ignore
     require("postcss-calc"),
     // @ts-ignore
+    require("postcss-color-mod-function"),
+    // @ts-ignore
     require("postcss-atrule-bem"),
     // @ts-ignore
     require("postcss-nesting"),

@@ -10,6 +10,20 @@ $color-theme: hsla(160, 64%, 43%, 0.8);
 $color-grey-light: hsl(0, 0%, 96%);
 $color-white: hsla(1, 100%, 100%, 1);
 
+/* #f2d024 */
+$color-card-1-light: hsl(50, 89%, 55%);
+/* #de751f */
+$color-card-1: hsl(27, 75%, 50%);
+/* #64D5CA */
+$color-card-2-light: hsl(174, 57%, 61%);
+/* #1F9D55 */
+$color-card-2: hsl(154, 67%, 37%);
+/* #7886D7 */
+$color-card-3-light: hsl(231, 54%, 65%);
+/* #2779BD */
+$color-card-3: hsl(207, 65%, 44%);
+
+
 /* GRID */
 $grid-width: 71.25rem;
 $gutter-vertical: 5rem;

@@ -2,7 +2,7 @@
   transition: all 0.25s;
   backface-visibility: hidden; /* else elm moves slightly down 
   at the end of the animation */
-  @apply .tw-text-2xl;
+  @apply .tw-text-2xl .tw-text-center;
   @apply .tw-inline-block .tw-rounded-full .tw-uppercase .tw-px-6 .tw-py-4;
   @apply .tw-relative;
 

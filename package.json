@@ -48,6 +48,7 @@
     "postcss-advanced-variables": "^3.0.0",
     "postcss-atrule-bem": "^3.1.1",
     "postcss-calc": "^7.0.1",
+    "postcss-color-mod-function": "^3.0.3",
     "postcss-debug": "^0.4.2",
     "postcss-loader": "^2.0.8",
     "postcss-nesting": "^7.0.0",
