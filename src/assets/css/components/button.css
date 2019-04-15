@@ -38,6 +38,16 @@
     }
   }
 
+    @modifier green {
+    background-color: $color-theme;
+
+    @apply .tw-text-white;
+
+    &::after {
+      background-color: $color-theme;
+    }
+  }
+
   @modifier animated {
     animation: moveInBottom 1.25s ease-in-out 0.75s backwards;
   }
