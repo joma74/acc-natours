@@ -187,6 +187,7 @@ typings
 
 # End of https://www.gitignore.io/api/git,node,typings,intellij,visualstudiocode
 
+dist
 build
 target
 
