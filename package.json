@@ -50,6 +50,7 @@
     "postcss-calc": "^7.0.1",
     "postcss-color-mod-function": "^3.0.3",
     "postcss-debug": "^0.4.2",
+    "postcss-easy-import": "^3.0.0",
     "postcss-loader": "^2.0.8",
     "postcss-nesting": "^7.0.0",
     "prettier": "^1.13.4",
@@ -75,7 +76,6 @@
     "webpack-disk-plugin": "^0.0.2"
   },
   "dependencies": {
-    "postcss-easy-import": "^3.0.0",
     "vue": "^2"
   }
 }
