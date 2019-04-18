@@ -34,6 +34,7 @@
     "@types/webpack": "^3",
     "@types/webpack-dev-server": "^2.9.4",
     "@types/webpack-env": "^1.13.6",
+    "autoprefixer": "^9.5.1",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.7",
     "del-cli": "^1.1.0",
