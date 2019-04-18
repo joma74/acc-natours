@@ -2,8 +2,9 @@
   width: 75%;
   min-height: $story-image-wh;
   transform: skew(-12deg);
+  background-color: hsla(1, 100%, 100%,0.4);
 
-  @apply .tw-m-auto .tw-bg-white .tw-p-16 .tw-rounded .tw-shadow-lg;
+  @apply .tw-m-auto .tw-p-16 .tw-rounded .tw-shadow-lg;
 
   @element shape {
     height: $story-image-wh;
@@ -50,7 +51,7 @@
 
   &:hover .story__image {
 
-    filter: blur(3px) brightness(80%);
+    filter: blur(3px) brightness(80%); /* stylelint-disable-line unit-whitelist */
     transform: translateX(-2rem) scale(1);
   }
 }

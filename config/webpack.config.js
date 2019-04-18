@@ -53,12 +53,11 @@ const rules = [
     },
   },
   {
-    test: /\.(png|jpe?g|gif|svg)(#.*)?(\?.*)?$/,
+    test: /\.(png|jpe?g|gif|svg|mov|mp4|webm)(#.*)?(\?.*)?$/,
     use: [
       {
         loader: "file-loader",
         options: {
-          limit: 10000,
           emitFile: true,
           name: "[name].[ext]",
           useRelativePath: true,
