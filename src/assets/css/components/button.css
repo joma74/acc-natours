@@ -38,7 +38,7 @@
     }
   }
 
-    @modifier green {
+  @modifier green {
     background-color: $color-theme;
 
     @apply .tw-text-white;

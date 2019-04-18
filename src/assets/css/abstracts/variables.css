@@ -23,8 +23,10 @@ $color-card-3-light: hsl(231, 54%, 65%);
 /* #2779BD */
 $color-card-3: hsl(207, 65%, 44%);
 
-
 /* GRID */
 $grid-width: 71.25rem;
 $gutter-vertical: 5rem;
 $gutter-horizontal: 4rem;
+
+/* STORIES */
+$story-image-wh: 9rem;

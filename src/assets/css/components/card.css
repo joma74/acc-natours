@@ -119,14 +119,14 @@
       );
     }
     @modifier 2 {
-       background-image: linear-gradient(
+      background-image: linear-gradient(
         to right bottom,
         color-mod($color-card-2-light a(85%)),
         color-mod($color-card-2 a(85%))
       );
     }
     @modifier 3 {
-       background-image: linear-gradient(
+      background-image: linear-gradient(
         to right bottom,
         color-mod($color-card-3-light a(85%)),
         color-mod($color-card-3 a(85%))
@@ -157,7 +157,7 @@
     /* for button to not shrink e.g. unto two lines */
     width: 90%;
 
-    @apply .tw-absolute .mu-position-center .tw-text-center ;
+    @apply .tw-absolute .mu-position-center .tw-text-center;
   }
 
   @element price-box {
