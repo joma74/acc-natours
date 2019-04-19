@@ -30,3 +30,7 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.mu-bg-cover-to-top {
+  @apply .tw-bg-cover .tw-bg-top;
+}
