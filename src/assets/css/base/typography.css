@@ -33,7 +33,7 @@
   max-width: calc(100% - 4rem);
   @apply .tw-inline-block;
   @include bal-letter-by-indent(0.1em);
-  @apply .tw-text-5xl .tw-uppercase .tw-font-bold .mu-wk-clip-bg-to-text;
+  @apply .tw-text-4xl .tw-uppercase .tw-font-bold .mu-wk-clip-bg-to-text;
 
   &:hover {
     transform: skewY(2deg) skewX(10deg) scale(1.05);
