@@ -1,0 +1,39 @@
+@block form {
+  @element group:not(:last-child) {
+    @apply .tw-mb-5;
+  }
+
+  @element input {
+    background-color: color-mod($color-white a(50%));
+
+    border-bottom-color: transparent;
+
+    @apply .tw-block .tw-text-xl .tw-px-5 .tw-py-4 .tw-rounded-sm .tw-border-b-4;
+
+    &:focus {
+      border-bottom-color: $color-theme;
+
+      @apply .tw-outline-none .tw-border-b-4;
+    }
+
+    &:focus:invalid {
+      border-bottom-color: $color-input-invalid;
+    }
+
+    &::placeholder {
+      color: $color-grey-dark;
+    }
+  }
+
+  @element label {
+    transition: all 0.3s;
+    @apply .tw-block .tw-px-5 .tw-pt-2 .tw-font-bold;
+  }
+}
+
+/* stylelint-disable-next-line selector-type-no-unknown */
+.form__input:placeholder-shown + .form__label {
+  transform: translateY(-3rem);
+
+  @apply .tw-opacity-0 .tw-invisible;
+}

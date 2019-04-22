@@ -5,10 +5,13 @@ $accnat-header-br-y: 75vh;
 $accnat-about-tr-y-cf: $accnat-header-height-cf - $accnat-header-br-y;
 
 /* COLORS */
+$color-theme-text: hsl(0, 0%, 47%);
 $color-theme-light: hsla(111, 55%, 64%, 0.8);
 $color-theme: hsla(160, 64%, 43%, 0.8);
+$color-grey-dark: hsl(0, 0%, 60%);
 $color-grey-light: hsl(0, 0%, 96%);
 $color-white: hsla(1, 100%, 100%, 1);
+$color-input-invalid: hsl(27, 75%, 50%);
 
 /* #f2d024 */
 $color-card-1-light: hsl(50, 89%, 55%);

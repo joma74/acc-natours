@@ -9,9 +9,16 @@
 }
 
 body {
-  --accnat-theme-color: hsl(0, 0%, 47%);
-  color: var(--accnat-theme-color);
+  --accnat-color-theme-text: $color-theme-text;
+  color: var(--accnat-color-theme-text);
   padding: $accnat-body-padding;
+}
+
+input[type="text"],
+input[type="email"] {
+  width: 100%;
+  max-width: 100%;
+  color: inherit;
 }
 
 a {
