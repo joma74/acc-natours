@@ -2,7 +2,7 @@
   width: 75%;
   min-height: $story-image-wh;
   transform: skew(-12deg);
-  background-color: hsla(1, 100%, 100%, 0.4);
+  background-color: color-mod($color-white a(40%));
 
   @apply .tw-m-auto .tw-p-16 .tw-rounded .tw-shadow-lg;
 

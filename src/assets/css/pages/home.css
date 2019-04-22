@@ -51,8 +51,8 @@
 
   background-image: linear-gradient(
       105deg,
-      hsla(1, 100%, 100%, 0.9) 0%,
-      hsla(1, 100%, 100%, 0.9) 50%,
+      color-mod($color-white a(90%)) 0%,
+      color-mod($color-white a(90%)) 50%,
       transparent 50%
     ),
     url(~@img/nat-10.jpg);
