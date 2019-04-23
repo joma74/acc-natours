@@ -1,0 +1,55 @@
+@block footer {
+  background-color: $color-grey-darkest;
+  padding: 8rem 0;
+
+  @element logo-box {
+    @apply .tw-text-center .tw-mb-24;
+  }
+
+  @element logo {
+    @apply .tw-w-48;
+  }
+
+  @element navigation {
+    border-top-color: $color-grey-dark;
+
+    @apply .tw-inline-block .tw-border-t-2 .tw-pt-6 ;
+  }
+
+  @element list {
+
+    @apply .tw-list-reset;
+  }
+
+  @element item {
+
+    @apply .tw-inline-block;
+
+    &:not(:last-child){
+
+      @apply .tw-mr-4;
+    }
+  }
+
+  @element link {
+    color: $color-grey-light;
+    background-color: $color-grey-darkest;
+
+    transition: all 0.2s;
+
+    @apply .tw-inline-block .tw-uppercase;
+
+    &:hover,
+    &:active {
+      color: $color-theme-light;
+      box-shadow: 0 1rem 2rem $color-black;
+      transform: rotate(5deg) scale(1.1);
+    }
+  }
+
+  @element copyright {
+    border-top-color: $color-grey-dark;
+
+    @apply .tw-inline-block .tw-border-t-2 .tw-pt-6 ;
+  }
+}
