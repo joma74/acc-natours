@@ -30,7 +30,7 @@
 .heading-secondary {
   background-image: linear-gradient(to right, $color-theme-light, $color-theme);
   transition: all 0.2s;
-  max-width: calc(100% - 4rem);
+  max-width: 100%;
   @apply .tw-inline-block;
   @include bal-letter-by-indent(0.1em);
   @apply .tw-text-4xl .tw-uppercase .tw-font-bold .mu-wk-clip-bg-to-text;

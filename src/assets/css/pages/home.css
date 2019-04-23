@@ -47,7 +47,7 @@
 }
 
 @block book {
-  height: 30rem;
+  height: 35rem;
 
   background-image: linear-gradient(
       105deg,
@@ -61,6 +61,7 @@
 
   @element form {
     width: 50%;
+    height: inherit;
 
     @apply .tw-p-12;
   }
