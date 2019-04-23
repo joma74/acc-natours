@@ -13,20 +13,17 @@
   @element navigation {
     border-top-color: $color-grey-dark;
 
-    @apply .tw-inline-block .tw-border-t-2 .tw-pt-6 ;
+    @apply .tw-inline-block .tw-border-t-2 .tw-pt-6;
   }
 
   @element list {
-
     @apply .tw-list-reset;
   }
 
   @element item {
-
     @apply .tw-inline-block;
 
-    &:not(:last-child){
-
+    &:not(:last-child) {
       @apply .tw-mr-4;
     }
   }
@@ -50,6 +47,6 @@
   @element copyright {
     border-top-color: $color-grey-dark;
 
-    @apply .tw-inline-block .tw-border-t-2 .tw-pt-6 ;
+    @apply .tw-inline-block .tw-border-t-2 .tw-pt-6;
   }
 }
