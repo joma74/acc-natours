@@ -1,0 +1,62 @@
+@block navigation {
+  @element checkbox {
+    @apply .tw-hidden;
+  }
+  @element button {
+    top: 3.5rem;
+    right: 3.5rem;
+    height: 5rem;
+    width: 5rem;
+
+    @apply .tw-fixed .tw-z-30 .tw-rounded-full .tw-bg-white;
+  }
+  @element background {
+    top: 4rem;
+    right: 4rem;
+    background-image: radial-gradient(
+      color-mod($color-theme-light a(1)),
+      color-mod($color-theme a(1))
+    );
+
+    transform: scale(82);
+
+    @apply .tw-fixed .tw-z-10 .tw-h-16 .tw-w-16 .tw-rounded-full;
+  }
+  @element nav {
+    @apply .tw-fixed .tw-z-20 .tw-pin-t .tw-pin-r .tw-h-screen .tw-w-full;
+  }
+  @element list {
+    counter-reset: navigation-menu-counter;
+
+    @apply .tw-absolute .mu-position-center .tw-list-reset .tw-text-center .tw-w-full;
+  }
+  @element item {
+
+    @apply .tw-m-4;
+  }
+  @element link {
+    background-image: linear-gradient(
+      120deg,
+      transparent 0%,
+      transparent 50%,
+      color-mod($color-white a(90%)) 50%
+    );
+    background-size: 235%;
+
+    transition: all 1s;
+
+    @apply .tw-inline-block .tw-px-5 .tw-py-8 .tw-text-5xl .tw-font-light .tw-text-white .tw-uppercase;
+
+    &:hover,
+    &:active {
+      color: $color-theme;
+      background-position: 100%;
+    }
+
+    &::before {
+      list-style-type: decimal-leading-zero;
+      counter-increment: navigation-menu-counter;
+      content: counter(navigation-menu-counter, decimal-leading-zero) " ";
+    }
+  }
+}
