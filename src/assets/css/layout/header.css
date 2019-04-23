@@ -7,7 +7,7 @@
     ),
     url("~@img/hero.jpg");
   clip-path: polygon(0 0, 100% 0, 100% $accnat-header-br-y, 0 100%);
-  @apply .tw-bg-cover .tw-bg-top;
+  @apply .tw-relative .tw-bg-cover .tw-bg-top;
 
   @element logo-box {
     top: calc($accnat-body-padding + 1rem);
