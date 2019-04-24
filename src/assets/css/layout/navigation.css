@@ -1,6 +1,9 @@
 @block navigation {
   @element checkbox {
-    @apply .tw-hidden;
+    top: 5.5rem;
+    right: 5.5rem;
+
+    @apply .tw-fixed .tw-z-40;
   }
   @element button {
     top: 3.5rem;
@@ -8,7 +11,7 @@
     height: 5rem;
     width: 5rem;
 
-    @apply .tw-fixed .tw-z-30 .tw-rounded-full .tw-bg-white;
+    @apply .tw-fixed .tw-z-30 .tw-rounded-full .tw-bg-white .tw-shadow-lg;
   }
   @element background {
     top: 4rem;
@@ -17,13 +20,20 @@
       color-mod($color-theme-light a(1)),
       color-mod($color-theme a(1))
     );
+    transform: scale(1);
 
-    transform: scale(82);
+    /* https://easings.net/#easeOutQuint */
+    transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
 
     @apply .tw-fixed .tw-z-10 .tw-h-16 .tw-w-16 .tw-rounded-full;
   }
   @element nav {
-    @apply .tw-fixed .tw-z-20 .tw-pin-t .tw-pin-r .tw-h-screen .tw-w-full;
+    opacity: 0;
+    width: 0;
+    /* https://easings.net/#easeOutQuint */
+    transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+
+    @apply .tw-fixed .tw-z-20 .tw-pin-t .tw-pin-r .tw-h-screen;
   }
   @element list {
     counter-reset: navigation-menu-counter;
@@ -31,7 +41,6 @@
     @apply .tw-absolute .mu-position-center .tw-list-reset .tw-text-center .tw-w-full;
   }
   @element item {
-
     @apply .tw-m-4;
   }
   @element link {
@@ -59,4 +68,20 @@
       content: counter(navigation-menu-counter, decimal-leading-zero) " ";
     }
   }
+}
+
+/* stylelint-disable-next-line selector-type-no-unknown */
+.navigation__checkbox:checked ~ .navigation__background {
+  transform: scale(82);
+
+  /* https://easings.net/#easeInQuint */
+  transition: transform 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06);
+}
+
+/* stylelint-disable-next-line selector-type-no-unknown */
+.navigation__checkbox:checked ~ .navigation__nav {
+  opacity: 1;
+  width: 100%;
+  /* https://easings.net/#easeInQuint */
+  transition: opacity 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06);
 }
