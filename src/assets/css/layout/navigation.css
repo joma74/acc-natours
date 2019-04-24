@@ -3,7 +3,7 @@
     top: 5.5rem;
     right: 5.5rem;
 
-    @apply .tw-fixed .tw-z-40;
+    @apply .tw-fixed .tw-z-40 .tw-hidden;
   }
   @element button {
     top: 3.5rem;
