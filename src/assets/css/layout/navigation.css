@@ -11,7 +11,7 @@
     height: 5rem;
     width: 5rem;
 
-    @apply .tw-fixed .tw-z-30 .tw-text-center .tw-rounded-full .tw-bg-white .tw-shadow-lg;
+    @apply .tw-fixed .tw-z-30 .tw-cursor-pointer .tw-text-center .tw-rounded-full .tw-bg-white .tw-shadow-lg;
   }
   @element menu-background {
     top: 4rem;
@@ -87,6 +87,9 @@
     &::after {
       content: "";
       left: 0;
+
+      transition: all 0.2s;
+
       @apply .tw-absolute;
     }
     &::before {
@@ -98,17 +101,45 @@
   }
 }
 
-/* stylelint-disable-next-line selector-type-no-unknown */
 .navigation__menu-checkbox:checked ~ .navigation__menu-background {
   transform: scale(82);
   /* https://easings.net/#easeInQuint */
   transition: transform 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06);
 }
 
-/* stylelint-disable-next-line selector-type-no-unknown */
 .navigation__menu-checkbox:checked ~ .navigation__nav {
   opacity: 1;
   width: 100%;
   /* https://easings.net/#easeInQuint */
   transition: opacity 0.5s cubic-bezier(0.755, 0.05, 0.855, 0.06);
+}
+
+.navigation__menu-button:hover .navigation__menu-burger::before {
+  top: -0.925rem;
+}
+
+.navigation__menu-button:hover .navigation__menu-burger::after {
+  top: 0.925rem;
+}
+
+.navigation__menu-checkbox:checked
+  + .navigation__menu-button
+  .navigation__menu-burger {
+    background-color: transparent;
+}
+
+.navigation__menu-checkbox:checked
+  + .navigation__menu-button
+  .navigation__menu-burger::before {
+    top: 0;
+    transform: rotate(135deg) scale(1.2);
+    opacity: 1;
+}
+
+.navigation__menu-checkbox:checked
+  + .navigation__menu-button
+  .navigation__menu-burger::after {
+    top: 0;
+    transform: rotate(-135deg) scale(1.2);
+    opacity: 1;
 }
