@@ -1,4 +1,6 @@
-# advanced css course - natours
+# Advanced Css Course - Natours
+
+![Screenshot of built web site](docs/Screenshot_Natours.big.jpg)
 
 ## Install instructions
 
