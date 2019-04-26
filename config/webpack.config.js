@@ -87,7 +87,15 @@ const cssLoader = [
       importLoaders: 1,
     },
   },
-  "postcss-loader",
+  {
+    loader: "postcss-loader",
+    options: {
+      ident: "postcss",
+      config: {
+        path: "./config/",
+      },
+    },
+  },
 ]
 
 /**
@@ -121,7 +129,7 @@ const webpackConfig = [
     devServer,
     resolve: {
       alias: {
-        vue$: "vue/dist/vue.esm.js",
+        vue: "vue/dist/vue.runtime.min.js",
         ...webpack_aliase,
       },
     },

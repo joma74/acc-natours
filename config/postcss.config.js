@@ -1,4 +1,4 @@
-module.exports = {
+let postcss_plugins = {
   plugins: [
     // @ts-ignore
     require("postcss-easy-import"),
@@ -15,8 +15,23 @@ module.exports = {
     // @ts-ignore
     require("postcss-nesting"),
     // @ts-ignore
-    require("tailwindcss")("./tailwind.js"),
+    require("tailwindcss")("config/tailwind.js"),
     // @ts-ignore
     require("autoprefixer"),
   ],
 }
+
+if (process.env.NODE_ENV === "production") {
+  postcss_plugins.plugins.push(
+    require("@fullhuman/postcss-purgecss")(
+      process.env.NODE_ENV === "production"
+        ? {
+            whitelist: ["html", "body"],
+            content: ["./app.html", "./src/**/*.html"],
+          }
+        : false,
+    ),
+  )
+}
+
+module.exports = postcss_plugins
