@@ -125,21 +125,21 @@
 .navigation__menu-checkbox:checked
   + .navigation__menu-button
   .navigation__menu-burger {
-    background-color: transparent;
+  background-color: transparent;
 }
 
 .navigation__menu-checkbox:checked
   + .navigation__menu-button
   .navigation__menu-burger::before {
-    top: 0;
-    transform: rotate(135deg) scale(1.2);
-    opacity: 1;
+  top: 0;
+  transform: rotate(135deg) scale(1.2);
+  opacity: 1;
 }
 
 .navigation__menu-checkbox:checked
   + .navigation__menu-button
   .navigation__menu-burger::after {
-    top: 0;
-    transform: rotate(-135deg) scale(1.2);
-    opacity: 1;
+  top: 0;
+  transform: rotate(-135deg) scale(1.2);
+  opacity: 1;
 }
