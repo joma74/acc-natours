@@ -7,7 +7,7 @@
   opacity: 0;
   visibility: hidden;
 
-  transition: opacity 2s;
+  transition: visibility 1s cubic-bezier(1, 0, 1, 0), opacity 1s;
 
   @apply .tw-fixed .tw-pin-t .tw-pin-l .tw-z-40;
 
@@ -52,5 +52,7 @@
   &:target {
     opacity: 1;
     visibility: visible;
+
+    transition: visibility 1s cubic-bezier(0, 1, 0, 1), opacity 1s;
   }
 }
