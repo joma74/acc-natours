@@ -52,16 +52,5 @@
   &:target {
     opacity: 1;
     visibility: visible;
-    /* animation: disappear 1s; */
-  }
-}
-
-@keyframes disappear {
-  0% {
-    opacity: 1;
-  }
-  100% {
-    opacity: 0;
-    visibility: hidden;
   }
 }
