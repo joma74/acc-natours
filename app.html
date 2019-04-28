@@ -34,7 +34,9 @@
         <span class="heading-primary--main">Outdoors</span
         ><span class="heading-primary--sub">is where life happens</span>
       </h1>
-      <a href="#" class="btn btn--white btn--animated">Discover our tours</a>
+      <a href="#section-tours" class="btn btn--white btn--animated"
+        >Discover our tours</a
+      >
     </div>
   </header>
   <main>
@@ -134,7 +136,7 @@
       </div>
     </section>
     <section class="section-tours">
-      <div class="tw-text-center tw-mb-20">
+      <div id="section-tours" class="tw-text-center tw-mb-20">
         <h2 class="heading-secondary">Most popular tours</h2>
       </div>
       <div class="row">
@@ -163,7 +165,7 @@
                   <p class="card__price-only">Only</p>
                   <p class="card__price-value">$297</p>
                 </div>
-                <a href="#" class="btn btn--white">Book now !</a>
+                <a href="#popup" class="btn btn--white">Book now !</a>
               </div>
             </div>
           </div>
@@ -193,7 +195,7 @@
                   <p class="card__price-only">Only</p>
                   <p class="card__price-value">$497</p>
                 </div>
-                <a href="#" class="btn btn--white">Book now</a>
+                <a href="#popup" class="btn btn--white">Book now</a>
               </div>
             </div>
           </div>
@@ -223,7 +225,7 @@
                   <p class="card__price-only">Only</p>
                   <p class="card__price-value">$897</p>
                 </div>
-                <a href="#" class="btn btn--white">Book now</a>
+                <a href="#popup" class="btn btn--white">Book now</a>
               </div>
             </div>
           </div>
@@ -405,6 +407,38 @@
       </div>
     </div>
   </footer>
+  <div class="popup" id="popup">
+    <div class="popup__content">
+      <div class="popup__left">
+        <img
+          src="~@img/nat-8.jpg"
+          alt="Tour photo"
+          class="popup__img tw-mb-4"
+        />
+        <img src="~@img/nat-9.jpg" alt="Tour photo" class="popup__img" />
+      </div>
+      <div class="popup__right">
+        <a href="#section-tours" class="popup__close">&times;</a>
+        <h2 class="heading-secondary tw-mb-4">Start booking now</h2>
+        <h3 class="heading-tertiary">
+          Important &ndash; Please read these terms before booking
+        </h3>
+        <p class="popup__text tw-mb-2">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque numquam
+          accusantium doloribus molestias architecto odio quod tenetur illum
+          amet modi, nisi vel officiis veniam incidunt fuga aut. Fuga, doloribus
+          velit. Lorem ipsum dolor sit amet consectetur adipisicing elit. Eaque
+          numquam accusantium doloribus molestias architecto odio quod tenetur
+          illum amet modi, nisi vel officiis veniam incidunt fuga aut. Fuga,
+          doloribus velit. Lorem ipsum dolor sit amet consectetur adipisicing
+          elit. Eaque numquam accusantium doloribus molestias architecto odio
+          quod tenetur illum amet modi, nisi vel officiis veniam incidunt fuga
+          aut. Fuga, doloribus velit.
+        </p>
+        <a href="#" class="btn btn--green tw-mt-4">Book now</a>
+      </div>
+    </div>
+  </div>
   <!--See https://fvsch.com/svg-gradient-fill#Changing gradient colors with CSS variables -->
   <svg
     aria-hidden="true"
