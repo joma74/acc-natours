@@ -1,9 +1,9 @@
-const ENVLL = require("./env/ENVLL")
-const ENVMODE = require("./env/ENVMODE")
+const ENVLL = require("../env/ENVLL")
+const ENVMODE = require("../env/ENVMODE")
 
-const helpers = require("./helpers")
+const helpers = require("../helpers")
 const webpack = require("webpack")
-const ENVAPPSRVPORT = require("./env/ENVAPPSRVPORT")
+const ENVAPPSRVPORT = require("../env/ENVAPPSRVPORT")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin")
@@ -95,7 +95,7 @@ const cssLoader = [
     options: {
       ident: "postcss",
       config: {
-        path: "./config/",
+        path: "./config/postcss/",
       },
     },
   },
