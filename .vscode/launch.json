@@ -35,7 +35,7 @@
         "--watch",
         "--hot",
         "--no-progress",
-        "--config=webpack.config.js"
+        "--config=webpack.dev.config.js"
       ],
       "stopOnEntry": true
     }

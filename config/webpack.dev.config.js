@@ -1,3 +1,6 @@
+const ENVLL = require("./env/ENVLL")
+const ENVMODE = require("./env/ENVMODE")
+
 const helpers = require("./helpers")
 const webpack = require("webpack")
 const ENVAPPSRVPORT = require("./env/ENVAPPSRVPORT")
@@ -14,7 +17,7 @@ const devServer = {
   port: parseInt(ENVAPPSRVPORT.getVDev()),
   watchContentBase: false,
   hot: true,
-  stats: "errors-only",
+  stats: "normal",
   host: "localhost",
 }
 
@@ -115,6 +118,11 @@ const node = {
 }
 
 /**
+ * set MODE first!!
+ */
+const ENV_MODE = ENVMODE.setToDevelopment()
+
+/**
  * @type {import ("webpack").Configuration[]}
  */
 const webpackConfig = [
@@ -146,6 +154,11 @@ const webpackConfig = [
     },
     node,
     plugins: [
+      new webpack.DefinePlugin({
+        "process.env": {
+          ENV: JSON.stringify(ENV_MODE),
+        },
+      }),
       new webpack.optimize.CommonsChunkPlugin({
         name: "vendor",
         minChunks: function(module) {
@@ -180,6 +193,7 @@ const webpackConfig = [
         },
       }),
     ],
+    stats: ENVLL.isDebugEnabled() ? "verbose" : "normal",
   },
   {
     entry: "./src/js/dummy",
@@ -218,11 +232,17 @@ const webpackConfig = [
         ],
       }),
     ],
+    stats: "errors-only",
   },
 ]
 
-const output = prettyFormat(webpackConfig, { highlight: true })
-
-console.log(output)
+if (ENVLL.isDebugEnabled()) {
+  const output = prettyFormat(webpackConfig, {
+    highlight: true,
+    maxDepth: ENVLL.isTraceEnabled() ? Infinity : 5,
+  })
+  // tslint:disable-next-line:no-console
+  console.debug(output)
+}
 
 module.exports = webpackConfig
