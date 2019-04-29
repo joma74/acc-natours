@@ -33,7 +33,7 @@ function escapeRegExp(theRegExp) {
 
 /**
  *
- * @param {string} theString
+ * @param {string | undefined} theString
  */
 function convertToBoolean(theString) {
   return !!theString
