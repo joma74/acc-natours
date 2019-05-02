@@ -19,6 +19,7 @@
     "serventest": "start-server-and-test serve http-get://localhost:$npm_package_config_app_svrdev_port/dist/index.html testcafe",
     "serventest-live": "start-server-and-test serve http-get://localhost:$npm_package_config_app_svrdev_port/dist/index.html test-cafe-live",
     "ci": "run-s clean serventest",
+    "ci-logtofile": "unbuffer yarn ci | tee target/yarn.ci.log; gnome-terminal -x sh -c 'less +G -r target/yarn.ci.log'",
     "postinstall": "make-dir build dist target"
   },
   "resolutions": {
@@ -41,6 +42,7 @@
     "css-loader": "^0.28.7",
     "del-cli": "^1.1.0",
     "extract-text-webpack-plugin": "^3.0.2",
+    "extracted-loader": "^1.0.7",
     "file-loader": "^1.1.11",
     "hard-source-webpack-plugin": "^0.13.1",
     "html-loader": "^0.5.5",
