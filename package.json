@@ -13,12 +13,12 @@
     "postcss-debug": "cross-env NODE_ENV=development postcss-debug --config config/postcss.config.debug.js app.css",
     "serve": "webpack-dev-server --config=config/webpack/webpack.dev.config.js --watch --no-progress",
     "serve-prod": "webpack-dev-server --config=config/webpack/webpack.dev.config.js --watch --no-progress",
-    "test": "npm-run-all clean testcafe",
+    "test": "run-s clean testcafe",
     "testcafe": "testcafe 'firefox:headless,chrome:headless --no-sandbox --disable-gpu' -S -s $npm_package_config_screenshots -p $npm_package_config_screenshot_path_pattern -r spec,xunit:$npm_package_config_reports/report.xml src/tests/index-test.js",
     "test-cafe-live": "testcafe 'chrome' -L -S -s $npm_package_config_screenshots -p $npm_package_config_screenshot_path_pattern -r spec src/tests/index-test.js",
     "serventest": "start-server-and-test serve http-get://localhost:$npm_package_config_app_svrdev_port/dist/index.html testcafe",
     "serventest-live": "start-server-and-test serve http-get://localhost:$npm_package_config_app_svrdev_port/dist/index.html test-cafe-live",
-    "ci": "npm-run-all clean serventest",
+    "ci": "run-s clean serventest",
     "postinstall": "make-dir build dist target"
   },
   "resolutions": {
