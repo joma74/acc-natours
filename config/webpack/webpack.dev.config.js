@@ -36,7 +36,7 @@ const webpack_aliase = {
 /**
  * @type {import("webpack").Rule[]}
  */
-const rules = [
+const otherLoaders = [
   {
     test: /\.html$/,
     exclude: [/src\/template.html/],
@@ -143,13 +143,31 @@ const webpackConfig = [
     },
     // devtool: "source-map",
     module: {
-      rules: rules.concat({
+      rules: otherLoaders.concat({
         test: /\.css$/,
-        use: /** @type {import("webpack").Loader[]} */ ([
+        use: [
+          {
+            loader: "extracted-loader",
+          },
           {
             loader: "style-loader",
           },
-        ]).concat(cssLoader),
+          {
+            loader: "css-loader",
+            options: {
+              importLoaders: 1,
+            },
+          },
+          {
+            loader: "postcss-loader",
+            options: {
+              ident: "postcss",
+              config: {
+                path: "./config/postcss/",
+              },
+            },
+          },
+        ],
       }),
     },
     node,
@@ -192,36 +210,9 @@ const webpackConfig = [
           mode: "none",
         },
       }),
-    ],
-    stats: ENVLL.isDebugEnabled() ? "verbose" : "normal",
-  },
-  {
-    entry: "./src/js/dummy",
-    output: {
-      path: helpers.rootAbs("build"),
-      filename: "dummy.js",
-    },
-    resolve: {
-      alias: {
-        ...webpack_aliase,
-      },
-    },
-    module: {
-      rules: rules.concat({
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({ use: cssLoader }),
-      }),
-    },
-    node,
-    plugins: [
-      new webpack.NamedModulesPlugin(),
-      new ExtractTextPlugin("styles.css"),
-      // Write out asset files to disk.
       // @ts-ignore
+      // Write out asset files to disk.
       new DiskPlugin({
-        output: {
-          path: helpers.rootAbs("build"),
-        },
         files: [
           {
             asset: /\.css$/,
@@ -230,9 +221,12 @@ const webpackConfig = [
             },
           },
         ],
+        output: {
+          path: helpers.rootAbs("build"),
+        },
       }),
     ],
-    stats: "errors-only",
+    stats: ENVLL.isDebugEnabled() ? "verbose" : "normal",
   },
 ]
 
