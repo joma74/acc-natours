@@ -11,13 +11,24 @@ const DiskPlugin = require("webpack-disk-plugin")
 const prettyFormat = require("pretty-format")
 
 /**
+ * set MODE first!!
+ */
+const ENV_MODE = ENVMODE.setToDevelopment()
+
+const stats = ENVLL.isTraceEnabled()
+  ? "verbose"
+  : ENVLL.isDebugEnabled()
+  ? "normal"
+  : "errors-only"
+
+/**
  * @type {import("webpack-dev-server").Configuration}
  */
 const devServer = {
   port: parseInt(ENVAPPSRVPORT.getVDev()),
   watchContentBase: false,
   hot: true,
-  stats: "normal",
+  stats: stats,
   host: "localhost",
 }
 
@@ -56,14 +67,46 @@ const otherLoaders = [
     },
   },
   {
-    test: /\.(png|jpe?g|gif|svg|mov|mp4|webm)(#.*)?(\?.*)?$/,
+    test: /\.(png|jpe?g|gif)(#.*)?(\?.*)?$/,
     use: [
       {
         loader: "file-loader",
         options: {
           emitFile: true,
-          name: "[name].[ext]",
-          useRelativePath: true,
+          name: ENVMODE.hasVDevelopment()
+            ? "assets/img/[name].[ext]"
+            : "assets/img/[name].[contenthash:6].[ext]",
+          publicPath: "/",
+        },
+      },
+    ],
+  },
+  {
+    test: /\.(svg)(#.*)?(\?.*)?$/,
+    use: [
+      {
+        loader: "file-loader",
+        options: {
+          emitFile: true,
+          name: ENVMODE.hasVDevelopment()
+            ? "assets/svg/[name].[ext]"
+            : "assets/svg/[name].[contenthash:6].[ext]",
+          publicPath: "/",
+        },
+      },
+    ],
+  },
+  {
+    test: /\.(mov|mp4|webm)(#.*)?(\?.*)?$/,
+    use: [
+      {
+        loader: "file-loader",
+        options: {
+          emitFile: true,
+          name: ENVMODE.hasVDevelopment()
+            ? "assets/vid/[name].[ext]"
+            : "assets/vid/[name].[contenthash:6].[ext]",
+          publicPath: "/",
         },
       },
     ],
@@ -73,33 +116,20 @@ const otherLoaders = [
     loader: "url-loader",
     options: {
       limit: 10000,
-      emitFile: true,
-      name: "[name].[ext]",
-      useRelativePath: true,
+      name: ENVMODE.hasVDevelopment()
+        ? "assets/font/[name].[ext]"
+        : "assets/font/[name].[contenthash:6].[ext]",
+      publicPath: "/",
     },
   },
 ]
 
-/**
- * @type {import("webpack").Loader[]}
- */
-const cssLoader = [
-  {
-    loader: "css-loader",
-    options: {
-      importLoaders: 1,
-    },
-  },
-  {
-    loader: "postcss-loader",
-    options: {
-      ident: "postcss",
-      config: {
-        path: "./config/postcss/",
-      },
-    },
-  },
-]
+const extractCSS = new ExtractTextPlugin({
+  allChunks: true,
+  filename: ENVMODE.hasVDevelopment()
+    ? "assets/css/[name].css"
+    : "assets/css/[name].[contenthash:6].css",
+})
 
 /**
  * @type {import("webpack").Node}
@@ -116,11 +146,6 @@ const node = {
   tls: "empty",
   child_process: "empty",
 }
-
-/**
- * set MODE first!!
- */
-const ENV_MODE = ENVMODE.setToDevelopment()
 
 /**
  * @type {import ("webpack").Configuration[]}
@@ -144,29 +169,34 @@ const webpackConfig = [
     // devtool: "source-map",
     module: {
       rules: otherLoaders.concat({
+        exclude: /node_modules/,
         test: /\.css$/,
         use: [
           {
             loader: "extracted-loader",
           },
-          {
-            loader: "style-loader",
-          },
-          {
-            loader: "css-loader",
-            options: {
-              importLoaders: 1,
-            },
-          },
-          {
-            loader: "postcss-loader",
-            options: {
-              ident: "postcss",
-              config: {
-                path: "./config/postcss/",
+          ...extractCSS.extract({
+            fallback: "style-loader",
+            use: [
+              {
+                loader: "css-loader",
+                options: {
+                  importLoaders: 1,
+                  minimize: ENVMODE.hasVProduction(),
+                  sourceMap: ENVMODE.hasVProduction(),
+                },
               },
-            },
-          },
+              {
+                loader: "postcss-loader",
+                options: {
+                  ident: "postcss",
+                  config: {
+                    path: "./config/postcss/",
+                  },
+                },
+              },
+            ],
+          }),
         ],
       }),
     },
@@ -178,10 +208,10 @@ const webpackConfig = [
         },
       }),
       new webpack.optimize.CommonsChunkPlugin({
-        name: "vendor",
         minChunks: function(module) {
           return module.context && module.context.indexOf("node_modules") !== -1
         },
+        name: "vendor",
       }),
       new HtmlWebpackPlugin({
         template: "src/template.html",
@@ -210,6 +240,7 @@ const webpackConfig = [
           mode: "none",
         },
       }),
+      extractCSS,
       // @ts-ignore
       // Write out asset files to disk.
       new DiskPlugin({
@@ -226,7 +257,7 @@ const webpackConfig = [
         },
       }),
     ],
-    stats: ENVLL.isDebugEnabled() ? "verbose" : "normal",
+    stats: stats,
   },
 ]
 
