@@ -4,7 +4,7 @@ import identifyUserAgent from "./utils/identify-useragent"
 const ENVAPPSRVPORT = require("../../config/env/ENVAPPSRVPORT")
 
 fixture("Index_Page_Test")
-  .page(`http://localhost:${ENVAPPSRVPORT.get()}/dist/index.html`)
+  .page(`http://localhost:${ENVAPPSRVPORT.get()}/index.html`)
   .beforeEach(async (t) => {
     await t.resizeWindow(1280, 1024) // SXGA
   })
