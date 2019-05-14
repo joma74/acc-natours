@@ -15,6 +15,8 @@ let postcss_plugins = {
     // @ts-ignore
     require("postcss-nesting"),
     // @ts-ignore
+    require("postcss-custom-media"),
+    // @ts-ignore
     require("tailwindcss")("config/postcss/tailwind.js"),
     // @ts-ignore
     require("autoprefixer"),
@@ -23,14 +25,10 @@ let postcss_plugins = {
 
 if (process.env.NODE_ENV === "production") {
   postcss_plugins.plugins.push(
-    require("@fullhuman/postcss-purgecss")(
-      process.env.NODE_ENV === "production"
-        ? {
-            whitelist: ["html", "body"],
-            content: ["./app.html", "./src/**/*.html"],
-          }
-        : false,
-    ),
+    require("@fullhuman/postcss-purgecss")({
+      whitelist: ["html", "body"],
+      content: ["./app.html", "./src/**/*.html"],
+    }),
   )
 }
 
