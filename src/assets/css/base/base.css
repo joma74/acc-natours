@@ -8,6 +8,12 @@
   background-repeat: no-repeat;
 }
 
+html {
+  @media (--sm) {
+    font-size: 50%;
+  }
+}
+
 body {
   --accnat-color-theme-text: $color-theme-text;
   color: var(--accnat-color-theme-text);

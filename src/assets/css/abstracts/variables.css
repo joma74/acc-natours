@@ -1,3 +1,9 @@
+/* BREAKPOINT VIEWS */
+@custom-media --sm (max-width: 600px);
+@custom-media --md (min-width: 601px and max-width: 900px);
+@custom-media --lg (min-width: 901px and max-width: 1200px);
+@custom-media --xl (min-width: 1200px);
+
 /* LAYOUT */
 $accnat-body-padding: 2rem;
 $accnat-header-height-cf: 100vh - 2 * $accnat-body-padding;
