@@ -1,0 +1,14 @@
+#
+cd $TRAVIS_BUILD_DIR/dist \
+&& tar -zcvf $TRAVIS_BUILD_DIR/build/acc-natours-$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER.tar.gz *
+#
+TRAVIS_TEST_RESULT=0
+TRAVIS_PULL_REQUEST=false
+TRAVIS_BRANCH=webpack-split-dev-prod
+TRAVIS_BUILD_NUMBER=1
+TRAVIS_BUILD_DIR=/home/joma/entwicklung/design/acc-natours
+# secret VALUES
+NETLIFY_SITEID=
+NETLIFY_ACCESSTOKEN=
+#
+$TRAVIS_BUILD_DIR/bin/deploy-netlify.sh $TRAVIS_BUILD_DIR/build/acc-natours-$TRAVIS_BRANCH-$TRAVIS_BUILD_NUMBER.zip

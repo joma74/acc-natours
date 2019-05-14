@@ -28,16 +28,35 @@
       "name": "Launch webpack-dev-server",
       "cwd": "${workspaceFolder}",
       "env": {
-        "NODE_ENV": "development"
+        "NODE_ENV": "development",
+        "npm_package_config_app_svrdev_port": "6070"
       },
       "program": "${workspaceRoot}/node_modules/webpack-dev-server/bin/webpack-dev-server.js",
       "args": [
         "--watch",
         "--hot",
         "--no-progress",
-        "--config=webpack.dev.config.js"
+        "--config=config/webpack/webpack.dev.config.js"
       ],
-      "stopOnEntry": true
+      "stopOnEntry": false
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch webpack",
+      "cwd": "${workspaceFolder}",
+      "env": {
+        "NODE_ENV": "production",
+        "LL": "debug"
+      },
+      "program": "${workspaceRoot}/node_modules/.bin/webpack",
+      "args": [
+        "--profile",
+        "--bail",
+        "--display-error-details",
+        "--config=config/webpack/webpack.prod.config.js"
+      ],
+      "stopOnEntry": false
     }
   ]
 }

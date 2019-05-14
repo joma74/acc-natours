@@ -11,11 +11,12 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin")
 const HardSourceWebpackPlugin = require("hard-source-webpack-plugin")
 const HtmlWebpackPlugin = require("html-webpack-plugin")
 const StatsPlugin = require("stats-webpack-plugin")
+const UglifyJsPlugin = require("uglifyjs-webpack-plugin")
 
 /**
  * set MODE first!!
  */
-const ENV_MODE = ENVMODE.setToDevelopment()
+const ENV_MODE = ENVMODE.setToProduction()
 
 const publicPath = "/"
 
@@ -24,17 +25,6 @@ const stats = ENVLL.isTraceEnabled()
   : ENVLL.isDebugEnabled()
   ? "normal"
   : "errors-only"
-
-/**
- * @type {import("webpack-dev-server").Configuration}
- */
-const devServer = {
-  port: parseInt(ENVAPPSRVPORT.getVDev()),
-  watchContentBase: false,
-  hot: true,
-  stats: stats,
-  host: "localhost",
-}
 
 const webpack_aliase = {
   "@components": helpers.rootAbs("src/js/components/"),
@@ -159,8 +149,7 @@ const webpackStatsFileName = `webpack-${
  * @type {import ("webpack").Configuration}
  */
 const webpackConfig = {
-  devServer,
-  devtool: "eval-source-map",
+  devtool: false,
   entry: {
     app: "./src/js/index",
   },
@@ -199,8 +188,10 @@ const webpackConfig = {
   },
   node,
   output: {
-    chunkFilename: "[id].chunk.js",
-    filename: "[name].js",
+    chunkFilename: "[name].[chunkhash].js",
+    filename: "[name].[chunkhash].js",
+    hashDigestLength: 6,
+    hashFunction: "md5",
     path: helpers.rootAbs("dist"),
     publicPath,
   },
@@ -210,6 +201,7 @@ const webpackConfig = {
         NODE_ENV: JSON.stringify(ENV_MODE),
       },
     }),
+
     new webpack.optimize.CommonsChunkPlugin({
       minChunks: function(module) {
         if (ENVLL.isTraceEnabled()) {
@@ -227,13 +219,50 @@ const webpackConfig = {
     }),
     new webpack.optimize.CommonsChunkPlugin({
       name: "wp-runtime",
+      minChunks: Infinity,
     }),
     new HtmlWebpackPlugin({
       template: "src/template.html",
       title: "Natours | Exciting tours for adventurous people",
     }),
-    new webpack.NamedModulesPlugin(),
-    new webpack.HotModuleReplacementPlugin(),
+
+    new webpack.NoEmitOnErrorsPlugin(),
+
+    new webpack.optimize.ModuleConcatenationPlugin(),
+
+    new webpack.HashedModuleIdsPlugin(),
+
+    // @ts-ignore
+    // see https://github.com/webpack-contrib/uglifyjs-webpack-plugin/tree/v1.2.1
+    new UglifyJsPlugin({
+      sourceMap: true,
+      // https://github.com/angular/angular/issues/10618
+      uglifyOptions: {
+        compress: {
+          passes: 1,
+          warnings: false,
+        },
+        mangle: {
+          keep_fnames: true,
+        },
+        nameCache: {},
+        output: {
+          comments: false,
+        },
+        // @ts-ignore
+        parallel: true,
+      },
+    }),
+
+    // For options see node_modules/webpack/lib/SourceMapDevToolPlugin.js
+    new webpack.SourceMapDevToolPlugin({
+      // only accepted param is [url]
+      // append: `\n//# sourceMappingURL=http://localhost:${ENVAPPSRVPORT.getVProd()}/[url]`,
+      filename: "sourcemaps/[file].map",
+      // onec css is included in regex, all breaks?!
+      test: /\.(js|jsx)($|\?)/i,
+    }),
+
     new HardSourceWebpackPlugin({
       // Clean up large, old caches automatically.
       cachePrune: {
@@ -261,7 +290,7 @@ const webpackConfig = {
     // Write out asset files to disk.
     new DiskPlugin({
       files: [
-        { asset: new RegExp(helpers.escapeRegExp(webpackStatsFileName) + "$") },
+        { asset: new RegExp(helpers.escapeRegExp(webpackStatsFileName)) },
         {
           asset: /\.css$/,
           output: {
@@ -270,7 +299,7 @@ const webpackConfig = {
         },
       ],
       output: {
-        path: helpers.rootAbs("build"),
+        path: "build",
       },
     }),
   ],

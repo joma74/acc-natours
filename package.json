@@ -1,24 +1,70 @@
 {
+  "name": "acc-natours",
+  "version": "0.0.1",
+  "description": "Replay after https://www.udemy.com/advanced-css-and-sass",
+  "main": "main",
+  "repository": "https://github.com/joma74/acc-natours.git",
+  "author": "joma74 <dev-mails@gmx.net>",
+  "license": "MIT",
+  "private": false,
   "config": {
     "app_svrdev_port": 6070,
-    "target": "target",
-    "reports": "target/reports",
-    "screenshots": "target/reports/screenshots/actual/",
+    "app_svrprod_port": 6073,
+    "reports_dev": "target/reports-dev",
+    "reports_prod": "target/reports-prod",
+    "screenshots_dev": "target/reports-dev/screenshots/actual/",
+    "screenshots_prod": "target/reports-prod/screenshots/actual/",
     "screenshot-path-pattern": "\\${FIXTURE}/\\${TEST}/\\${USERAGENT}/\\${FILE_INDEX}.png"
   },
-  "private": true,
+  "bundlesize": [
+    {
+      "compression": "none",
+      "maxSize": "65.0 kB",
+      "path": "./dist/vendor.*.js"
+    },
+    {
+      "compression": "none",
+      "maxSize": "20.0 kB",
+      "path": "./dist/app.*.js"
+    },
+    {
+      "compression": "none",
+      "maxSize": "1.5 kB",
+      "path": "./dist/wp-runtime.*.js"
+    },
+    {
+      "compression": "none",
+      "maxSize": "23 kB",
+      "path": "./dist/assets/css/app.*.css"
+    }
+  ],
   "scripts": {
-    "pretty_frmt": "./node_modules/.bin/prettier --config ${PWD}/.prettierrc --write './src/js/**/*.js' './src/tests/**/*.js' './src/assets/css/**/*.css'",
-    "clean": "del-cli 'target/*' 'build/*' '!*/yarn.*.log' '!*/\\.gitkeep'",
+    "clean-dist": "del-cli 'dist/*'",
+    "clean-work-dev": "del-cli 'target/reports-dev' 'build/*' '!*/yarn.*.log'",
+    "clean-work-prod": "del-cli 'target/reports-prod' 'build/*' '!*/yarn.*.log'",
+    "_prettier": "prettier --list-different '**/*.{js,json,md,html,css}' '!build/**' '!dist/**' '!target/**'",
+    "prettier-fix": "prettier --write '**/*.{js,json,md,html,css}' '!build/**' '!dist/**' '!target/**' && yarn _prettier",
+    "check-bundlesize": "bundlesize",
     "postcss-debug": "cross-env NODE_ENV=development postcss-debug --config config/postcss.config.debug.js app.css",
-    "serve": "webpack-dev-server --config=config/webpack/webpack.dev.config.js --watch --no-progress",
-    "serve-prod": "webpack-dev-server --config=config/webpack/webpack.dev.config.js --watch --no-progress",
-    "test": "run-s clean testcafe",
-    "testcafe": "testcafe 'firefox:headless,chrome:headless --no-sandbox --disable-gpu' -S -s $npm_package_config_screenshots -p $npm_package_config_screenshot_path_pattern -r spec,xunit:$npm_package_config_reports/report.xml src/tests/index-test.js",
-    "test-cafe-live": "testcafe 'chrome' -L -S -s $npm_package_config_screenshots -p $npm_package_config_screenshot_path_pattern -r spec src/tests/index-test.js",
-    "serventest": "start-server-and-test serve http-get://localhost:$npm_package_config_app_svrdev_port/index.html testcafe",
-    "serventest-live": "start-server-and-test serve http-get://localhost:$npm_package_config_app_svrdev_port/index.html test-cafe-live",
-    "ci": "run-s clean serventest",
+    "_serve-dev": "webpack-dev-server --config=config/webpack/webpack.dev.config.js --watch --no-progress",
+    "serve-dev": "run-s -l clean-work-dev _serve-dev",
+    "serve-prod": "json-server build/db.json --quiet --port $npm_package_config_app_svrprod_port --static dist",
+    "test-dev": "run-s clean-work-dev testcafe-dev",
+    "test-prod": "run-s clean-work-prod testcafe-prod",
+    "testcafe-dev": "testcafe 'firefox:headless,chrome:headless --no-sandbox --disable-gpu' -S -s $npm_package_config_screenshots_dev -p $npm_package_config_screenshot_path_pattern -r spec,xunit:$npm_package_config_reports_dev/report.xml src/tests/index-test.js",
+    "testcafe-prod": "testcafe 'firefox:headless,chrome:headless --no-sandbox --disable-gpu' -S -s $npm_package_config_screenshots_prod -p $npm_package_config_screenshot_path_pattern -r spec,xunit:$npm_package_config_reports_prod/report.xml src/tests/index-test.js",
+    "test-cafe-live": "testcafe 'chrome' -L -S -s $npm_package_config_screenshots_dev -p $npm_package_config_screenshot_path_pattern -r spec src/tests/index-test.js",
+    "serventest-dev": "cross-env NODE_ENV=development start-server-and-test serve-dev http-get://localhost:$npm_package_config_app_svrdev_port/index.html testcafe-dev",
+    "serventest-prod": "cross-env NODE_ENV=production start-server-and-test serve-prod http-get://localhost:$npm_package_config_app_svrprod_port/index.html testcafe-prod",
+    "serventest-live": "start-server-and-test serve-dev http-get://localhost:$npm_package_config_app_svrdev_port/index.html test-cafe-live",
+    "ci-dev": "run-s -l _prettier serventest-dev",
+    "ci-dev-logtofile": "unbuffer yarn ci-dev | tee target/yarn.ci-dev.log; gnome-terminal -x sh -c 'less +G -r target/yarn.ci.log'",
+    "_build": "webpack --config=config/webpack/webpack.prod.config.js --profile --bail --display-error-details",
+    "build": "run-s clean-dist clean-work-prod _build check-bundlesize",
+    "build-logtofile": "unbuffer yarn build | tee target/yarn.build.log; gnome-terminal -x sh -c 'less +G -r target/yarn.build.log'",
+    "ci-prod": "run-s -l build serventest-prod",
+    "ci-prod-logtofile": "unbuffer yarn ci-prod | tee target/yarn.ci-prod.log; gnome-terminal -x sh -c 'less +G -r target/yarn.ci-prod.log'",
+    "ci": "run-p -l ci-dev ci-prod",
     "ci-logtofile": "unbuffer yarn ci | tee target/yarn.ci.log; gnome-terminal -x sh -c 'less +G -r target/yarn.ci.log'",
     "postinstall": "make-dir build dist target"
   },
@@ -26,8 +72,12 @@
     "**/@types/extract-text-webpack-plugin": "^2",
     "**/@types/html-webpack-plugin": "^2",
     "**/@types/webpack": "^3",
-    "**/@types/webpack-dev-server": "^2",
-    "**/postcss": "^7"
+    "**/@types/webpack-dev-server": "^2"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "yarn _prettier"
+    }
   },
   "devDependencies": {
     "@fullhuman/postcss-purgecss": "^1.2.0",
@@ -38,6 +88,7 @@
     "@types/webpack-dev-server": "^2.9.4",
     "@types/webpack-env": "^1.13.6",
     "autoprefixer": "^9.5.1",
+    "bundlesize": "^0.17.1",
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.7",
     "del-cli": "^1.1.0",
@@ -47,6 +98,8 @@
     "hard-source-webpack-plugin": "^0.13.1",
     "html-loader": "^0.5.5",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^2.2.0",
+    "json-server": "^0.14.2",
     "make-dir-cli": "^1.0.0",
     "npm-run-all": "^4.1.3",
     "postcss": "^7",
@@ -72,6 +125,7 @@
     "tailwindcss": "^0",
     "testcafe": "^1",
     "typescript": "^3.0.1",
+    "uglifyjs-webpack-plugin": "1.2.1",
     "url-loader": "^1.0.1",
     "useragent": "^2.3.0",
     "vue-loader": "^14.2.2",

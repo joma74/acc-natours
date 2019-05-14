@@ -24,6 +24,16 @@ function rootRel(...args) {
 }
 
 /**
+ * Joins the path of args with this "" as root
+ * @param {...string} args
+ * @returns {string} an unrooted path
+ */
+function unRel(...args) {
+  args = Array.prototype.slice.call(arguments, 0)
+  return path.join.apply(path, args)
+}
+
+/**
  * The documentation on https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_Expressions suggests the following solution for escaping a regular expression
  * @param {string} theRegExp
  */
@@ -42,6 +52,7 @@ function convertToBoolean(theString) {
 module.exports = {
   convertToBoolean,
   escapeRegExp,
-  rootAbs: rootAbs,
+  rootAbs,
   rootRel,
+  unRel,
 }

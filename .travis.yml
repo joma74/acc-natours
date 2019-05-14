@@ -1,9 +1,12 @@
+# see http://json.schemastore.org/travis
 language: node_js
 node_js:
   - "11"
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash -s -- --version 1.15.2
   - export PATH="$HOME/.yarn/bin:$PATH"
+  - yarn global add netlify-cli
+  - env | sort
 
 cache:
   yarn: true
@@ -23,7 +26,20 @@ addons:
     packages:
       - imagemagick
 
-script: yarn ci
+script:
+  - yarn install
+  - yarn ci
+
+after_success:
+  # does not proceed if a pull request
+  - test "$TRAVIS_PULL_REQUEST" = false
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script: bash bin/deploy-netlify.sh $TRAVIS_BUILD_DIR/dist
+    on:
+      branch: master
 
 notifications:
   email:
