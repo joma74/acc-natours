@@ -166,8 +166,8 @@ const commonDevProdConfig = {
       hunksSortMode: function(a, b) {
         const chunksNamePart = ["wp-runtime", "vendor", "app"]
         return (
-          chunksNamePart.indexOf(a.names[0]) -
-          chunksNamePart.indexOf(b.names[0])
+          (chunksNamePart.indexOf(a.names[0]) -
+          chunksNamePart.indexOf(b.names[0]))
         )
       },
       hash: false,
