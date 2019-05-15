@@ -48,6 +48,7 @@ const otherLoaders = [
     use: {
       loader: "vue-template-loader",
       options: {
+        ident: "vuetpl",
         hmr: true,
         transformAssetUrls: {
           video: ["src", "poster"],
@@ -66,6 +67,7 @@ const otherLoaders = [
       {
         loader: "file-loader",
         options: {
+          ident: "file-imgs",
           emitFile: true,
           name: ENVMODE.hasVDevelopment()
             ? "assets/img/[name].[ext]"
@@ -81,6 +83,7 @@ const otherLoaders = [
       {
         loader: "file-loader",
         options: {
+          ident: "file-svgs",
           emitFile: true,
           name: ENVMODE.hasVDevelopment()
             ? "assets/svg/[name].[ext]"
@@ -96,6 +99,7 @@ const otherLoaders = [
       {
         loader: "file-loader",
         options: {
+          ident: "file-vids",
           emitFile: true,
           name: ENVMODE.hasVDevelopment()
             ? "assets/vid/[name].[ext]"
@@ -109,6 +113,7 @@ const otherLoaders = [
     test: /\.(woff2?|eot|ttf|otf)(\?.*)?$/,
     loader: "url-loader",
     options: {
+      ident: "url-fonts",
       limit: 10000,
       name: ENVMODE.hasVDevelopment()
         ? "assets/font/[name].[ext]"
@@ -158,15 +163,13 @@ const webpackConfig = {
       exclude: /node_modules/,
       test: /\.css$/,
       use: [
-        {
-          loader: "extracted-loader",
-        },
         ...extractCSS.extract({
-          fallback: "style-loader",
+          fallback: { loader: "style-loader", options: { ident: "style" } },
           use: [
             {
               loader: "css-loader",
               options: {
+                ident: "css",
                 importLoaders: 1,
                 minimize: ENVMODE.hasVProduction(),
                 sourceMap: ENVMODE.hasVProduction(),
