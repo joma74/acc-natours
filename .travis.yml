@@ -37,9 +37,12 @@ after_success:
 deploy:
   - provider: script
     skip_cleanup: true
-    script: bash bin/deploy-netlify.sh $TRAVIS_BUILD_DIR/dist
+    script: bash bin/deploy-netlify.sh $TRAVIS_BUILD_DIR/dist $NETLIFY_SITEID_MASTER
     on:
       branch: master
+  - provider: script
+    skip_cleanup: true
+    script: bash bin/deploy-netlify.sh $TRAVIS_BUILD_DIR/dist $NETLIFY_SITEID_TEST
 
 notifications:
   email:
