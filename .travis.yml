@@ -44,6 +44,7 @@ deploy:
     skip_cleanup: true
     script: bash bin/deploy-netlify.sh $TRAVIS_BUILD_DIR/dist $NETLIFY_SITEID_TEST
     on:
+      all_branches: true
       condition: $TRAVIS_BRANCH != master
 
 notifications:
