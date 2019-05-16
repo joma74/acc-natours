@@ -8,6 +8,12 @@ if [[ ! -d $1 ]]; then
     exit -1;
 fi
 
+NETLIFY_SITEID=$NETLIFY_SITEID_MASTER
+
+if [[ ${TRAVIS_BRANCH} != "master" ]]; then
+    $NETLIFY_SITEID=$NETLIFY_SITEID_TEST
+fi
+
 echo "Deploying build to Netlify..."
 netlify deploy --prod --dir $1 --auth $NETLIFY_ACCESSTOKEN --site $NETLIFY_SITEID --message "via travis build #${TRAVIS_BUILD_NUMBER} from git branch >>${TRAVIS_BRANCH}<<"
 
