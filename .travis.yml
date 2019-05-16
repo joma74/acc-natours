@@ -43,6 +43,8 @@ deploy:
   - provider: script
     skip_cleanup: true
     script: bash bin/deploy-netlify.sh $TRAVIS_BUILD_DIR/dist $NETLIFY_SITEID_TEST
+    on:
+      condition: $TRAVIS_BRANCH != master
 
 notifications:
   email:
