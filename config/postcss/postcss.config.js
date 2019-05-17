@@ -1,5 +1,4 @@
 let postcss_config = {
-  map: true,
   plugins: [
     // @ts-ignore
     require("postcss-easy-import"),
