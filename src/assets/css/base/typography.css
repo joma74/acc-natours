@@ -19,6 +19,11 @@
     @apply .tw-block .tw-text-5xl;
     @apply .tw-whitespace-no-wrap;
 
+    @media (--desktop-big) {
+      @include bal-letter-by-indent(4rem);
+      @apply .tw-text-6xl;
+    }
+
     @media (--phone) {
       @include bal-letter-by-indent(1rem);
       @apply .tw-text-4xl;
@@ -29,6 +34,11 @@
     @include bal-letter-by-indent(1rem);
     animation: moveInRight 2s ease-in-out;
     @apply .tw-block .tw-font-bold .tw-text-sm .tw-leadingrel-6xl;
+
+    @media (--desktop-big) {
+      @include bal-letter-by-indent(2rem);
+      @apply .tw-text-6xl;
+    }
 
     @media (--phone) {
       @include bal-letter-by-indent(0.5rem);
