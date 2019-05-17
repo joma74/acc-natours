@@ -16,6 +16,11 @@
     &:not(:last-child) {
       margin-right: $gutter-horizontal;
     }
+
+    @media (--phone) {
+      width: 100% !important;
+      margin-right: 0;
+    }
   }
 
   & .col-1-of-2 {
