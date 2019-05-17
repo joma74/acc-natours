@@ -30,6 +30,18 @@ if (process.env.NODE_ENV === "production") {
       content: ["./app.html", "./src/**/*.html"],
     }),
   )
+  postcss_plugins.plugins.push(
+    require("cssnano")({
+      preset: [
+        "default",
+        {
+          discardComments: {
+            removeAll: true,
+          },
+        },
+      ],
+    }),
+  )
 }
 
 module.exports = postcss_plugins

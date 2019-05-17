@@ -171,8 +171,6 @@ const webpackConfig = {
               options: {
                 ident: "css",
                 importLoaders: 1,
-                minimize: ENVMODE.hasVProduction(),
-                sourceMap: ENVMODE.hasVProduction(),
               },
             },
             {
