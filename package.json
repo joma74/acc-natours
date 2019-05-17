@@ -137,6 +137,7 @@
     "webpack-disk-plugin": "^0.0.2"
   },
   "dependencies": {
+    "cssnano": "^4.1.10",
     "vue": "^2"
   }
 }
