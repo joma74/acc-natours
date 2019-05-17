@@ -37,7 +37,7 @@
 
     @media (--desktop-big) {
       @include bal-letter-by-indent(2rem);
-      @apply tw-text-6xl;
+      @apply tw-leadingrel-6xl;
     }
 
     @media (--phone) {
