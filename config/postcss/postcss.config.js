@@ -1,4 +1,5 @@
-let postcss_plugins = {
+let postcss_config = {
+  map: true,
   plugins: [
     // @ts-ignore
     require("postcss-easy-import"),
@@ -24,13 +25,13 @@ let postcss_plugins = {
 }
 
 if (process.env.NODE_ENV === "production") {
-  postcss_plugins.plugins.push(
+  postcss_config.plugins.push(
     require("@fullhuman/postcss-purgecss")({
       whitelist: ["html", "body"],
       content: ["./app.html", "./src/**/*.html"],
     }),
   )
-  postcss_plugins.plugins.push(
+  postcss_config.plugins.push(
     require("cssnano")({
       preset: [
         "default",
@@ -44,4 +45,4 @@ if (process.env.NODE_ENV === "production") {
   )
 }
 
-module.exports = postcss_plugins
+module.exports = postcss_config
