@@ -2,9 +2,9 @@
   padding: inherit;
   opacity: 0.15;
 
-  @apply .tw-absolute .tw-pin .tw-overflow-hidden;
+  @apply tw-absolute tw-pin tw-overflow-hidden;
 
   @element content {
-    @apply .tw-block .mu-margin-center-justify .tw-object-fill;
+    @apply tw-block mu-margin-center-justify tw-object-fill;
   }
 }

@@ -5,7 +5,7 @@
   backface-visibility: hidden; /* else elm moves slightly down 
   at the end of the animation */
 
-  @apply .tw-p-4 .tw-text-center .tw-rounded-sm .tw-shadow-md;
+  @apply tw-p-4 tw-text-center tw-rounded-sm tw-shadow-md;
 
   @media (--phone) {
     margin-bottom: 1.5rem;
@@ -15,13 +15,13 @@
     /* See https://fvsch.com/svg-gradient-fill#Changing gradient colors with CSS variables */
     fill: url(#gradient-tl-br-solo) $color-theme-light;
 
-    @apply .tw-w-12 .tw-h-12 .tw-m-4;
+    @apply tw-w-12 tw-h-12 tw-m-4;
   }
 
   &:hover {
     transform: translateY(-1rem) scale(1.05);
 
-    @apply .tw-shadow-lg;
+    @apply tw-shadow-lg;
   }
 
   @element text {

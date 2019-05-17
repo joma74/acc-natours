@@ -34,7 +34,7 @@
   background-color: $color-grey-light;
   padding: 10rem 0;
 
-  @apply .tw-relative;
+  @apply tw-relative;
 }
 
 .section-book {
@@ -57,12 +57,12 @@
     ),
     url(~@img/nat-10.jpg);
 
-  @apply .mu-bg-cover-to-top .tw-rounded .tw-shadow-md;
+  @apply .mu-bg-cover-to-top tw-rounded tw-shadow-md;
 
   @element form {
     width: 50%;
     height: inherit;
 
-    @apply .tw-p-12;
+    @apply tw-p-12;
   }
 }

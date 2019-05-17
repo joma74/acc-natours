@@ -1,6 +1,6 @@
 @block form {
   @element group:not(:last-child) {
-    @apply .tw-mb-5;
+    @apply tw-mb-5;
   }
 
   @element input {
@@ -8,12 +8,12 @@
 
     border-bottom-color: transparent;
 
-    @apply .tw-block .tw-text-xl .tw-px-5 .tw-py-4 .tw-rounded-sm .tw-border-b-4;
+    @apply tw-block tw-text-xl tw-px-5 tw-py-4 tw-rounded-sm tw-border-b-4;
 
     &:focus {
       border-bottom-color: $color-theme;
 
-      @apply .tw-outline-none .tw-border-b-4;
+      @apply tw-outline-none tw-border-b-4;
     }
 
     &:focus:invalid {
@@ -27,7 +27,7 @@
 
   @element label {
     transition: all 0.3s;
-    @apply .tw-block .tw-px-5 .tw-pt-2 .tw-font-bold;
+    @apply tw-block tw-px-5 tw-pt-2 tw-font-bold;
   }
 
   /* radio selection of group*/
@@ -35,17 +35,17 @@
   @element radio-group {
     width: 49.595%; /* 50% breaks the row */
 
-    @apply .tw-inline-block;
+    @apply tw-inline-block;
   }
 
   @element radio-label {
-    @apply .tw-relative .tw-inline-block .tw-pl-10 .tw-text-lg .tw-cursor-pointer;
+    @apply tw-relative tw-inline-block tw-pl-10 tw-text-lg tw-cursor-pointer;
   }
 
   @element radio-button {
     border-color: $color-theme;
 
-    @apply .tw-absolute .tw-pin-l .tw-inline-block .mu-position-center-align .tw-h-8 .tw-w-8 .tw-border-4 .tw-rounded-full;
+    @apply tw-absolute tw-pin-l tw-inline-block .mu-position-center-align tw-h-8 tw-w-8 tw-border-4 tw-rounded-full;
 
     &::after {
       /* the inner radio full circle*/
@@ -53,12 +53,12 @@
       background-color: $color-theme;
       transition: opacity 0.2s;
 
-      @apply .tw-absolute .tw-block .mu-position-center .tw-opacity-0 .tw-h-4 .tw-w-4 .tw-rounded-full;
+      @apply tw-absolute tw-block .mu-position-center tw-opacity-0 tw-h-4 tw-w-4 tw-rounded-full;
     }
   }
 
   @element radio-input {
-    @apply .tw-hidden;
+    @apply tw-hidden;
   }
 }
 
@@ -66,11 +66,11 @@
 .form__input:placeholder-shown + .form__label {
   transform: translateY(-3rem);
 
-  @apply .tw-opacity-0 .tw-invisible;
+  @apply tw-opacity-0 tw-invisible;
 }
 
 /* the element being selected doesn't need to immediately 
     succeed the first element, but can appear anywhere after it. */
 .form__radio-input:checked ~ .form__radio-label .form__radio-button::after {
-  @apply .tw-opacity-100;
+  @apply tw-opacity-100;
 }

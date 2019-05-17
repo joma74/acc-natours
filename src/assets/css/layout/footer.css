@@ -3,28 +3,28 @@
   padding: 8rem 0;
 
   @element logo-box {
-    @apply .tw-text-center .tw-mb-24;
+    @apply tw-text-center tw-mb-24;
   }
 
   @element logo {
-    @apply .tw-w-48;
+    @apply tw-w-48;
   }
 
   @element navigation {
     border-top-color: $color-grey-dark;
 
-    @apply .tw-inline-block .tw-border-t-2 .tw-pt-6;
+    @apply tw-inline-block tw-border-t-2 tw-pt-6;
   }
 
   @element list {
-    @apply .tw-list-reset;
+    @apply tw-list-reset;
   }
 
   @element item {
-    @apply .tw-inline-block;
+    @apply tw-inline-block;
 
     &:not(:last-child) {
-      @apply .tw-mr-4;
+      @apply tw-mr-4;
     }
   }
 
@@ -34,7 +34,7 @@
 
     transition: all 0.2s;
 
-    @apply .tw-inline-block .tw-uppercase;
+    @apply tw-inline-block tw-uppercase;
 
     &:hover,
     &:active {
@@ -47,6 +47,6 @@
   @element copyright {
     border-top-color: $color-grey-dark;
 
-    @apply .tw-inline-block .tw-border-t-2 .tw-pt-6;
+    @apply tw-inline-block tw-border-t-2 tw-pt-6;
   }
 }

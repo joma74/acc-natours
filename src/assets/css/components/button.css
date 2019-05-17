@@ -3,28 +3,28 @@
   backface-visibility: hidden; /* else elm moves slightly down 
   at the end of the animation */
 
-  @apply .tw-text-2xl .tw-text-center;
-  @apply .tw-inline-block .tw-rounded-full .tw-uppercase .tw-px-6 .tw-py-4;
-  @apply .tw-relative;
+  @apply tw-text-2xl tw-text-center;
+  @apply tw-inline-block tw-rounded-full tw-uppercase tw-px-6 tw-py-4;
+  @apply tw-relative;
 
   &::after {
     content: "";
     display: inherit;
     transition: all 0.4s;
 
-    @apply .tw-absolute .tw-pin;
-    @apply .tw-w-full .tw-h-full .tw-rounded-full .tw-z--1;
+    @apply tw-absolute tw-pin;
+    @apply tw-w-full tw-h-full tw-rounded-full tw-z--1;
   }
 
   &:hover {
     transform: translateY(-0.25rem);
 
-    @apply .tw-shadow-lg;
+    @apply tw-shadow-lg;
 
     &::after {
       transform: scaleX(1.25) scaleY(1.6);
 
-      @apply .tw-opacity-0;
+      @apply tw-opacity-0;
     }
   }
 
@@ -32,23 +32,23 @@
   &:active {
     transform: translateY(-0.12rem);
 
-    @apply .tw-shadow-md .tw-outline-none;
+    @apply tw-shadow-md tw-outline-none;
   }
 
   @modifier white {
     color: var(--accnat-primary-color);
 
-    @apply .tw-bg-white;
+    @apply tw-bg-white;
 
     &::after {
-      @apply .tw-bg-white;
+      @apply tw-bg-white;
     }
   }
 
   @modifier green {
     background-color: $color-theme;
 
-    @apply .tw-text-white;
+    @apply tw-text-white;
 
     &::after {
       background-color: $color-theme;
@@ -68,18 +68,18 @@
   backface-visibility: hidden; /* else elm moves slightly down 
   at the end of the animation */
 
-  @apply .tw-inline-block .tw-text-2xl .tw-border-b-2 .tw-p-1;
+  @apply tw-inline-block tw-text-2xl tw-border-b-2 tw-p-1;
 
   &:hover {
     background-color: $color-theme;
     transform: translateY(-0.25rem);
 
-    @apply .tw-shadow-lg .tw-text-white;
+    @apply tw-shadow-lg tw-text-white;
   }
 
   &:active {
     transform: translateY(-0.12rem);
 
-    @apply .tw-shadow-md;
+    @apply tw-shadow-md;
   }
 }
