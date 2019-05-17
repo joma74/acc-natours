@@ -1,8 +1,14 @@
-/* BREAKPOINT VIEWS */
-@custom-media --sm (max-width: 600px);
-@custom-media --md (min-width: 601px and max-width: 900px);
-@custom-media --lg (min-width: 901px and max-width: 1200px);
-@custom-media --xl (min-width: 1200px);
+/* BREAKPOINT VIEWS 
+ * em is better bec. dependent on the user's preset font size
+*/
+/* 600px / 16 = 37.5em  */
+@custom-media --phone (max-width: 37.5em);
+/* 900px / 16 = 56.25em  */
+@custom-media --tablet-port (max-width: 56.25em);
+/* 1200px / 16 = 56.25em  */
+@custom-media --tablet-land (max-width: 75em);
+/* 1800px / 16 = 112.5em  */
+@custom-media --desktop-big (min-width: 112.5em);
 
 /* LAYOUT */
 $accnat-body-padding: 2rem;
