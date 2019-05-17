@@ -36,6 +36,10 @@ body {
   --accnat-color-theme-text: $color-theme-text;
   color: var(--accnat-color-theme-text);
   padding: $accnat-body-padding;
+
+  @media (--tablet-port) {
+    padding: 0;
+  }
 }
 
 input[type="text"],

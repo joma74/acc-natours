@@ -10,9 +10,15 @@
   @apply .tw-relative .tw-bg-cover .tw-bg-top;
 
   @element logo-box {
-    top: 1.5rem;
+    /* see navigation__menu-botton top: 3.5rem - $accnat-body-padding: 2rem*/
+    top: calc(3.5rem - $accnat-body-padding);
     left: calc($accnat-body-padding + 1rem);
     @apply .tw-absolute;
+
+    @media (--tablet-port) {
+      /* see navigation__menu-botton - no $accnat-body-padding  */
+      top: 3.5rem;
+    }
   }
 
   @element logo {
