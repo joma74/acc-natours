@@ -45,7 +45,7 @@
     "_prettier": "prettier --list-different '**/*.{js,json,md,html,css}' '!build/**' '!dist/**' '!target/**'",
     "prettier-fix": "prettier --write '**/*.{js,json,md,html,css}' '!build/**' '!dist/**' '!target/**' && yarn _prettier",
     "check-bundlesize": "bundlesize",
-    "postcss-debug": "cross-env NODE_ENV=development postcss-debug --config config/postcss.config.debug.js app.css",
+    "postcss-debug": "cross-env NODE_ENV=development postcss-debug --config config/postcss/postcss.config.debug.js app.css",
     "_serve-dev": "webpack-dev-server --config=config/webpack/webpack.dev.config.js --watch --no-progress",
     "serve-dev": "run-s -l clean-work-dev _serve-dev",
     "serve-prod": "json-server build/db.json --quiet --port $npm_package_config_app_svrprod_port --static dist",
