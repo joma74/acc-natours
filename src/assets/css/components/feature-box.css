@@ -3,9 +3,15 @@
 
   transition: all 0.3s;
   /* else elm moves slightly down at the end of the animation */
-  backface-visibility: hidden; 
+  backface-visibility: hidden;
 
   @apply tw-p-4 tw-text-center tw-rounded-sm tw-shadow-md;
+
+  @media (--phone) {
+    max-width: 75%;
+
+    @apply mu-margin-center-justify;
+  }
 
   @element icon {
     /* See https://fvsch.com/svg-gradient-fill#Changing gradient colors with CSS variables */
