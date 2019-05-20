@@ -2,8 +2,8 @@
   background-color: color-mod($color-white a(80%));
 
   transition: all 0.3s;
-  backface-visibility: hidden; /* else elm moves slightly down 
-  at the end of the animation */
+  /* else elm moves slightly down at the end of the animation */
+  backface-visibility: hidden; 
 
   @apply tw-p-4 tw-text-center tw-rounded-sm tw-shadow-md;
 
