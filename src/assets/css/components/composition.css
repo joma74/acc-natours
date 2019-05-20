@@ -1,6 +1,15 @@
 @block composition {
   @apply tw-relative;
 
+  @media (--phone) {
+    /* 1rem = 8px; 261px/150px= 50% */
+    padding-bottom: 50%;
+    /* for scale animation estate */
+    margin-top: 4rem;
+    /* for scale animation estate */
+    @apply tw-mx-10;
+  }
+
   @element photo {
     width: 55%;
     outline-offset: 0.5rem;
@@ -12,12 +21,12 @@
     @apply tw-shadow-md tw-absolute;
 
     @modifier p1 {
-      top: -2rem;
+      top: 2rem;
       @apply tw-pin-l;
     }
 
     @modifier p2 {
-      top: 2rem;
+      top: 4rem;
       @apply tw-pin-r;
     }
 
