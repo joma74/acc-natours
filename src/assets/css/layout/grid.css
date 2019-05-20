@@ -15,11 +15,14 @@
 
     &:not(:last-child) {
       margin-right: $gutter-horizontal;
+
+      @media (--phone) {
+        margin-right: 0;
+      }
     }
 
     @media (--phone) {
       width: 100% !important;
-      margin-right: 0;
     }
   }
 
