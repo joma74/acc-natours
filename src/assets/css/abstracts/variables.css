@@ -43,6 +43,7 @@ $color-card-3: hsl(207, 65%, 44%);
 /* GRID */
 $grid-width: 71.25rem;
 $gutter-vertical: 5rem;
+$gutter-vertical-md: 2.5rem;
 $gutter-horizontal: 4rem;
 
 /* STORIES */

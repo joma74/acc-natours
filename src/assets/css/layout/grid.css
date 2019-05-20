@@ -18,6 +18,7 @@
 
       @media (--phone) {
         margin-right: 0;
+        margin-bottom: $gutter-vertical-md;
       }
     }
 
