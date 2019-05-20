@@ -8,6 +8,12 @@
 
   @apply tw-relative;
 
+  @media (--phone) {
+    max-width: 70%;
+
+    @apply mu-margin-center-justify;
+  }
+
   @element side {
     transition: all 0.8s ease;
     backface-visibility: hidden;
