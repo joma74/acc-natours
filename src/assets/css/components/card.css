@@ -3,13 +3,13 @@
   /**
     * These two MUST be set to make backface-visibility work properly 
     */
-  perspective: 50rem;
+  perspective: 200rem;
   transform-style: preserve-3d;
 
   @apply tw-relative;
 
   @media (--phone) {
-    max-width: 70%;
+    max-width: 90%;
 
     @apply mu-margin-center-justify;
   }
