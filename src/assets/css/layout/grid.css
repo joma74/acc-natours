@@ -16,13 +16,13 @@
     &:not(:last-child) {
       margin-right: $gutter-horizontal;
 
-      @media (--phone) {
+      @media (--tablet-port) {
         margin-right: 0;
         margin-bottom: $gutter-vertical-md;
       }
     }
 
-    @media (--phone) {
+    @media (--tablet-port) {
       width: 100% !important;
     }
   }

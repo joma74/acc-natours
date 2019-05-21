@@ -1,7 +1,7 @@
 @block composition {
   @apply tw-relative;
 
-  @media (--phone) {
+  @media (--tablet-port) {
     /* 1rem = 8px; 261px/150px= 50% */
     padding-bottom: 50%;
     /* for scale animation estate */

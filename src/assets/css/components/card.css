@@ -8,7 +8,7 @@
 
   @apply tw-relative;
 
-  @media (--phone) {
+  @media (--tablet-port) {
     max-width: 90%;
 
     @apply mu-margin-center-justify;

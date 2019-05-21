@@ -7,7 +7,7 @@
 
   @apply tw-p-4 tw-text-center tw-rounded-sm tw-shadow-md;
 
-  @media (--phone) {
+  @media (--tablet-port) {
     max-width: 50%;
 
     @apply mu-margin-center-justify;
@@ -27,6 +27,7 @@
   }
 
   @element text {
+    @apply tw-text-xl;
   }
 }
 

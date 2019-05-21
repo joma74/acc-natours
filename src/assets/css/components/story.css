@@ -42,6 +42,10 @@
     min-height: $story-image-wh;
 
     @apply tw-leading-tight;
+
+    @media (--tablet-port) {
+      @apply tw-text-xl;
+    }
   }
 
   &:hover .story__caption {

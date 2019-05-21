@@ -14,35 +14,30 @@
   }
 
   @modifier main {
-    @include bal-letter-by-indent(2rem);
+    @include bal-letter-by-indent(4rem);
     animation: moveInLeft 2s ease-in-out;
-    @apply tw-block tw-text-5xl;
+    @apply tw-block tw-text-6xl;
     @apply tw-whitespace-no-wrap;
+
+    @media (--phone) {
+      @include bal-letter-by-indent(2rem);
+      @apply tw-text-5xl;
+    }
 
     @media (--desktop-big) {
       @include bal-letter-by-indent(4rem);
       @apply tw-text-6xl;
     }
-
-    @media (--phone) {
-      @include bal-letter-by-indent(1rem);
-      @apply tw-text-4xl;
-    }
   }
 
   @modifier sub {
-    @include bal-letter-by-indent(1rem);
+    @include bal-letter-by-indent(2rem);
     animation: moveInRight 2s ease-in-out;
     @apply tw-block tw-font-bold tw-text-sm tw-leadingrel-6xl;
 
     @media (--desktop-big) {
       @include bal-letter-by-indent(2rem);
       @apply tw-leadingrel-6xl;
-    }
-
-    @media (--phone) {
-      @include bal-letter-by-indent(0.5rem);
-      @apply tw-leadingrel-4xl;
     }
   }
 }
@@ -55,6 +50,10 @@
   @include bal-letter-by-indent(0.1em);
   @apply tw-text-4xl tw-uppercase tw-font-bold .mu-wk-clip-bg-to-text;
 
+  @media (--desktop-big) {
+    @apply tw-text-6xl;
+  }
+
   &:hover {
     transform: skewY(2deg) skewX(10deg) scale(1.05);
     text-shadow: 0.5rem 1rem 2rem hsla(0, 0%, 0%, 0.2);
@@ -63,10 +62,6 @@
 
 .heading-tertiary {
   @apply tw-text-lg tw-uppercase tw-font-bold tw-mb-4;
-}
-
-.heading-tertiary-smaller {
-  @apply .heading-tertiary tw-text-base;
 }
 
 .paragraph {

@@ -1,12 +1,14 @@
 /* BREAKPOINT VIEWS 
  * em is better bec. dependent on the user's preset font size
 */
+/* 400px / 16 = 25em  */
+@custom-media --phone (max-width: 25em);
 /* 600px / 16 = 37.5em  */
-@custom-media --phone (max-width: 37.5em);
+@custom-media --tablet-port (max-width: 37.5em);
 /* 900px / 16 = 56.25em  */
-@custom-media --tablet-port (max-width: 56.25em);
+@custom-media --tablet-land (max-width: 56.25em);
 /* 1200px / 16 = 56.25em  */
-@custom-media --tablet-land (max-width: 75em);
+@custom-media --laptop (max-width: 75em);
 /* 1800px / 16 = 112.5em  */
 @custom-media --desktop-big (min-width: 112.5em);
 
