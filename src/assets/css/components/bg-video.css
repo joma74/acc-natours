@@ -5,6 +5,6 @@
   @apply tw-absolute tw-pin tw-overflow-hidden;
 
   @element content {
-    @apply tw-block mu-margin-center-justify tw-object-fill;
+    @apply tw-block mu-margin-center-justify tw-object-cover;
   }
 }
