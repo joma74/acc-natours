@@ -51,7 +51,7 @@
   @apply tw-text-4xl tw-uppercase tw-font-bold .mu-wk-clip-bg-to-text;
 
   @media (--desktop-big) {
-    @apply tw-text-6xl;
+    @apply tw-text-5xl;
   }
 
   &:hover {
