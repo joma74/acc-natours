@@ -14,10 +14,20 @@
     border-top-color: $color-grey-dark;
 
     @apply tw-inline-block tw-border-t-2 tw-pt-6;
+
+    @media (--tablet-port) {
+      @apply tw-w-full tw-text-center;
+    }
   }
 
   @element list {
     @apply tw-list-reset;
+
+    @media (--tablet-land) {
+      vertical-align: baseline;
+
+      @apply tw-leading-normal;
+    }
   }
 
   @element item {
