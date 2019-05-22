@@ -34,7 +34,7 @@
     },
     {
       "compression": "none",
-      "maxSize": "24 kB",
+      "maxSize": "30 kB",
       "path": "./dist/assets/css/app.*.css"
     }
   ],
