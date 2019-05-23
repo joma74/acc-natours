@@ -9,6 +9,10 @@
   clip-path: polygon(0 0, 100% 0, 100% $accnat-header-br-y, 0 100%);
   @apply tw-relative tw-bg-cover tw-bg-top;
 
+  @media (--phone) {
+    clip-path: polygon(0 0, 100% 0, 100% $accnat-header-br-y-sm, 0 100%);
+  }
+
   @element logo-box {
     /* see navigation__menu-botton top: 3.5rem - $accnat-body-padding: 2rem*/
     top: calc(3.5rem - $accnat-body-padding);
