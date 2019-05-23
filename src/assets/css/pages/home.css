@@ -59,7 +59,7 @@
 
   @apply .mu-bg-cover-to-top tw-rounded tw-shadow-md;
 
-  @media (--phone) {
+  @media (--tablet-land) {
     background-image: linear-gradient(
         105deg,
         color-mod($color-white a(90%)) 0%,
@@ -74,6 +74,10 @@
     height: inherit;
 
     @apply tw-p-12;
+
+    @media (--tablet-land) {
+      width: 65%;
+    }
 
     @media (--phone) {
       width: 75%;
