@@ -9,7 +9,7 @@
   clip-path: polygon(0 0, 100% 0, 100% $accnat-header-br-y, 0 100%);
   @apply tw-relative tw-bg-cover tw-bg-top;
 
-  @media (--phone) {
+  @media (--tablet-land) {
     clip-path: polygon(0 0, 100% 0, 100% $accnat-header-br-y-sm, 0 100%);
   }
 
