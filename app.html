@@ -237,7 +237,12 @@
     </section>
     <section class="section-stories">
       <div class="bg-video">
-        <video class="bg-video__content" muted loop>
+        <video
+          class="bg-video__content"
+          muted
+          loop
+          :autoplay="MODE == 'production'"
+        >
           <source src="~@img/video.mp4" type="video/mp4" />
           <source src="~@img/video.webm" type="video/webm" />
           Your browser is not supported!

@@ -1,9 +1,12 @@
 /// <reference types="webpack-env" />
 
+Vue.prototype.MODE = process.env.NODE_ENV
+
 import Vue from "vue"
 import App from "@components/App"
 
-new Vue({
+// @ts-ignore
+window.app = new Vue({
   el: "#app",
   render: (h) => h(App),
 })
