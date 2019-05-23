@@ -2,6 +2,8 @@
   background-color: $color-grey-darkest;
   padding: 8rem 0;
 
+  @apply tw-leading-normal;
+
   @element logo-box {
     @apply tw-text-center tw-mb-24;
   }
@@ -22,10 +24,6 @@
 
   @element list {
     @apply tw-list-reset;
-
-    @media (--tablet-land) {
-      @apply tw-leading-loose;
-    }
   }
 
   @element item {
@@ -57,12 +55,17 @@
 
     @apply tw-inline-block tw-border-t-2 tw-pt-6;
   }
+
+  @element copyright-text {
+    @apply tw-text-justify;
+  }
 }
 
-.footer > .row > .col-1-of-2 {
-  @apply tw-text-center;
-}
-
-.footer > * [class^="footer__b-"] {
-  max-width: 85%;
+@media (--tablet-port) {
+  .footer > .row > .col-1-of-2 {
+    @apply tw-text-center;
+  }
+  .footer > * [class^="footer__b-"] {
+    max-width: 85%;
+  }
 }
