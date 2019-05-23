@@ -10,7 +10,7 @@
     @apply tw-w-48;
   }
 
-  @element navigation {
+  @element b-navigation {
     border-top-color: $color-grey-dark;
 
     @apply tw-inline-block tw-border-t-2 tw-pt-6;
@@ -24,9 +24,7 @@
     @apply tw-list-reset;
 
     @media (--tablet-land) {
-      vertical-align: baseline;
-
-      @apply tw-leading-normal;
+      @apply tw-leading-loose;
     }
   }
 
@@ -54,9 +52,17 @@
     }
   }
 
-  @element copyright {
+  @element b-copyright {
     border-top-color: $color-grey-dark;
 
     @apply tw-inline-block tw-border-t-2 tw-pt-6;
   }
+}
+
+.footer > .row > .col-1-of-2 {
+  @apply tw-text-center;
+}
+
+.footer > * [class^="footer__b-"] {
+  max-width: 85%;
 }
