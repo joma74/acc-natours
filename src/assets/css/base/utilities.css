@@ -5,10 +5,21 @@
   transform: translate(-50%, -50%);
 }
 
+.mu-position-center-undo {
+  top: auto;
+  left: auto;
+  transform: translate(0);
+}
+
 /* Positioning mode has to be defined */
 .mu-position-center-justify {
   left: 50%;
   transform: translateX(-50%);
+}
+
+.mu-position-center-justify-undo {
+  left: auto;
+  transform: translateX(0);
 }
 
 /* Positioning mode has to be defined */
@@ -20,6 +31,11 @@
 .mu-margin-center-justify {
   margin-left: auto;
   margin-right: auto;
+}
+
+.mu-margin-center-justify-undo {
+  margin-left: 0;
+  margin-right: 0;
 }
 
 .mu-leading-byfont {
