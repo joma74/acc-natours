@@ -14,7 +14,8 @@
 
 /* LAYOUT */
 $accnat-body-padding: 2rem;
-$accnat-header-height-cf: 100vh - 2 * $accnat-body-padding;
+$accnat-header-height-cf-sm: 100vh;
+$accnat-header-height-cf: $accnat-header-height-cf-sm - 2 * $accnat-body-padding;
 $accnat-header-br-y: 75vh;
 $accnat-header-br-y-sm: 90vh;
 $accnat-about-tr-y-cf: $accnat-header-height-cf - $accnat-header-br-y;
