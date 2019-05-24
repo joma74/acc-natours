@@ -34,11 +34,14 @@
 
   @element radio-group {
     width: 49.595%; /* 50% breaks the row */
+    line-height: 2.5;
 
     @apply tw-inline-block;
   }
 
   @element radio-label {
+    line-height: 1.125;
+
     @apply tw-relative tw-inline-block tw-pl-10 tw-text-lg tw-cursor-pointer;
   }
 
