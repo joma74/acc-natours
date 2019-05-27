@@ -19,13 +19,18 @@
     @apply tw-block tw-text-6xl;
     @apply tw-whitespace-no-wrap;
 
-    @media (--phone) {
-      @include bal-letter-by-indent(2rem);
-      @apply tw-text-5xl;
+    @media (--tablet-land) {
+      @include bal-letter-by-indent(3rem);
+      @apply tw-text-6xl;
     }
 
-    @media (--desktop-big) {
+    @media (--tablet-port) {
       @include bal-letter-by-indent(4rem);
+      @apply tw-text-6xl;
+    }
+
+    @media (--phone) {
+      @include bal-letter-by-indent(1.5rem);
       @apply tw-text-6xl;
     }
   }
@@ -34,11 +39,6 @@
     @include bal-letter-by-indent(2rem);
     animation: moveInRight 2s ease-in-out;
     @apply tw-block tw-font-bold tw-text-sm tw-leadingrel-6xl;
-
-    @media (--desktop-big) {
-      @include bal-letter-by-indent(2rem);
-      @apply tw-leadingrel-6xl;
-    }
   }
 }
 
