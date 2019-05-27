@@ -11,6 +11,12 @@
 
   @apply tw-fixed tw-pin-t tw-pin-l tw-z-40;
 
+  @supports (backdrop-filter: blur(10px)) {
+    /* stylelint-disable-next-line unit-whitelist */
+    backdrop-filter: blur(10px);
+    background-color: color-mod($color-grey-darkest a(30%));
+  }
+
   @element content {
     background-color: white;
     width: 75%;
@@ -39,7 +45,8 @@
 
     column-count: 2;
     column-gap: 2rem;
-    column-rule: 1px solid $color-grey-light; /* stylelint-disable-line unit-whitelist */
+    /* stylelint-disable-next-line unit-whitelist */
+    column-rule: 1px solid $color-grey-light;
   }
 
   @element close {
