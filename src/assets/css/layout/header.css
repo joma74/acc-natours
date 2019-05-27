@@ -9,9 +9,13 @@
   clip-path: polygon(0 0, 100% 0, 100% $accnat-header-br-y, 0 100%);
   @apply tw-relative tw-bg-cover tw-bg-top;
 
-  /* 192dpi is the minimum for high resolution */
   @media (min-resolution: 192dpi) and (min-width: 37.55em),
     (min-width: 112.5em) {
+    /* ^ 192dpi is the minimum for high resolution.
+     * ^ Note that auto-prefixer adds 
+     * ^ (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.55em) 
+     * ^ for safari.
+     */
     background-image: linear-gradient(
         to right bottom,
         $color-theme-light,
