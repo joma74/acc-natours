@@ -68,18 +68,27 @@
         </div>
         <div class="col-1-of-2">
           <div class="composition">
+            <!-- 198px/400px=0,495; 292px/600px = 0,486; -->
+            <!-- See the currentSrc prop in the browser inspector to check if which 
+              img is being used  -->
             <img
               src="@img/nat-1-large.jpg"
+              srcset="@img/nat-1.jpg 300w, @img/nat-1-large.jpg 1000w"
+              sizes="(max-width: 400px) 49.5vw, (max-width: 600px) 48.6vw, 300px"
               alt="Photo 1"
               class="composition__photo composition__photo--p1"
             />
             <img
               src="@img/nat-2-large.jpg"
+              srcset="@img/nat-2.jpg 300w, @img/nat-2-large.jpg 1000w"
+              sizes="(max-width: 400px) 49.5vw, (max-width: 600px) 48.6vw, 300px"
               alt="Photo 2"
               class="composition__photo composition__photo--p2"
             />
             <img
               src="@img/nat-3-large.jpg"
+              srcset="@img/nat-3.jpg 300w, @img/nat-3-large.jpg 1000w"
+              sizes="(max-width: 400px) 49.5vw, (max-width: 600px) 48.6vw, 350px"
               alt="Photo 3"
               class="composition__photo composition__photo--p3"
             />
@@ -375,7 +384,19 @@
   </main>
   <footer class="footer">
     <div class="footer__logo-box">
-      <img src="~@img/logo-green-2x.png" alt="Full logo" class="footer__logo" />
+      <picture
+        ><source
+          srcset="
+            ~@img/logo-green-small-1x.png 1x,
+            ~@img/logo-green-small-2x.png 2x
+          "
+          media="(max-width: 25em)"/>
+        <img
+          src="~@img/logo-green-2x.png"
+          srcset="~@img/logo-green-1x.png 1x, ~@img/logo-green-2x.png 2x"
+          alt="Full logo"
+          class="footer__logo"
+      /></picture>
     </div>
     <div class="row">
       <div class="col-1-of-2">
