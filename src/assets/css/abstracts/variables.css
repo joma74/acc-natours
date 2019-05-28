@@ -2,15 +2,22 @@
  * em is better bec. dependent on the user's preset font size
 */
 /* 400px / 16 = 25em  */
-@custom-media --phone (max-width: 25em);
+@custom-media --phone only screen and (max-width: 25em);
 /* 600px / 16 = 37.5em  */
-@custom-media --tablet-port (max-width: 37.5em);
+@custom-media --tablet-port only screen and (max-width: 37.5em);
 /* 900px / 16 = 56.25em  */
-@custom-media --tablet-land (max-width: 56.25em);
+@custom-media --tablet-land only screen and (max-width: 56.25em);
 /* 1200px / 16 = 56.25em  */
-@custom-media --laptop (max-width: 75em);
+@custom-media --laptop only screen and (max-width: 75em);
 /* 1800px / 16 = 112.5em  */
-@custom-media --desktop-big (min-width: 112.5em);
+@custom-media --desktop-big only screen and (min-width: 112.5em);
+
+/* 192dpi is the minimum for high resolution.
+ * Note that auto-prefixer adds 
+ * (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.55em) for safari.
+ */
+@custom-media --higher-resolution only screen and (min-resolution: 192dpi) and (min-width: 37.55em),
+  (min-width: 112.5em);
 
 /* LAYOUT */
 $accnat-body-padding: 2rem;
