@@ -9,29 +9,35 @@
 
   transition: visibility 1s cubic-bezier(1, 0, 1, 0), opacity 1s;
 
-  @apply .tw-fixed .tw-pin-t .tw-pin-l .tw-z-40;
+  @apply tw-fixed tw-pin-t tw-pin-l tw-z-40;
+
+  @supports (backdrop-filter: blur(10px)) {
+    /* stylelint-disable-next-line unit-whitelist */
+    backdrop-filter: blur(10px);
+    background-color: color-mod($color-grey-darkest a(30%));
+  }
 
   @element content {
     background-color: white;
     width: 75%;
 
-    @apply .tw-absolute .mu-position-center .tw-table .tw-shadow-xl-dark .tw-rounded-sm;
+    @apply tw-absolute .mu-position-center tw-table tw-shadow-xl-dark tw-rounded-sm;
   }
 
   @element left {
     width: calc(100 / 3) %;
 
-    @apply .tw-table-cell .tw-align-middle;
+    @apply tw-table-cell tw-align-middle;
   }
 
   @element img {
-    @apply .tw-block .tw-object-cover;
+    @apply tw-block tw-object-cover;
   }
 
   @element right {
     width: calc(100 / 3 * 2) %;
 
-    @apply .tw-table-cell .tw-align-middle .tw-p-8 .tw-p-8;
+    @apply tw-table-cell tw-align-middle tw-p-8 tw-p-8;
   }
 
   @element text {
@@ -39,14 +45,15 @@
 
     column-count: 2;
     column-gap: 2rem;
-    column-rule: 1px solid $color-grey-light; /* stylelint-disable-line unit-whitelist */
+    /* stylelint-disable-next-line unit-whitelist */
+    column-rule: 1px solid $color-grey-light;
   }
 
   @element close {
     top: 1rem;
     right: 1.5rem;
 
-    @apply .tw-absolute .tw-text-2xl;
+    @apply tw-absolute tw-text-2xl;
   }
 
   &:target {

@@ -1,5 +1,14 @@
 @block composition {
-  @apply .tw-relative;
+  @apply tw-relative;
+
+  @media (--tablet-port) {
+    /* 1rem = 8px; 261px/150px= 50% */
+    padding-bottom: 50%;
+    /* for scale animation estate */
+    margin-top: 4rem;
+    /* for scale animation estate */
+    @apply tw-mx-10;
+  }
 
   @element photo {
     width: 55%;
@@ -9,16 +18,16 @@
     backface-visibility: hidden; /* else elm moves slightly down 
   at the end of the animation */
 
-    @apply tw-shadow-md .tw-absolute;
+    @apply tw-shadow-md tw-absolute;
 
     @modifier p1 {
-      top: -2rem;
-      @apply .tw-pin-l;
+      top: 2rem;
+      @apply tw-pin-l;
     }
 
     @modifier p2 {
-      top: 2rem;
-      @apply .tw-pin-r;
+      top: 4rem;
+      @apply tw-pin-r;
     }
 
     @modifier p3 {
@@ -28,14 +37,14 @@
       &:hover {
         left: 50%;
         transform: translateX(-50%) translateY(-1rem) scale(1.05);
-        @apply .tw-shadow-lg;
+        @apply tw-shadow-lg;
       }
     }
 
     &:hover {
       outline: 1rem solid $color-theme;
       transform: translateY(-1rem) scale(1.05);
-      @apply .tw-shadow-lg .tw-z-1;
+      @apply tw-shadow-lg tw-z-1;
     }
   }
 

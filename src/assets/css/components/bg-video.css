@@ -1,10 +1,13 @@
 @block bg-video {
-  padding: inherit;
   opacity: 0.15;
 
-  @apply .tw-absolute .tw-pin .tw-overflow-hidden;
+  @apply tw-absolute tw-pin tw-overflow-hidden;
 
   @element content {
-    @apply .tw-block .mu-margin-center-justify .tw-object-fill;
+    /* video is stubborn to cover element. 
+     * min-width and max-wdith of 100% seem to
+     * do just that.
+    */
+    @apply tw-block mu-margin-center-justify tw-min-w-full tw-min-h-full;
   }
 }

@@ -171,16 +171,16 @@ const webpackConfig = {
       use: [
         {
           loader: "extracted-loader",
+          options: { sourceMap: true },
         },
         ...extractCSS.extract({
-          fallback: "style-loader",
+          fallback: { loader: "style-loader", options: { sourceMap: true } },
           use: [
             {
               loader: "css-loader",
               options: {
                 importLoaders: 1,
-                minimize: ENVMODE.hasVProduction(),
-                sourceMap: ENVMODE.hasVProduction(),
+                sourceMap: true,
               },
             },
             {
@@ -190,6 +190,7 @@ const webpackConfig = {
                 config: {
                   path: "./config/postcss/",
                 },
+                sourceMap: "inline",
               },
             },
           ],

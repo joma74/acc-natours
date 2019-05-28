@@ -5,26 +5,45 @@
       $color-theme-light,
       $color-theme
     ),
-    url("~@img/hero.jpg");
+    url("~@img/hero-small.jpg");
   clip-path: polygon(0 0, 100% 0, 100% $accnat-header-br-y, 0 100%);
-  @apply .tw-relative .tw-bg-cover .tw-bg-top;
+  @apply tw-relative tw-bg-cover tw-bg-top;
+
+  @media (--higher-resolution) {
+    background-image: linear-gradient(
+        to right bottom,
+        $color-theme-light,
+        $color-theme
+      ),
+      url("~@img/hero.jpg");
+  }
+
+  @media (--tablet-land) {
+    clip-path: polygon(0 0, 100% 0, 100% $accnat-header-br-y-sm, 0 100%);
+  }
 
   @element logo-box {
-    top: calc($accnat-body-padding + 1rem);
+    /* see navigation__menu-botton top: 3.5rem - $accnat-body-padding: 2rem*/
+    top: calc(3.5rem - $accnat-body-padding);
     left: calc($accnat-body-padding + 1rem);
-    @apply .tw-absolute;
+    @apply tw-absolute;
+
+    @media (--tablet-port) {
+      /* see navigation__menu-botton - no $accnat-body-padding  */
+      top: 3.5rem;
+    }
   }
 
   @element logo {
-    @apply .tw-h-10;
+    height: 5rem;
   }
 
   @element text-box {
-    @apply .mu-position-center .tw-relative; /* absolute would also 
+    @apply .mu-position-center tw-relative; /* absolute would also 
   been an option iff there would be a parent elm being relative  */
-    @apply .tw-inline-block; /* else the child does not shrink 
+    @apply tw-inline-block; /* else the child does not shrink 
   and hence does not center horizontally*/
-    @apply .tw-text-center;
-    @apply .tw-max-w-full .tw-w-full;
+    @apply tw-text-center;
+    @apply tw-max-w-full tw-w-full;
   }
 }

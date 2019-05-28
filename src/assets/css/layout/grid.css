@@ -15,6 +15,15 @@
 
     &:not(:last-child) {
       margin-right: $gutter-horizontal;
+
+      @media (--tablet-port) {
+        margin-right: 0;
+        margin-bottom: $gutter-vertical-md;
+      }
+    }
+
+    @media (--tablet-port) {
+      width: 100% !important;
     }
   }
 

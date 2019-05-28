@@ -1,4 +1,4 @@
-let postcss_plugins = {
+let postcss_config = {
   plugins: [
     // @ts-ignore
     require("postcss-easy-import"),
@@ -15,6 +15,8 @@ let postcss_plugins = {
     // @ts-ignore
     require("postcss-nesting"),
     // @ts-ignore
+    require("postcss-custom-media"),
+    // @ts-ignore
     require("tailwindcss")("config/postcss/tailwind.js"),
     // @ts-ignore
     require("autoprefixer"),
@@ -22,16 +24,24 @@ let postcss_plugins = {
 }
 
 if (process.env.NODE_ENV === "production") {
-  postcss_plugins.plugins.push(
-    require("@fullhuman/postcss-purgecss")(
-      process.env.NODE_ENV === "production"
-        ? {
-            whitelist: ["html", "body"],
-            content: ["./app.html", "./src/**/*.html"],
-          }
-        : false,
-    ),
+  postcss_config.plugins.push(
+    require("@fullhuman/postcss-purgecss")({
+      whitelist: ["html", "body"],
+      content: ["./app.html", "./src/**/*.html"],
+    }),
+  )
+  postcss_config.plugins.push(
+    require("cssnano")({
+      preset: [
+        "default",
+        {
+          discardComments: {
+            removeAll: true,
+          },
+        },
+      ],
+    }),
   )
 }
 
-module.exports = postcss_plugins
+module.exports = postcss_config

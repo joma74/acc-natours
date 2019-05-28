@@ -171,8 +171,6 @@ const webpackConfig = {
               options: {
                 ident: "css",
                 importLoaders: 1,
-                minimize: ENVMODE.hasVProduction(),
-                sourceMap: ENVMODE.hasVProduction(),
               },
             },
             {
@@ -261,9 +259,15 @@ const webpackConfig = {
     new webpack.SourceMapDevToolPlugin({
       // only accepted param is [url]
       // append: `\n//# sourceMappingURL=http://localhost:${ENVAPPSRVPORT.getVProd()}/[url]`,
-      filename: "sourcemaps/[file].map",
+      filename: "sourcemaps/[file].map[query]",
       // onec css is included in regex, all breaks?!
       test: /\.(js|jsx)($|\?)/i,
+      // See https://stackoverflow.com/a/55282204 for options
+      append: null,
+      module: true,
+      columns: true,
+      lineToLine: false,
+      noSources: false,
     }),
 
     new HardSourceWebpackPlugin({

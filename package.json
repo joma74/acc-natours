@@ -16,6 +16,12 @@
     "screenshots_prod": "target/reports-prod/screenshots/actual/",
     "screenshot-path-pattern": "\\${FIXTURE}/\\${TEST}/\\${USERAGENT}/\\${FILE_INDEX}.png"
   },
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead",
+    "> 1%"
+  ],
   "bundlesize": [
     {
       "compression": "none",
@@ -34,7 +40,7 @@
     },
     {
       "compression": "none",
-      "maxSize": "23 kB",
+      "maxSize": "30 kB",
       "path": "./dist/assets/css/app.*.css"
     }
   ],
@@ -44,8 +50,9 @@
     "clean-work-prod": "del-cli 'target/reports-prod' 'build/*' '!*/yarn.*.log'",
     "_prettier": "prettier --list-different '**/*.{js,json,md,html,css}' '!build/**' '!dist/**' '!target/**'",
     "prettier-fix": "prettier --write '**/*.{js,json,md,html,css}' '!build/**' '!dist/**' '!target/**' && yarn _prettier",
+    "check-browserslist": "browserslist",
     "check-bundlesize": "bundlesize",
-    "postcss-debug": "cross-env NODE_ENV=development postcss-debug --config config/postcss.config.debug.js app.css",
+    "postcss-debug": "cross-env NODE_ENV=development postcss-debug --config config/postcss/postcss.config.debug.js app.css",
     "_serve-dev": "webpack-dev-server --config=config/webpack/webpack.dev.config.js --watch --no-progress",
     "serve-dev": "run-s -l clean-work-dev _serve-dev",
     "serve-prod": "json-server build/db.json --quiet --port $npm_package_config_app_svrprod_port --static dist",
@@ -107,6 +114,7 @@
     "postcss-atrule-bem": "^3.1.1",
     "postcss-calc": "^7.0.1",
     "postcss-color-mod-function": "^3.0.3",
+    "postcss-custom-media": "^7.0.8",
     "postcss-debug": "^0.4.2",
     "postcss-easy-import": "^3.0.0",
     "postcss-loader": "^2.0.8",
@@ -136,6 +144,7 @@
     "webpack-disk-plugin": "^0.0.2"
   },
   "dependencies": {
+    "cssnano": "^4.1.10",
     "vue": "^2"
   }
 }

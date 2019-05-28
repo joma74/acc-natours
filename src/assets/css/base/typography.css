@@ -1,9 +1,9 @@
 @block heading-primary {
   backface-visibility: hidden; /* else elm moves slightly down 
   at the end of the animation */
-  @apply .tw-uppercase .tw-text-white .tw-font-regular;
-  @apply .tw-mb-6;
-  @apply .tw-overflow-scroll; /* else text overflows even the
+  @apply tw-uppercase tw-text-white tw-font-regular;
+  @apply tw-mb-6;
+  @apply tw-overflow-scroll; /* else text overflows even the
   body, then shows empty extra screen to the x (nobody 
   understands why)*/
   -ms-overflow-style: none; /* IE 10+ */
@@ -14,16 +14,31 @@
   }
 
   @modifier main {
-    @include bal-letter-by-indent(2rem);
+    @include bal-letter-by-indent(4rem);
     animation: moveInLeft 2s ease-in-out;
-    @apply .tw-block .tw-text-5xl;
-    @apply .tw-whitespace-no-wrap;
+    @apply tw-block tw-text-6xl;
+    @apply tw-whitespace-no-wrap;
+
+    @media (--tablet-land) {
+      @include bal-letter-by-indent(3rem);
+      @apply tw-text-6xl;
+    }
+
+    @media (--tablet-port) {
+      @include bal-letter-by-indent(4rem);
+      @apply tw-text-6xl;
+    }
+
+    @media (--phone) {
+      @include bal-letter-by-indent(1.5rem);
+      @apply tw-text-6xl;
+    }
   }
 
   @modifier sub {
-    @include bal-letter-by-indent(1rem);
+    @include bal-letter-by-indent(2rem);
     animation: moveInRight 2s ease-in-out;
-    @apply .tw-block .tw-font-bold .tw-text-sm .tw-leadingrel-6xl;
+    @apply tw-block tw-font-bold tw-text-sm tw-leadingrel-6xl;
   }
 }
 
@@ -31,9 +46,13 @@
   background-image: linear-gradient(to right, $color-theme-light, $color-theme);
   transition: all 0.2s;
   max-width: 100%;
-  @apply .tw-inline-block;
+  @apply tw-inline-block;
   @include bal-letter-by-indent(0.1em);
-  @apply .tw-text-4xl .tw-uppercase .tw-font-bold .mu-wk-clip-bg-to-text;
+  @apply tw-text-4xl tw-uppercase tw-font-bold .mu-wk-clip-bg-to-text;
+
+  @media (--desktop-big) {
+    @apply tw-text-5xl;
+  }
 
   &:hover {
     transform: skewY(2deg) skewX(10deg) scale(1.05);
@@ -42,17 +61,13 @@
 }
 
 .heading-tertiary {
-  @apply .tw-text-lg .tw-uppercase .tw-font-bold .tw-mb-4;
-}
-
-.heading-tertiary-smaller {
-  @apply .heading-tertiary .tw-text-base;
+  @apply tw-text-lg tw-uppercase tw-font-bold tw-mb-4;
 }
 
 .paragraph {
-  @apply .tw-text-2xl;
+  @apply tw-text-2xl;
 
   &:not(:last-child) {
-    @apply .tw-mb-8;
+    @apply tw-mb-8;
   }
 }

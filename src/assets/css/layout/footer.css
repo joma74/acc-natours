@@ -2,29 +2,35 @@
   background-color: $color-grey-darkest;
   padding: 8rem 0;
 
+  @apply tw-leading-normal;
+
   @element logo-box {
-    @apply .tw-text-center .tw-mb-24;
+    @apply tw-text-center tw-mb-24;
   }
 
   @element logo {
-    @apply .tw-w-48;
+    @apply tw-w-48;
   }
 
-  @element navigation {
+  @element b-navigation {
     border-top-color: $color-grey-dark;
 
-    @apply .tw-inline-block .tw-border-t-2 .tw-pt-6;
+    @apply tw-inline-block tw-border-t-2 tw-pt-6;
+
+    @media (--tablet-port) {
+      @apply tw-w-full tw-text-center;
+    }
   }
 
   @element list {
-    @apply .tw-list-reset;
+    @apply tw-list-reset;
   }
 
   @element item {
-    @apply .tw-inline-block;
+    @apply tw-inline-block;
 
     &:not(:last-child) {
-      @apply .tw-mr-4;
+      @apply tw-mr-4;
     }
   }
 
@@ -34,7 +40,7 @@
 
     transition: all 0.2s;
 
-    @apply .tw-inline-block .tw-uppercase;
+    @apply tw-inline-block tw-uppercase;
 
     &:hover,
     &:active {
@@ -44,9 +50,22 @@
     }
   }
 
-  @element copyright {
+  @element b-copyright {
     border-top-color: $color-grey-dark;
 
-    @apply .tw-inline-block .tw-border-t-2 .tw-pt-6;
+    @apply tw-inline-block tw-border-t-2 tw-pt-6;
+  }
+
+  @element copyright-text {
+    @apply tw-text-justify;
+  }
+}
+
+@media (--tablet-port) {
+  .footer > .row > .col-1-of-2 {
+    @apply tw-text-center;
+  }
+  .footer > * [class^="footer__b-"] {
+    max-width: 85%;
   }
 }

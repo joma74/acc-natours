@@ -68,18 +68,28 @@
         </div>
         <div class="col-1-of-2">
           <div class="composition">
+            <!-- non-large 300x200, large 1000x667 -->
+            <!-- 198px/400px=0,495; 292px/600px = 0,486; -->
+            <!-- See the currentSrc prop in the browser inspector to check if which 
+              img is being used  -->
             <img
               src="@img/nat-1-large.jpg"
+              srcset="@img/nat-1.jpg 300w, @img/nat-1-large.jpg 1000w"
+              sizes="(max-width: 25em) 49.5vw, (max-width: 37.5em) 48.6vw, 300px"
               alt="Photo 1"
               class="composition__photo composition__photo--p1"
             />
             <img
               src="@img/nat-2-large.jpg"
+              srcset="@img/nat-2.jpg 300w, @img/nat-2-large.jpg 1000w"
+              sizes="(max-width: 25em) 49.5vw, (max-width: 37.5em) 48.6vw, 300px"
               alt="Photo 2"
               class="composition__photo composition__photo--p2"
             />
             <img
               src="@img/nat-3-large.jpg"
+              srcset="@img/nat-3.jpg 300w, @img/nat-3-large.jpg 1000w"
+              sizes="(max-width: 25em) 49.5vw, (max-width: 37.5em) 48.6vw, 300px"
               alt="Photo 3"
               class="composition__photo composition__photo--p3"
             />
@@ -94,7 +104,7 @@
             <svg class="feature-box__icon">
               <use href="~@svg/linea_basics.svg#world"></use>
             </svg>
-            <h3 class="heading-tertiary-smaller">Explore the world</h3>
+            <h3 class="heading-tertiary">Explore the world</h3>
             <p class="feature-box__text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
@@ -105,7 +115,7 @@
             <svg class="feature-box__icon">
               <use href="~@svg/linea_basics.svg#compass"></use>
             </svg>
-            <h3 class="heading-tertiary-smaller">Meet nature</h3>
+            <h3 class="heading-tertiary">Meet nature</h3>
             <p class="feature-box__text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
@@ -116,7 +126,7 @@
             <svg class="feature-box__icon">
               <use href="~@svg/linea_basics.svg#map"></use>
             </svg>
-            <h3 class="heading-tertiary-smaller">Find your way</h3>
+            <h3 class="heading-tertiary">Find your way</h3>
             <p class="feature-box__text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
@@ -127,7 +137,7 @@
             <svg class="feature-box__icon">
               <use href="~@svg/linea_basics.svg#heart"></use>
             </svg>
-            <h3 class="heading-tertiary-smaller">Live a healthier life</h3>
+            <h3 class="heading-tertiary">Live a healthier life</h3>
             <p class="feature-box__text">
               Lorem ipsum dolor sit amet consectetur adipisicing elit.
             </p>
@@ -237,7 +247,12 @@
     </section>
     <section class="section-stories">
       <div class="bg-video">
-        <video class="bg-video__content" muted loop>
+        <video
+          class="bg-video__content"
+          muted
+          loop
+          :autoplay="MODE == 'production'"
+        >
           <source src="~@img/video.mp4" type="video/mp4" />
           <source src="~@img/video.webm" type="video/webm" />
           Your browser is not supported!
@@ -360,7 +375,7 @@
                 </div>
               </div>
               <div class="form__group">
-                <button class="btn btn--green tw-mt-6">Next step</button>
+                <button class="btn btn--green tw-mt-2">Next step</button>
               </div>
             </form>
           </div>
@@ -370,11 +385,23 @@
   </main>
   <footer class="footer">
     <div class="footer__logo-box">
-      <img src="~@img/logo-green-2x.png" alt="Full logo" class="footer__logo" />
+      <picture
+        ><source
+          srcset="
+            ~@img/logo-green-small-1x.png 1x,
+            ~@img/logo-green-small-2x.png 2x
+          "
+          media="(max-width: 25em)"/>
+        <img
+          src="~@img/logo-green-2x.png"
+          srcset="~@img/logo-green-1x.png 1x, ~@img/logo-green-2x.png 2x"
+          alt="Full logo"
+          class="footer__logo"
+      /></picture>
     </div>
     <div class="row">
       <div class="col-1-of-2">
-        <div class="footer__navigation">
+        <div class="footer__b-navigation">
           <ul class="footer__list">
             <li class="footer__item">
               <a href="#0" class="footer__link">Company</a>
@@ -395,15 +422,17 @@
         </div>
       </div>
       <div class="col-1-of-2">
-        <p class="footer__copyright">
-          Built by <a href="#0" class="footer__link">Jörg Maurer</a> after the
-          online course
-          <a href="#0" class="footer__link">Advanced CSS and Sass</a>. Copyright
-          &copy; by Jonas Schmedtmann. You are 100% allowed to use this webpage
-          for both personal and commercial use. But NOT to claim it as your own
-          design. A credit to the original author, Jonas Schmedtmann, is of
-          course highly appreciated!
-        </p>
+        <div class="footer__b-copyright">
+          <p class="footer__copyright-text">
+            Built by <a href="#0" class="footer__link">Jörg Maurer</a> after the
+            online course
+            <a href="#0" class="footer__link">Advanced CSS and Sass</a>.
+            Copyright &copy; by Jonas Schmedtmann. You are 100% allowed to use
+            this webpage for both personal and commercial use. But NOT to claim
+            it as your own design. A credit to the original author, Jonas
+            Schmedtmann, is of course highly appreciated!
+          </p>
+        </div>
       </div>
     </div>
   </footer>

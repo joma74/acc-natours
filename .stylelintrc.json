@@ -24,6 +24,6 @@
       }
     ],
     "block-no-empty": null,
-    "unit-whitelist": ["em", "rem", "%", "ch", "vh", "vw", "s", "deg"]
+    "unit-whitelist": ["em", "rem", "%", "ch", "vh", "vw", "s", "deg", "dpi"]
   }
 }

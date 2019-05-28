@@ -4,17 +4,27 @@
   transform: skew(-12deg);
   background-color: color-mod($color-white a(40%));
 
-  @apply .tw-m-auto .tw-p-16 .tw-rounded .tw-shadow-lg;
+  @apply tw-m-auto tw-p-16 tw-rounded tw-shadow-lg;
 
   @element shape {
     height: $story-image-wh;
     width: $story-image-wh;
 
-    shape-outside: circle(50% at 50% 50%);
-    clip-path: circle(50% at 50% 50%);
+    border-radius: 50%;
+    overflow: hidden;
+
     transform: translate(-1.5rem) skew(12deg);
 
-    @apply .tw-relative .tw-float-left;
+    @supports (clip-path: circle(50% at 50% 50%) {
+      clip-path: circle(50% at 50% 50%);
+      border-radius: none;
+    }
+
+    @supports (shape-outside: circle(50% at 50% 50%)) {
+      shape-outside: circle(50% at 50% 50%);
+    }
+
+    @apply tw-relative tw-float-left;
   }
 
   @element image {
@@ -24,14 +34,14 @@
     transform: translateX(-2rem) scale(1.4);
     backface-visibility: hidden;
 
-    @apply .tw-block .tw-h-full;
+    @apply tw-block tw-h-full;
   }
 
   @element caption {
     transition: all 0.5s;
     backface-visibility: hidden;
 
-    @apply .tw-absolute .mu-position-center .tw-text-center .tw-text-white .tw-uppercase;
+    @apply tw-absolute .mu-position-center tw-text-center tw-text-white tw-uppercase;
 
     opacity: 0;
     transform: translate(-50%, 20%);
@@ -41,7 +51,11 @@
     transform: skew(12deg);
     min-height: $story-image-wh;
 
-    @apply .tw-leading-tight;
+    @apply tw-leading-tight;
+
+    @media (--tablet-port) {
+      @apply tw-text-xl;
+    }
   }
 
   &:hover .story__caption {

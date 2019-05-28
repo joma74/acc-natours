@@ -8,10 +8,38 @@
   background-repeat: no-repeat;
 }
 
+html {
+  /* 1rem = 16px; 16px/16px= 100% */
+  font-size: 100%;
+  /* As working with max-wdith in media-queries.
+   * T.i. <= last one wins.  Hence the following ordering. 
+   */
+  @media (--desktop-big) {
+    /* 1rem = 13px; 13px/16px= 81.25% */
+    font-size: 120%;
+  }
+  @media (--tablet-land) {
+    /* 1rem = 13px; 13px/16px= 81.25% */
+    font-size: 81.25%;
+  }
+  @media (--tablet-port) {
+    /* 1rem = 10px; 10px/16px= 62.5% */
+    font-size: 62.5%;
+  }
+  @media (--tablet-port) {
+    /* 1rem = 8px; 8px/16px= 50% */
+    font-size: 50%;
+  }
+}
+
 body {
   --accnat-color-theme-text: $color-theme-text;
   color: var(--accnat-color-theme-text);
   padding: $accnat-body-padding;
+
+  @media (--tablet-port) {
+    padding: 0;
+  }
 }
 
 input[type="text"],
@@ -23,4 +51,9 @@ input[type="email"] {
 
 a {
   text-decoration-line: none;
+}
+
+::selection {
+  background-color: $color-theme;
+  color: $color-white;
 }

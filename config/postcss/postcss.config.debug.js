@@ -15,6 +15,8 @@ module.exports = function(postcss) {
     // @ts-ignore
     require("postcss-nesting"),
     // @ts-ignore
+    require("postcss-custom-media"),
+    // @ts-ignore
     require("tailwindcss")("config/postcss/tailwind.js"),
     // @ts-ignore
     require("autoprefixer"),

@@ -3,21 +3,27 @@
   /**
     * These two MUST be set to make backface-visibility work properly 
     */
-  perspective: 50rem;
+  perspective: 200rem;
   transform-style: preserve-3d;
 
-  @apply .tw-relative;
+  @apply tw-relative;
+
+  @media (--tablet-port) {
+    max-width: 90%;
+
+    @apply mu-margin-center-justify;
+  }
 
   @element side {
     transition: all 0.8s ease;
     backface-visibility: hidden;
 
-    @apply .tw-absolute .tw-pin .tw-rounded-sm .tw-overflow-hidden .tw-shadow-lg;
+    @apply tw-absolute tw-pin tw-rounded-sm tw-overflow-hidden tw-shadow-lg;
 
     @modifier front {
       will-change: transform;
 
-      @apply .tw-bg-white;
+      @apply tw-bg-white;
     }
 
     @modifier front-1 {
@@ -74,7 +80,7 @@
     background-blend-mode: screen;
     clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
 
-    @apply .tw-bg-cover .tw-bg-center;
+    @apply tw-bg-cover tw-bg-center;
 
     @modifier 1 {
       background-image: linear-gradient(
@@ -107,13 +113,13 @@
     right: 1rem;
     width: 75%;
 
-    @apply .tw-absolute .tw-text-right .tw-text-xl .tw-font-light .tw-text-white .tw-uppercase;
+    @apply tw-absolute tw-text-right tw-text-xl tw-font-light tw-text-white tw-uppercase;
   }
 
   @element heading-span {
     box-decoration-break: clone;
 
-    @apply .tw-leadingrel-3xl .tw-pt-2 .tw-pb-2 .tw-pr-4 .tw-pl-4;
+    @apply tw-leadingrel-3xl tw-pt-2 tw-pb-2 tw-pr-4 tw-pl-4;
 
     @modifier 1 {
       background-image: linear-gradient(
@@ -139,20 +145,20 @@
   }
 
   @element details {
-    @apply .tw-p-8;
+    @apply tw-p-8;
 
     & ul {
       width: 80%;
 
-      @apply .tw-list-reset .tw-mx-auto;
+      @apply tw-list-reset tw-mx-auto;
 
       & li {
         &:not(:last-child) {
           border-color: $color-grey-light;
-          @apply .tw-border-b-2;
+          @apply tw-border-b-2;
         }
 
-        @apply .tw-text-center .tw-p-3;
+        @apply tw-text-center tw-p-3;
       }
     }
   }
@@ -161,18 +167,63 @@
     /* for button to not shrink e.g. unto two lines */
     width: 90%;
 
-    @apply .tw-absolute .mu-position-center .tw-text-center;
+    @apply tw-absolute .mu-position-center tw-text-center;
   }
 
   @element price-box {
-    @apply .tw-text-center .tw-mb-24 .tw-text-white;
+    @apply tw-text-center tw-mb-24 tw-text-white;
   }
 
   @element price-only {
-    @apply .tw-text-lg .tw-uppercase;
+    @apply tw-text-lg tw-uppercase;
   }
 
   @element price-value {
-    @apply .tw-font-hairline .tw-text-6xl;
+    @apply tw-font-hairline tw-text-6xl;
+  }
+}
+
+/* second @media does not work */
+@media (--tablet-port), screen and (hover: none) {
+  @block card {
+    height: auto;
+    max-width: 90%;
+
+    @apply tw-relative mu-margin-center-justify tw-bg-white tw-rounded-sm tw-shadow-lg;
+
+    @element side {
+      height: auto;
+
+      @apply tw-relative tw-shadow-none tw-rounded-none;
+
+      @modifier back {
+        transform: rotateY(0);
+        clip-path: polygon(0 15%, 100% 0, 100% 100%, 0% 100%);
+      }
+    }
+
+    @element details {
+      font-size: 1.5rem;
+    }
+
+    @element cta {
+      width: 100%;
+      padding: 3rem;
+      padding-top: 5rem;
+
+      @apply tw-relative mu-position-center-undo;
+    }
+
+    @element price-box {
+      @apply tw-mb-10;
+    }
+
+    &:hover .card__side--front {
+      transform: rotateY(0);
+    }
+
+    &:hover .card__side--back {
+      transform: rotateY(0);
+    }
   }
 }
