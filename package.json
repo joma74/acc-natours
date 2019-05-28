@@ -16,6 +16,12 @@
     "screenshots_prod": "target/reports-prod/screenshots/actual/",
     "screenshot-path-pattern": "\\${FIXTURE}/\\${TEST}/\\${USERAGENT}/\\${FILE_INDEX}.png"
   },
+  "browserslist": [
+    "last 2 versions",
+    "Firefox ESR",
+    "not dead",
+    "> 1%"
+  ],
   "bundlesize": [
     {
       "compression": "none",
@@ -44,6 +50,7 @@
     "clean-work-prod": "del-cli 'target/reports-prod' 'build/*' '!*/yarn.*.log'",
     "_prettier": "prettier --list-different '**/*.{js,json,md,html,css}' '!build/**' '!dist/**' '!target/**'",
     "prettier-fix": "prettier --write '**/*.{js,json,md,html,css}' '!build/**' '!dist/**' '!target/**' && yarn _prettier",
+    "check-browserslist": "browserslist",
     "check-bundlesize": "bundlesize",
     "postcss-debug": "cross-env NODE_ENV=development postcss-debug --config config/postcss/postcss.config.debug.js app.css",
     "_serve-dev": "webpack-dev-server --config=config/webpack/webpack.dev.config.js --watch --no-progress",
