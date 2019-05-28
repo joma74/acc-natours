@@ -52,3 +52,8 @@ input[type="email"] {
 a {
   text-decoration-line: none;
 }
+
+::selection {
+  background-color: $color-theme;
+  color: $color-white;
+}
