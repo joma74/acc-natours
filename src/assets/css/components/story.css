@@ -10,9 +10,19 @@
     height: $story-image-wh;
     width: $story-image-wh;
 
-    shape-outside: circle(50% at 50% 50%);
-    clip-path: circle(50% at 50% 50%);
+    border-radius: 50%;
+    overflow: hidden;
+
     transform: translate(-1.5rem) skew(12deg);
+
+    @supports (clip-path: circle(50% at 50% 50%) {
+      clip-path: circle(50% at 50% 50%);
+      border-radius: none;
+    }
+
+    @supports (shape-outside: circle(50% at 50% 50%)) {
+      shape-outside: circle(50% at 50% 50%);
+    }
 
     @apply tw-relative tw-float-left;
   }
