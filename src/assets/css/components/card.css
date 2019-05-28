@@ -183,7 +183,8 @@
   }
 }
 
-@media (--tablet-port) {
+/* second @media does not work */
+@media (--tablet-port), screen and (hover: none) {
   @block card {
     height: auto;
     max-width: 90%;
