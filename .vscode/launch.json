@@ -10,6 +10,10 @@
       "protocol": "inspector",
       "name": "Launch test files with TestCafe",
       "program": "${workspaceFolder}/node_modules/testcafe/bin/testcafe.js",
+      "env": {
+        "NODE_ENV": "development",
+        "npm_package_config_app_svrdev_port": "6070"
+      },
       "args": [
         "chrome",
         "-S",
