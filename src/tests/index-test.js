@@ -1,4 +1,4 @@
-import { getUA, identifyUserAgent } from "./utils/identify-useragent"
+import { getUA, parseUserAgentAsFileName } from "./utils/identify-useragent"
 import { scrollTo } from "./utils/scroll"
 
 const ENVAPPSRVPORT = require("../../config/env/ENVAPPSRVPORT")
@@ -6,21 +6,19 @@ const ENVAPPSRVPORT = require("../../config/env/ENVAPPSRVPORT")
 fixture("Index_Page_Test")
   .page(`http://localhost:${ENVAPPSRVPORT.get()}/index.html`)
   .beforeEach(async (t) => {
-    await t.resizeWindow(1280, 1024) // SXGA
+    // await t.resizeWindow(1280, 1024) // SXGA
   })
 
-const testName = "dom_has_critical_elements"
-
-test(testName, async (t) => {
+test("take_screenshots", async (t) => {
   const ua = await getUA()
-  const uaDir = identifyUserAgent(ua)
+  const uaDirName = parseUserAgentAsFileName(ua)
 
   await t.takeScreenshot(
     t.testRun.test.fixture.name +
       "/" +
       t.testRun.test.name +
       "/" +
-      uaDir +
+      uaDirName +
       "/" +
       "initial-page-load.png",
   )
@@ -32,7 +30,7 @@ test(testName, async (t) => {
       "/" +
       t.testRun.test.name +
       "/" +
-      uaDir +
+      uaDirName +
       "/" +
       "section-about.png",
   )
@@ -44,7 +42,7 @@ test(testName, async (t) => {
       "/" +
       t.testRun.test.name +
       "/" +
-      uaDir +
+      uaDirName +
       "/" +
       "section-features.png",
   )
@@ -56,7 +54,7 @@ test(testName, async (t) => {
       "/" +
       t.testRun.test.name +
       "/" +
-      uaDir +
+      uaDirName +
       "/" +
       "section-tours.png",
   )
@@ -70,7 +68,7 @@ test(testName, async (t) => {
       "/" +
       t.testRun.test.name +
       "/" +
-      uaDir +
+      uaDirName +
       "/" +
       "section-tours-card-turned.png",
   )
@@ -82,7 +80,7 @@ test(testName, async (t) => {
       "/" +
       t.testRun.test.name +
       "/" +
-      uaDir +
+      uaDirName +
       "/" +
       "section-stories.png",
   )
@@ -96,7 +94,7 @@ test(testName, async (t) => {
       "/" +
       t.testRun.test.name +
       "/" +
-      uaDir +
+      uaDirName +
       "/" +
       "section-stories-jack-hovered.png",
   )
@@ -108,7 +106,7 @@ test(testName, async (t) => {
       "/" +
       t.testRun.test.name +
       "/" +
-      uaDir +
+      uaDirName +
       "/" +
       "section-book.png",
   )
@@ -120,7 +118,7 @@ test(testName, async (t) => {
       "/" +
       t.testRun.test.name +
       "/" +
-      uaDir +
+      uaDirName +
       "/" +
       "footer.png",
   )
