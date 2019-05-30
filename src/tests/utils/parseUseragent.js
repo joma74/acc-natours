@@ -22,6 +22,7 @@ const parseUserAgentAsFileName = function(ua) {
         device: boolean;
     }}
  * @returns {string} the filename-safe sanitized user agent string
+ * @see https://stackoverflow.com/questions/38750705/filter-object-properties-by-key-in-es6
  */
 const parseUserAgentSelectedAsFileName = function(ua, filter) {
   const userAgent = parseUserAgent(ua)
