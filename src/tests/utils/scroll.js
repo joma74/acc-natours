@@ -1,12 +1,5 @@
 import { ClientFunction, Selector } from "testcafe"
-import { create } from "domain"
-
-/**
- * @param {string} selector
- */
-const createElementSelector = (selector) => {
-  return Selector(selector)
-}
+import { createElementSelector } from "./std-func"
 
 /**
  * @param {TestController} t
