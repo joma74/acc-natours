@@ -15,10 +15,10 @@
         "npm_package_config_app_svrdev_port": "6070"
       },
       "args": [
-        "chrome",
+        "chrome:headless:emulation:scaleFactor=2",
         "-S",
         "-s",
-        "target/reports/screenshots/actual/",
+        "target/reports/screenshots/",
         "-p",
         "${FIXTURE}/${TEST}/${USERAGENT}/${FILE_INDEX}.png",
         "${file}"
