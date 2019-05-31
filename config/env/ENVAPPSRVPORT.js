@@ -61,11 +61,17 @@ const get = () => {
   return result
 }
 
+const getAsInt = () => {
+  // @ts-ignore
+  return parseInt(get())
+}
+
 module.exports = {
   KDEFAULT,
   KDEV,
   KPROD,
   get,
+  getAsInt,
   getVDev,
   getVProd,
   isSet,
