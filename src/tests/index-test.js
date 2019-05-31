@@ -6,18 +6,16 @@ import { takeScreenshot } from "./utils/screenshot"
 
 const ENVAPPSRVPORT = require("../../config/env/ENVAPPSRVPORT")
 
-fixture("Index_Page_Test")
-  .page(`http://localhost:${ENVAPPSRVPORT.get()}/index.html`)
-  .beforeEach(async (t) => {
-    await t.resizeWindow(1280, 1024) // SXGA
-  })
+fixture("Index_Page_Test").page(
+  `http://localhost:${ENVAPPSRVPORT.get()}/index.html`,
+)
 
 test("take_screenshots", async (t) => {
   const userAgent = await readUserAgent()
   const screenshotDirName = parseUserAgentAsFileName(userAgent)
   const devicePixelRatio = await readDevicePixelRatio()
 
-  await takeScreenshot(t, screenshotDirName, "initial-page-load.png")
+  await takeScreenshot(t, screenshotDirName, "header.png")
 
   await scrollTo(t, "body > main > section.section-about")
 
