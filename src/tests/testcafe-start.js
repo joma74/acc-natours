@@ -16,7 +16,7 @@ createTestCafe()
       .browsers([
         "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2",
         "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1",
-        "firefox:headless",
+        "firefox:headless -width=1280 -height=1024",
       ])
       .concurrency(2)
       .reporter([
