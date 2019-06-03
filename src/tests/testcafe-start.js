@@ -1,6 +1,6 @@
 import { default as createTestCafe } from "testcafe"
 
-const ENVAPPSRVPORT = require("../../config/env/ENVAPPSRVPORT")
+const ENVMODE = require("../../config/env/ENVMODE")
 
 /**
  * @type {TestCafe}
@@ -16,18 +16,24 @@ createTestCafe()
       .browsers([
         "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2",
         "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1",
+        "firefox:headless",
       ])
       .concurrency(2)
       .reporter([
         "spec",
         {
           name: "xunit",
-          output: process.env["npm_package_config_reports_dev"] + "/report.xml",
+          output:
+            (ENVMODE.hasVDevelopment()
+              ? process.env["npm_package_config_reports_dev"]
+              : process.env["npm_package_config_reports_prod"]) + "/report.xml",
         },
       ])
       .screenshots(
         // @ts-ignore
-        process.env["npm_package_config_screenshots_dev"],
+        ENVMODE.hasVDevelopment()
+          ? process.env["npm_package_config_screenshots_dev"]
+          : process.env["npm_package_config_screenshots_prod"],
         true,
         process.env["npm_package_config_screenshot-path-pattern"],
       )

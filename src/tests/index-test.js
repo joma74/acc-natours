@@ -13,7 +13,9 @@ import { takeScreenshot } from "./utils/screenshot"
 
 const ENVAPPSRVPORT = require("../../config/env/ENVAPPSRVPORT")
 
-fixture("Index_Page_Test").page(`http://localhost:6070/index.html`)
+fixture("Index_Page_Test").page(
+  `http://localhost:${ENVAPPSRVPORT.get()}/index.html`,
+)
 
 test("take_screenshots", async (t) => {
   const ua = parseUserAgentAsJson(await readUserAgent())
