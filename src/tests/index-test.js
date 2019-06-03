@@ -1,19 +1,30 @@
-import { parseUserAgentAsFileName } from "./utils/parseUseragent"
+import {
+  parseUserAgentAsJson,
+  renderSelectedAsFileName,
+} from "./utils/useragent"
 import { scrollTo } from "./utils/scroll"
-import { readUserAgent, readDevicePixelRatio } from "./utils/std-func"
+import {
+  readUserAgent,
+  readDevicePixelRatio,
+  readClientDimensions,
+} from "./utils/std-func"
 import { selectImg } from "./utils/img-elm"
 import { takeScreenshot } from "./utils/screenshot"
 
 const ENVAPPSRVPORT = require("../../config/env/ENVAPPSRVPORT")
 
-fixture("Index_Page_Test").page(
-  `http://localhost:${ENVAPPSRVPORT.get()}/index.html`,
-)
+fixture("Index_Page_Test").page(`http://localhost:6070/index.html`)
 
 test("take_screenshots", async (t) => {
-  const userAgent = await readUserAgent()
-  const screenshotDirName = parseUserAgentAsFileName(userAgent)
-  const devicePixelRatio = await readDevicePixelRatio()
+  const ua = parseUserAgentAsJson(await readUserAgent())
+  const dpr = await readDevicePixelRatio()
+  const clientDimensions = await readClientDimensions()
+  const browser = { ...dpr, ...clientDimensions }
+  const screenshotDirName = renderSelectedAsFileName(
+    "{{ ua.family }}_{{ ua.os.family }}_{{ browser.width }}x{{ browser.height}}_{{ browser.dpr }}",
+    { ua: ua },
+    { browser: browser },
+  )
 
   await takeScreenshot(t, screenshotDirName, "header.png")
 
@@ -26,7 +37,7 @@ test("take_screenshots", async (t) => {
   )
 
   await t.expect(about_comp_img_3.complete).ok()
-  if (devicePixelRatio >= 2) {
+  if (browser.dpr >= 2) {
     await t.expect(about_comp_img_3.currentSrc).contains("nat-3-large.")
   } else {
     await t.expect(about_comp_img_3.currentSrc).contains("nat-3.")

@@ -9,6 +9,22 @@ const createElementSelector = (selector) => {
 
 const readUserAgent = ClientFunction(() => navigator.userAgent)
 
-const readDevicePixelRatio = ClientFunction(() => window.devicePixelRatio)
+const readDevicePixelRatio = ClientFunction(() => {
+  return {
+    dpr: window.devicePixelRatio,
+  }
+})
 
-export { createElementSelector, readUserAgent, readDevicePixelRatio }
+const readClientDimensions = ClientFunction(() => {
+  return {
+    width: document.documentElement.clientWidth,
+    height: document.documentElement.clientHeight,
+  }
+})
+
+export {
+  createElementSelector,
+  readUserAgent,
+  readDevicePixelRatio,
+  readClientDimensions,
+}
