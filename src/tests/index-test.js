@@ -7,15 +7,18 @@ import {
   readUserAgent,
   readDevicePixelRatio,
   readClientDimensions,
-} from "./utils/std-func"
+} from "./utils/stdfunc"
 import { selectImg } from "./utils/img-elm"
 import { takeScreenshot } from "./utils/screenshot"
+import { resizeToRunInfoDimensions } from "./utils/runinfos"
 
 const ENVAPPSRVPORT = require("../../config/env/ENVAPPSRVPORT")
 
-fixture("Index_Page_Test").page(
-  `http://localhost:${ENVAPPSRVPORT.get()}/index.html`,
-)
+fixture("Index_Page_Test")
+  .page(`http://localhost:${ENVAPPSRVPORT.get()}/index.html`)
+  .beforeEach(async (t) => {
+    await resizeToRunInfoDimensions(t)
+  })
 
 test("take_screenshots", async (t) => {
   const ua = parseUserAgentAsJson(await readUserAgent())

@@ -1,5 +1,5 @@
 import { ClientFunction, Selector } from "testcafe"
-import { createElementSelector } from "./std-func"
+import { createElementSelector } from "./stdfunc"
 
 /**
  * @param {TestController} t

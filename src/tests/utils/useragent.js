@@ -42,11 +42,15 @@ const parseUserAgent = function(ua) {
 
 /**
  * @param ua {string} a user agent string
- * @returns {string} the filename-safe sanitized user agent string
+ * @returns the filename-safe sanitized user agent string
  */
 const renderFullAsFileName = function(ua) {
   const userAgent = parseUserAgent(ua)
-  return sanitizeFilename(userAgent.toString()).replace(/\s+/g, "_")
+  /**
+   * @type {string}
+   */
+  const sanitizedFileName = sanitizeFilename(userAgent.toString())
+  return sanitizedFileName.replace(/\s+/g, "_").toLowerCase()
 }
 
 /**
@@ -55,7 +59,7 @@ const renderFullAsFileName = function(ua) {
  * @param userAgentTemplate {string}
  * @param uaTagValues { { ua : UserAgentInfos} } user agent infos
  * @param otherTagValues {...AnyJson}
- * @returns {string} the filename-safe sanitized user agent string
+ * @returns the filename-safe sanitized user agent string
  */
 const renderSelectedAsFileName = function(
   userAgentTemplate,
@@ -66,7 +70,11 @@ const renderSelectedAsFileName = function(
     userAgentTemplate,
     Object.assign(uaTagValues, ...otherTagValues),
   )
-  return sanitizeFilename(rendered).replace(/\s+/g, "_")
+  /**
+   * @type {string}
+   */
+  const sanitizedFileName = sanitizeFilename(rendered)
+  return sanitizedFileName.replace(/\s+/g, "_").toLowerCase()
 }
 
 export {
