@@ -42,7 +42,7 @@ const parseUserAgent = function(ua) {
 
 /**
  * @param ua {string} a user agent string
- * @returns the filename-safe sanitized user agent string
+ * @returns the filename-safe sanitized user agent string to-lower-cased
  */
 const renderFullAsFileName = function(ua) {
   const userAgent = parseUserAgent(ua)
@@ -59,7 +59,7 @@ const renderFullAsFileName = function(ua) {
  * @param userAgentTemplate {string}
  * @param uaTagValues { { ua : UserAgentInfos} } user agent infos
  * @param otherTagValues {...AnyJson}
- * @returns the filename-safe sanitized user agent string
+ * @returns the filename-safe sanitized user agent string to-lower-cased
  */
 const renderSelectedAsFileName = function(
   userAgentTemplate,
@@ -77,9 +77,37 @@ const renderSelectedAsFileName = function(
   return sanitizedFileName.replace(/\s+/g, "_").toLowerCase()
 }
 
+/**
+ * Available tag values for usage in given userAgentTemplate are merged from given uaTagValues merged with given otherTagValues.
+ *
+ * @param userAgentTemplate {string}
+ * @param replacements { { searchMask: string, replaceMask: string}[] }
+ * @param uaTagValues { { ua : UserAgentInfos} } user agent infos
+ * @param otherTagValues {...AnyJson}
+ * @returns the filename-safe sanitized user agent string to-lower-cased
+ */
+const renderSelectedWithReplacementsAsFileName = function(
+  userAgentTemplate,
+  replacements,
+  uaTagValues,
+  ...otherTagValues
+) {
+  var sanitizedFilename = renderSelectedAsFileName(
+    userAgentTemplate,
+    uaTagValues,
+    ...otherTagValues,
+  )
+  replacements.forEach(function(value) {
+    var regEx = new RegExp(value.searchMask, "ig")
+    sanitizedFilename = sanitizedFilename.replace(regEx, value.replaceMask)
+  })
+  return sanitizedFilename
+}
+
 export {
   parseUserAgent,
   parseUserAgentAsJson,
   renderFullAsFileName,
   renderSelectedAsFileName,
+  renderSelectedWithReplacementsAsFileName,
 }

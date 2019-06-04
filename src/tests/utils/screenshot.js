@@ -1,3 +1,5 @@
+import { getRunInfoCtx } from "./runinfos"
+
 const path = require("path")
 var fs = require("fs")
 
@@ -12,6 +14,22 @@ const takeScreenshot = async (t, screenshotDirName, screenshotFileName) => {
     t.testRun.test.fixture.name,
     t.testRun.test.name,
     screenshotDirName,
+    screenshotFileName,
+  )
+  await t.takeScreenshot(pathToScreenshot)
+}
+
+/**
+ *
+ * @param {TestController} t
+ * @param {string} screenshotFileName
+ */
+const takeScreenshotAtRunInfoContext = async (t, screenshotFileName) => {
+  const runInfoCtx = getRunInfoCtx(t)
+  const pathToScreenshot = path.join(
+    t.testRun.test.fixture.name,
+    t.testRun.test.name,
+    runInfoCtx.screenshotLeafDirName,
     screenshotFileName,
   )
   await t.takeScreenshot(pathToScreenshot)
@@ -37,4 +55,8 @@ const takeScreenshotGetByteBuffer = async (
   return fs.readFileSync(pathToScreenshot)
 }
 
-export { takeScreenshot, takeScreenshotGetByteBuffer }
+export {
+  takeScreenshot,
+  takeScreenshotAtRunInfoContext,
+  takeScreenshotGetByteBuffer,
+}
