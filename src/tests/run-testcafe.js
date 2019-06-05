@@ -18,7 +18,7 @@ runTestCafe()
         "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1",
         "firefox:headless -width=1280 -height=1024",
       ])
-      .concurrency(2)
+      .concurrency(1)
       .reporter([
         "spec",
         {
