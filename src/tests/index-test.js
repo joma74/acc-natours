@@ -24,12 +24,24 @@ fixture("Index_Page_Test")
   .page(`http://localhost:${ENVAPPSRVPORT.get()}/index.html`)
   .beforeEach(async (t) => {
     await resizeToRunInfoDimensions(t)
-    //
-    const ua = parseUserAgentAsJson(await readUserAgent())
-    const dpr = await readDevicePixelRatio()
-    const clientDimensions = await readClientDimensions()
-    const isTouchEnabled = await readIsTouchEnabled()
 
+    /** @type {import("./utils/useragent").UserAgentInfos | undefined} */
+    let ua
+    /** @type { {dpr: number} | undefined} */
+    let dpr
+    /** @type { {width: number, height: number} | undefined} */
+    let clientDimensions
+    /** @type {boolean | undefined} */
+    let isTouchEnabled
+    //
+    await Promise.all([
+      (ua = parseUserAgentAsJson(await readUserAgent())),
+      (dpr = await readDevicePixelRatio()),
+      (clientDimensions = await readClientDimensions()),
+      (isTouchEnabled = await readIsTouchEnabled()),
+    ])
+
+    //
     /**
      * @type {import("./utils/runinfos").RunInfoBrowser}
      */

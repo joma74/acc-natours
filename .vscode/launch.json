@@ -28,7 +28,8 @@
         "npm_package_config_app_svrprod_port": "6073"
       },
       "args": [
-        "'chromium:headless:emulation:width=1280;height=1024;scaleFactor=1;touch=false;cdpPort=9223'",
+        // dom.w3c_touch_events.enabled
+        "'firefox:headless:marionettePort=9123 -width=1280 -height=1024 -scaleFactor=2 -touch=true'",
         "-S",
         "-s",
         "target/reports/screenshots/",
@@ -38,6 +39,24 @@
         "0.1",
         "src/tests/index-test.js"
       ],
+      "cwd": "${workspaceFolder}",
+      "console": "integratedTerminal"
+    },
+    {
+      "type": "node",
+      "request": "launch",
+      "protocol": "inspector",
+      "name": "Launch run-testcafe",
+      "env": {
+        "NODE_ENV": "production",
+        "npm_package_config_app_svrdev_port": "6070",
+        "npm_package_config_app_svrprod_port": "6073",
+        "npm_package_config_screenshots_prod": "target/reports/screenshots/",
+        "npm_package_config_screenshots_dev": "target/reports/screenshots/",
+        "npm_package_config_screenshot-path-pattern": "${FIXTURE}/${TEST}/${USERAGENT}/${FILE_INDEX}.png"
+      },
+      "program": "${workspaceFolder}/src/tests/run-testcafe.js",
+      "runtimeArgs": ["-r", "${workspaceFolder}/node_modules/esm"],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
     },

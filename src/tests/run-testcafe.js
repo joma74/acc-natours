@@ -1,5 +1,6 @@
 import { default as runTestCafe } from "testcafe"
 import { default as freePort } from "get-port"
+import Firefox_Temp_Profile from "./utils/firefox-temp-profile"
 
 const ENVMODE = require("../../config/env/ENVMODE")
 
@@ -9,15 +10,31 @@ const ENVMODE = require("../../config/env/ENVMODE")
 let testcafe
 
 runTestCafe()
-  .then((tc) => {
+  .then(async (tc) => {
     testcafe = tc
     const runner = testcafe.createRunner()
 
+    const ff_t_p_scaleFactor2_touchT = await new Firefox_Temp_Profile(
+      await freePort(),
+    ).generatePreferences({ scaleFactor: 2, touch: true })
+    const ff_t_p_scaleFactor1_touchF = await new Firefox_Temp_Profile(
+      await freePort(),
+    ).generatePreferences({ scaleFactor: 1, touch: false })
+
     return runner
       .browsers([
-        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;touch=true",
-        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;touch=false",
-        `firefox:headless:width=1280:height=1024:marionettePort=${freePort()}:touch=true`,
+        // "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;touch=true",
+        // "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;touch=false",
+        `firefox:headless:marionettePort=${
+          ff_t_p_scaleFactor2_touchT.marionettePort
+        } -profile ${
+          ff_t_p_scaleFactor2_touchT.profileDir.name
+        } -width=1280 -height=1024 -scaleFactor=2 -touch=true`,
+        `firefox:headless:marionettePort=${
+          ff_t_p_scaleFactor1_touchF.marionettePort
+        } -profile ${
+          ff_t_p_scaleFactor1_touchF.profileDir.name
+        } -width=1280 -height=1024 -scaleFactor=1 -touch=false`,
       ])
       .concurrency(1)
       .reporter([
@@ -54,3 +71,4 @@ runTestCafe()
     console.log("Tests failed: " + failed)
     testcafe.close()
   })
+  .finally(() => {})
