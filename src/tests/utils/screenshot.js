@@ -38,6 +38,27 @@ const takeScreenshotAtRunInfoContext = async (t, screenshotFileName) => {
 /**
  *
  * @param {TestController} t
+ * @param {string} selector
+ * @param {string} screenshotFileName
+ */
+const takeElementScreenshotAtRunInfoContext = async (
+  t,
+  selector,
+  screenshotFileName,
+) => {
+  const runInfoCtx = getRunInfoCtx(t)
+  const pathToScreenshot = path.join(
+    t.testRun.test.fixture.name,
+    t.testRun.test.name,
+    runInfoCtx.screenshotLeafDirName,
+    screenshotFileName,
+  )
+  await t.takeElementScreenshot(selector, pathToScreenshot)
+}
+
+/**
+ *
+ * @param {TestController} t
  * @param {string} screenshotDirName
  * @param {string} screenshotFileName
  */
@@ -56,6 +77,7 @@ const takeScreenshotGetByteBuffer = async (
 }
 
 export {
+  takeElementScreenshotAtRunInfoContext,
   takeScreenshot,
   takeScreenshotAtRunInfoContext,
   takeScreenshotGetByteBuffer,
