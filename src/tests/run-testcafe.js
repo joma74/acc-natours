@@ -23,8 +23,8 @@ runTestCafe()
 
     return runner
       .browsers([
-        // "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;touch=true",
-        // "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;touch=false",
+        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;touch=true",
+        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;touch=false",
         `firefox:headless:marionettePort=${
           ff_t_p_scaleFactor2_touchT.marionettePort
         } -profile ${
