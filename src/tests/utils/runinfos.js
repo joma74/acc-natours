@@ -1,5 +1,6 @@
 const HEIGHT_RUNINFO_RE = /(?:height=)([0-9]+)/
 const WIDTH_RUNINFO_RE = /(?:width=)([0-9]+)/
+const TOUCH_RUNINFO_RE = /(?:touch=)([0-9]+)/
 const CHROME_RUNINFO_RE = /(chrome\:)/
 const FIREFOX_RUNINFO_RE = /(firefox\:)/
 
@@ -8,6 +9,7 @@ const FIREFOX_RUNINFO_RE = /(firefox\:)/
  *      width: number;
  *      height: number;
  *      dpr: number;
+ *      isTouchEnabled: boolean
  * }} RunInfoBrowser - the ctx of the current browser
  */
 
@@ -24,16 +26,21 @@ const FIREFOX_RUNINFO_RE = /(firefox\:)/
  *
  * @param {TestController} t
  */
-const getRunInfoDimensions = async function(t) {
+const evaluateRunInfo = async function(t) {
   const result = {}
 
   const runInfo = await t.testRun.browserConnection.browserInfo.alias
 
-  result.height = evalRegex(HEIGHT_RUNINFO_RE, runInfo)
+  result.height = evalRegexAsInt(HEIGHT_RUNINFO_RE, runInfo)
   /**
    * @type {number | undefined}
    */
-  result.width = evalRegex(WIDTH_RUNINFO_RE, runInfo)
+  result.width = evalRegexAsInt(WIDTH_RUNINFO_RE, runInfo)
+
+  /**
+   * @type {boolean | undefined}
+   */
+  result.isTouchEnabled = evalRegexAsBoolean(TOUCH_RUNINFO_RE, runInfo)
 
   /**
    * The opening dimensions are never the returned screenshot sizes.
@@ -58,7 +65,7 @@ const getRunInfoDimensions = async function(t) {
  * @param {TestController} t
  */
 const resizeToRunInfoDimensions = async function(t) {
-  const runInfoDimensions = await getRunInfoDimensions(t)
+  const runInfoDimensions = await evaluateRunInfo(t)
   if (runInfoDimensions.width && runInfoDimensions.height) {
     await t.resizeWindow(runInfoDimensions.width, runInfoDimensions.height)
   }
@@ -87,15 +94,27 @@ const getRunInfoCtx = function(t) {
  * @param {RegExp} regExp
  * @param {string} string
  */
-function evalRegex(regExp, string) {
+function evalRegexAsInt(regExp, string) {
   const REResult = regExp.exec(string)
   if (REResult) {
     return Number.parseInt(REResult[1])
   }
 }
 
+/**
+ *
+ * @param {RegExp} regExp
+ * @param {string} string
+ */
+function evalRegexAsBoolean(regExp, string) {
+  const REResult = regExp.exec(string)
+  if (REResult) {
+    return REResult[1] === "true"
+  }
+}
+
 export {
-  getRunInfoDimensions,
+  evaluateRunInfo,
   resizeToRunInfoDimensions,
   setRunInfoCtx,
   getRunInfoCtx,

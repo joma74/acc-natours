@@ -1,6 +1,5 @@
 import {
   parseUserAgentAsJson,
-  renderSelectedAsFileName,
   renderSelectedWithReplacementsAsFileName,
 } from "./utils/useragent"
 import { scrollTo } from "./utils/scroll"
@@ -8,12 +7,10 @@ import {
   readUserAgent,
   readDevicePixelRatio,
   readClientDimensions,
+  readIsTouchEnabled,
 } from "./utils/stdfunc"
 import { selectImg } from "./utils/img-elm"
-import {
-  takeScreenshot,
-  takeScreenshotAtRunInfoContext,
-} from "./utils/screenshot"
+import { takeScreenshotAtRunInfoContext } from "./utils/screenshot"
 import {
   resizeToRunInfoDimensions,
   setRunInfoCtx,
@@ -31,18 +28,22 @@ fixture("Index_Page_Test")
     const ua = parseUserAgentAsJson(await readUserAgent())
     const dpr = await readDevicePixelRatio()
     const clientDimensions = await readClientDimensions()
+    const isTouchEnabled = await readIsTouchEnabled()
+
     /**
      * @type {import("./utils/runinfos").RunInfoBrowser}
      */
-    const browser = { ...dpr, ...clientDimensions }
+    const browser = { ...dpr, ...clientDimensions, isTouchEnabled }
     const screenshotLeafDirName = renderSelectedWithReplacementsAsFileName(
-      "{{ ua.family }}_{{ ua.os.family }}_{{ browser.width }}x{{ browser.height}}_{{ browser.dpr }}",
+      "{{ ua.family }}_{{ ua.os.family }}_{{ browser.width }}x{{ browser.height}}_{{ browser.dpr }}_{{ browser.isTouchEnabled }}",
       [{ searchMask: "headless", replaceMask: "" }],
       { ua: ua },
       { browser: browser },
     )
-    //
-    setRunInfoCtx(t, {
+    /**
+     * @type {import("./utils/runinfos").RunInfoCtx}
+     */
+    const runInfoCtx = {
       ua: ua,
       browser: browser,
       screenshotLeafDirName: screenshotLeafDirName,
@@ -50,7 +51,17 @@ fixture("Index_Page_Test")
         t.testRun.opts.screenshotPath,
         screenshotLeafDirName,
       ),
-    })
+    }
+    //
+    setRunInfoCtx(t, runInfoCtx)
+    //
+    console.log(
+      "  - touch is >>" +
+        (isTouchEnabled ? "enabled(true)" : "disabled(false)") +
+        "<< for >>" +
+        screenshotLeafDirName +
+        "<<",
+    )
   })
 
 test("take_screenshots", async (t) => {

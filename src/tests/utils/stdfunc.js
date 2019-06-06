@@ -22,8 +22,13 @@ const readClientDimensions = ClientFunction(() => {
   }
 })
 
+const readIsTouchEnabled = ClientFunction(() => {
+  return "ontouchstart" in document.documentElement
+})
+
 export {
   createElementSelector,
+  readIsTouchEnabled,
   readUserAgent,
   readDevicePixelRatio,
   readClientDimensions,
