@@ -1,4 +1,5 @@
 import { default as runTestCafe } from "testcafe"
+import { default as freePort } from "get-port"
 
 const ENVMODE = require("../../config/env/ENVMODE")
 
@@ -14,9 +15,9 @@ runTestCafe()
 
     return runner
       .browsers([
-        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2",
-        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1",
-        "firefox:headless -width=1280 -height=1024",
+        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;touch=true",
+        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;touch=false",
+        `firefox:headless:width=1280:height=1024:marionettePort=${freePort()}:touch=true`,
       ])
       .concurrency(1)
       .reporter([
@@ -41,11 +42,12 @@ runTestCafe()
       .run({
         assertionTimeout: 7000,
         selectorTimeout: 50000,
+        debugMode: false,
         speed: 1.0,
         stopOnFirstFail: false,
         skipJsErrors: true,
         pageLoadTimeout: 8000,
-        quarantineMode: true,
+        quarantineMode: false,
       })
   })
   .then((failed) => {
