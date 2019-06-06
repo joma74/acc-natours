@@ -5,23 +5,38 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "chrome",
+      "request": "attach",
+      "name": "Attach to Chrome",
+      "port": 9223,
+      "webRoot": "${workspaceFolder}"
+    },
+    {
+      "type": "node",
+      "request": "attach",
+      "name": "Attach by Process ID",
+      "processId": "9229" // ${command:PickProcess}
+    },
+    {
       "type": "node",
       "request": "launch",
       "protocol": "inspector",
       "name": "Launch test files with TestCafe",
       "program": "${workspaceFolder}/node_modules/testcafe/bin/testcafe.js",
       "env": {
-        "NODE_ENV": "development",
-        "npm_package_config_app_svrdev_port": "6070"
+        "NODE_ENV": "production",
+        "npm_package_config_app_svrprod_port": "6073"
       },
       "args": [
-        "'firefox -width=1280 -height=1024'",
+        "'chromium:headless:emulation:width=1280;height=1024;scaleFactor=1;touch=false;cdpPort=9223'",
         "-S",
         "-s",
         "target/reports/screenshots/",
         "-p",
         "${FIXTURE}/${TEST}/${USERAGENT}/${FILE_INDEX}.png",
-        "${file}"
+        "--speed",
+        "0.1",
+        "src/tests/index-test.js"
       ],
       "cwd": "${workspaceFolder}",
       "console": "integratedTerminal"
