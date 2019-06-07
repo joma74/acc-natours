@@ -26,7 +26,7 @@ let postcss_config = {
 if (process.env.NODE_ENV === "production") {
   postcss_config.plugins.push(
     require("@fullhuman/postcss-purgecss")({
-      whitelist: ["html", "body"],
+      whitelist: ["html", "body", "acc-nat-touchevents"],
       content: ["./app.html", "./src/**/*.html"],
     }),
   )
