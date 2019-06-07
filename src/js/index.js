@@ -1,5 +1,7 @@
 /// <reference types="webpack-env" />
 
+import "./modernizr"
+
 Vue.prototype.MODE = process.env.NODE_ENV
 
 import Vue from "vue"

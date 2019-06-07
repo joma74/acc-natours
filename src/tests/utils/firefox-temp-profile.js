@@ -79,6 +79,7 @@ export default class Firefox_Temp_Profile {
     }
 
     if (typeof config.touch !== "undefined") {
+      prefs = prefs.concat(['user_pref("browser.touchmode.auto", false);'])
       if (config.touch)
         prefs = prefs.concat(['user_pref("dom.w3c_touch_events.enabled", 1);'])
       else {

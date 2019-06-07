@@ -30,7 +30,7 @@
     },
     {
       "compression": "none",
-      "maxSize": "20.0 kB",
+      "maxSize": "22.0 kB",
       "path": "./dist/app.*.js"
     },
     {
