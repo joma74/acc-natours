@@ -25,26 +25,45 @@ fixture("Index_Page_Test")
   .beforeEach(async (t) => {
     await resizeToRunInfoDimensions(t)
 
-    /** @type {import("./utils/useragent").UserAgentInfos | undefined} */
+    /** @type {import("./utils/useragent").UserAgentInfos}  */
     let ua
-    /** @type { {dpr: number} | undefined} */
+    /** @type { {dpr: number}} */
     let dpr
-    /** @type { {width: number, height: number} | undefined} */
+    /** @type { {width: number, height: number}} */
     let clientDimensions
-    /** @type {boolean | undefined} */
+    /** @type {boolean} */
     let isTouchEnabled
     //
     await Promise.all([
-      (ua = parseUserAgentAsJson(await readUserAgent())),
-      (dpr = await readDevicePixelRatio()),
-      (clientDimensions = await readClientDimensions()),
-      (isTouchEnabled = await readIsTouchEnabled()),
+      parseUserAgentAsJson(await readUserAgent()),
+      await readDevicePixelRatio(),
+      await readClientDimensions(),
+      await readIsTouchEnabled(),
     ])
-
+      .then((values) => {
+        ua = values[0]
+        dpr = values[1]
+        clientDimensions = values[2]
+        isTouchEnabled = values[3]
+      })
+      .catch((e) => {
+        throw e
+      })
     //
-    /**
-     * @type {import("./utils/runinfos").RunInfoBrowser}
-     */
+
+    if (
+      // @ts-ignore
+      ua === undefined ||
+      // @ts-ignore
+      dpr === undefined ||
+      // @ts-ignore
+      clientDimensions === undefined ||
+      // @ts-ignore
+      isTouchEnabled === undefined
+    ) {
+      throw new Error("Some of the read infos are not available, aborting.")
+    }
+
     const browser = { ...dpr, ...clientDimensions, isTouchEnabled }
     const screenshotLeafDirName = renderSelectedWithReplacementsAsFileName(
       "{{ ua.family }}_{{ ua.os.family }}_{{ browser.width }}x{{ browser.height}}_{{ browser.dpr }}_{{ browser.isTouchEnabled }}",
