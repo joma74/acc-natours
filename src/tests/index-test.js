@@ -87,7 +87,7 @@ fixture("Index_Page_Test")
     setRunInfoCtx(t, runInfoCtx)
     //
     console.log(
-      "  - touch is >>" +
+      " - touch is >>" +
         (isTouchEnabled ? "enabled(true)" : "disabled(false)") +
         "<< for >>" +
         screenshotLeafDirName +
@@ -96,6 +96,8 @@ fixture("Index_Page_Test")
   })
 
 test("take_screenshots", async (t) => {
+  await t.wait(500) // animation
+  //
   await takeScreenshotAtRunInfoContext(t, "header.png")
 
   await scrollTo(t, "body > main > section.section-about")
@@ -132,9 +134,11 @@ test("take_screenshots", async (t) => {
 
   await takeScreenshotAtRunInfoContext(t, "section-stories.png")
 
-  await t.hover(
-    "body > main > section.section-stories > div:nth-child(4) > div.story > div > p",
-  )
+  await t
+    .hover(
+      "body > main > section.section-stories > div:nth-child(4) > div.story > div > p",
+    )
+    .wait(500) // animation
 
   await takeScreenshotAtRunInfoContext(t, "section-stories-jack-hovered.png")
 
