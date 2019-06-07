@@ -86,13 +86,7 @@ fixture("Index_Page_Test")
     //
     setRunInfoCtx(t, runInfoCtx)
     //
-    console.log(
-      " - touch is >>" +
-        (isTouchEnabled ? "enabled(true)" : "disabled(false)") +
-        "<< for >>" +
-        screenshotLeafDirName +
-        "<<",
-    )
+    console.log(" - >>" + screenshotLeafDirName + "<<")
   })
 
 test("take_screenshots", async (t) => {
