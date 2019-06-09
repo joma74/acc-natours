@@ -53,6 +53,8 @@
         "npm_package_config_app_svrprod_port": "6073",
         "npm_package_config_screenshots_prod": "target/reports/screenshots/",
         "npm_package_config_screenshots_dev": "target/reports/screenshots/",
+        "npm_package_config_reports_prod": "target/reports-prod",
+        "npm_package_config_reports_dev": "target/reports-dev",
         "npm_package_config_screenshot-path-pattern": "${FIXTURE}/${TEST}/${USERAGENT}/${FILE_INDEX}.png"
       },
       "program": "${workspaceFolder}/src/tests/run-testcafe.js",
