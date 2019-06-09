@@ -15,15 +15,16 @@ import {
   resizeToRunInfoDimensions,
   setRunInfoCtx,
   getRunInfoCtx,
+  evaluateRunArgsBrowser,
 } from "./utils/runinfos"
 import path from "path"
 
 const ENVAPPSRVPORT = require("../../config/env/ENVAPPSRVPORT")
 
 fixture("Index_Page_Test")
-  .page(`http://localhost:${ENVAPPSRVPORT.get()}/index.html`)
   .beforeEach(async (t) => {
-    await resizeToRunInfoDimensions(t)
+    const runArgsBrowser = await evaluateRunArgsBrowser(t)
+    await resizeToRunInfoDimensions(t, runArgsBrowser)
 
     /** @type {import("./utils/useragent").UserAgentInfos}  */
     let ua
@@ -64,30 +65,33 @@ fixture("Index_Page_Test")
       throw new Error("Some of the read infos are not available, aborting.")
     }
 
-    const browser = { ...dpr, ...clientDimensions, isTouchEnabled }
+    const runValuesBrowser = { ...dpr, ...clientDimensions, isTouchEnabled }
     const screenshotLeafDirName = renderSelectedWithReplacementsAsFileName(
       "{{ ua.family }}_{{ ua.os.family }}_{{ browser.width }}x{{ browser.height}}_{{ browser.dpr }}_{{ browser.isTouchEnabled }}",
       [{ searchMask: "headless", replaceMask: "" }],
-      { ua: ua },
-      { browser: browser },
+      { ua },
+      { browser: runValuesBrowser },
     )
     /**
      * @type {import("./utils/runinfos").RunInfoCtx}
      */
     const runInfoCtx = {
-      ua: ua,
-      browser: browser,
-      screenshotLeafDirName: screenshotLeafDirName,
+      ua,
+      runValuesBrowser,
+      screenshotLeafDirName,
       screenshotDir: path.join(
         t.testRun.opts.screenshotPath,
         screenshotLeafDirName,
       ),
+      runArgsBrowser,
     }
     //
     setRunInfoCtx(t, runInfoCtx)
     //
-    console.log(" - >>" + screenshotLeafDirName + "<<")
+    console.log(" - " + runInfoCtx.screenshotLeafDirName + "")
+    console.log("   - " + runInfoCtx.runArgsBrowser.profileDir + "")
   })
+  .page(`http://localhost:${ENVAPPSRVPORT.get()}/index.html`)
 
 test("take_screenshots", async (t) => {
   await t.wait(500) // animation
@@ -104,7 +108,7 @@ test("take_screenshots", async (t) => {
 
   await t.expect(about_comp_img_3.complete).ok()
 
-  if (getRunInfoCtx(t).browser.dpr >= 2) {
+  if (getRunInfoCtx(t).runValuesBrowser.dpr >= 2) {
     await t.expect(about_comp_img_3.currentSrc).contains("nat-3-large.")
   } else {
     await t.expect(about_comp_img_3.currentSrc).contains("nat-3.")
