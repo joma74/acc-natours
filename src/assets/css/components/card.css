@@ -183,8 +183,21 @@
   }
 }
 
-/* second @media does not work */
-@media (--tablet-port) {
+/**
+ * Effect in
+ * FF <> 67.0.1
+ * + emulation with touch <> 67.0.1
+ * - non-emulation iff dom.w3c_touch_events.legacy_apis.enabled == true and dom.w3c_touch_events.enabled = 1
+ * Chrome emulation with touch <> 75.0.3770.80
+ * + non-headless 
+ * - headless
+ * Chromium emulation with touch <> 74.0.3729.169
+ * + non-headless
+ * - headless
+ *
+ * P.S. second @media does not work
+ */
+@media screen and (--tablet-port) {
   @block card {
     height: auto;
     max-width: 90%;
@@ -228,6 +241,18 @@
   }
 }
 
+/**  
+ * Effect in
+ * FF <> 67.0.1
+ * - emulation with touch <> 67.0.1
+ * + non-emulation iff dom.w3c_touch_events.legacy_apis.enabled == true and dom.w3c_touch_events.enabled = 1
+ * Chrome emulation with touch <> 75.0.3770.80
+ * - non-headless 
+ * + headless
+ * Chromium emulation with touch <> 74.0.3729.169
+ * - non-headless
+ * + headless
+  */
 @media screen {
   @block acc-nat-touchevents .card {
     height: auto;
