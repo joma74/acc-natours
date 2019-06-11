@@ -13,9 +13,7 @@ let vueComponentOptions = {
       document.documentElement.replaceChild(compInst.$el, document.body)
     else
       console.error(
-        `this.el having a value of >>${
-          compInst.$el
-        }<< should be an HTMLBodyElement but is not`,
+        `this.el having a value of >>${compInst.$el}<< should be an HTMLBodyElement but is not`,
       )
   },
 }
