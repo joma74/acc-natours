@@ -25,16 +25,8 @@ runTestCafe()
       .browsers([
         "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;mobile=true;touch=false",
         "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;mobile=true;touch=true",
-        `firefox:headless:marionettePort=${
-          ff_t_p_scaleFactor1_touchT.marionettePort
-        } -profile ${
-          ff_t_p_scaleFactor1_touchT.profileDir.name
-        } -width=1280 -height=1024 -scaleFactor=1 -touch=true`,
-        `firefox:headless:marionettePort=${
-          ff_t_p_scaleFactor2_touchF.marionettePort
-        } -profile ${
-          ff_t_p_scaleFactor2_touchF.profileDir.name
-        } -width=1280 -height=1024 -scaleFactor=2 -touch=false`,
+        `firefox:headless:marionettePort=${ff_t_p_scaleFactor1_touchT.marionettePort} -profile ${ff_t_p_scaleFactor1_touchT.profileDir.name} -width=1280 -height=1024 -scaleFactor=1 -touch=true`,
+        `firefox:headless:marionettePort=${ff_t_p_scaleFactor2_touchF.marionettePort} -profile ${ff_t_p_scaleFactor2_touchF.profileDir.name} -width=1280 -height=1024 -scaleFactor=2 -touch=false`,
       ])
       .concurrency(1)
       .reporter([
