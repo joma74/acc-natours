@@ -93,6 +93,16 @@ fixture("Index_Page_Test")
   })
   .page(`http://localhost:${ENVAPPSRVPORT.get()}/index.html`)
 
+/**
+    t.testRun.browserConnection.browserInfo.provider.plugin.openedBrowsers.FTY84uC.client.Page.captureScreenshot
+    **********
+    t.testRun.browserConnection.browserConnectionGateway.connections.FTY84uC.provider.plugin.providerName
+    t.testRun.browserConnection.browserConnectionGateway.connections.FTY84uC.provider.plugin.openedBrowsers.FTY84uC.config
+    t.testRun.browserConnection.browserConnectionGateway.connections.FTY84uC.provider.plugin.openedBrowsers.FTY84uC.client.Page.captureSnapshot
+    t.testRun.browserConnection.browserConnectionGateway.connections.FTY84uC.id
+
+    t.testRun.browserConnection.browserConnectionGateway.connections.FTY84uC.id
+   */
 test("take_screenshots", async (t) => {
   await t.wait(500) // animation
   //
