@@ -96,7 +96,6 @@
     "@types/webpack": "^3",
     "@types/webpack-dev-server": "^2.9.4",
     "@types/webpack-env": "^1.13.6",
-    "async-exit-hook": "^2.0.1",
     "autoprefixer": "^9.5.1",
     "bundlesize": "^0.17.1",
     "cross-env": "^5.2.0",

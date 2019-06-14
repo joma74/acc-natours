@@ -28,6 +28,7 @@ export default class Firefox_Temp_Profile {
     this.profileDir = tmp.dirSync({
       dir: TESTCAFE_EXT_TMP_DIRS_ROOT,
       prefix: namePrefix + "-",
+      keep: false,
       unsafeCleanup: true,
     })
   }
