@@ -24,7 +24,7 @@
     "jsx": "preserve"
   },
   "exclude": ["dist", "node_modules", "target"],
-  "include": ["src/js/**/*", "src/tests/**/*", "src/types/*"],
+  "include": ["src/js/**/*", "src/tests/**/*", "src/types/**/*"],
   "typeAcquisition": {
     "enable": false
   }
