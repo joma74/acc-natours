@@ -1,5 +1,5 @@
 /* BREAKPOINT VIEWS 
- * em is better bec. dependent on the user's preset font size
+ * em is better b/c dependent on the user's preset font size
 */
 /* 400px / 16 = 25em  */
 @custom-media --phone screen and (max-width: 25em);
@@ -7,7 +7,7 @@
 @custom-media --tablet-port screen and (max-width: 37.5em);
 /* 900px / 16 = 56.25em  */
 @custom-media --tablet-land screen and (max-width: 56.25em);
-/* 1200px / 16 = 56.25em  */
+/* 1200px / 16 = 75em  */
 @custom-media --laptop screen and (max-width: 75em);
 /* 1800px / 16 = 112.5em  */
 @custom-media --desktop-big screen and (min-width: 112.5em);
@@ -16,7 +16,7 @@
  * (-webkit-min-device-pixel-ratio: 2) and (min-width: 37.55em) for safari.
  */
 @custom-media --higher-resolution screen and (min-resolution: 192dpi) and (min-width: 37.55em),
-  (min-width: 112.5em);
+  screen and (min-width: 112.5em);
 /* not a touch device, unused as @media does not allow more than one in a row */
 @custom-media --no-touch-device screen and (hover: none);
 
