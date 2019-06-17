@@ -5,7 +5,7 @@ const fs = require("fs")
 
 const targetURL = argv.url || "http://localhost:6073/" // "https://jonathanmh.com"
 const viewport = [1280, 1024]
-const screenshotDelay = 2000 // ms
+const screenshotDelay = 4000 // ms
 const fullPage = argv.fullPage || true
 
 if (fullPage) {
@@ -27,9 +27,9 @@ CDP(async function(client) {
   var device = {
     width: viewport[0],
     height: viewport[1],
-    deviceScaleFactor: 1,
+    deviceScaleFactor: 2,
     mobile: true,
-    fitWindow: true,
+    fitWindow: false,
   }
 
   // set viewport and visible size
@@ -57,8 +57,8 @@ CDP(async function(client) {
         height: height,
         screenWidth: device.width,
         screenHeight: height,
-        deviceScaleFactor: 1,
-        fitWindow: true,
+        deviceScaleFactor: 2,
+        fitWindow: false,
         mobile: true,
       })
       await Emulation.setPageScaleFactor({ pageScaleFactor: 1 })
@@ -68,7 +68,7 @@ CDP(async function(client) {
   setTimeout(async function() {
     const screenshot = await Page.captureScreenshot({
       format: "png",
-      fromSurface: true,
+      fromSurface: false, // false delivers stable results
     })
     const buffer = new Buffer(screenshot.data, "base64")
     fs.writeFile("desktop.png", buffer, "base64", function(err) {
