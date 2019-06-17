@@ -5,6 +5,12 @@
   "version": "0.2.0",
   "configurations": [
     {
+      "type": "node",
+      "request": "launch",
+      "name": "Launch Program",
+      "program": "${file}"
+    },
+    {
       "type": "chrome",
       "request": "attach",
       "name": "Attach to Chrome",
@@ -51,8 +57,8 @@
         "NODE_ENV": "production",
         "npm_package_config_app_svrdev_port": "6070",
         "npm_package_config_app_svrprod_port": "6073",
-        "npm_package_config_screenshots_prod": "target/reports/screenshots/",
-        "npm_package_config_screenshots_dev": "target/reports/screenshots/",
+        "npm_package_config_screenshots_prod": "target/reports-prod/screenshots/",
+        "npm_package_config_screenshots_dev": "target/reports-dev/screenshots/",
         "npm_package_config_reports_prod": "target/reports-prod",
         "npm_package_config_reports_dev": "target/reports-dev",
         "npm_package_config_screenshot-path-pattern": "${FIXTURE}/${TEST}/${USERAGENT}/${FILE_INDEX}.png"
