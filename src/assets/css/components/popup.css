@@ -1,5 +1,5 @@
 @block popup {
-  height: 100vh;
+  height: calc(var(--vh, 1vh) * 100);
   width: 100%;
 
   background-color: color-mod($color-grey-darkest a(90%));

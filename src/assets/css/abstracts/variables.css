@@ -22,10 +22,10 @@
 
 /* LAYOUT */
 $accnat-body-padding: 2rem;
-$accnat-header-height-cf-sm: 100vh;
+$accnat-header-height-cf-sm: calc(var(--vh, 1vh) * 100);
 $accnat-header-height-cf: $accnat-header-height-cf-sm - 2 * $accnat-body-padding;
-$accnat-header-br-y: 75vh;
-$accnat-header-br-y-sm: 90vh;
+$accnat-header-br-y: calc(var(--vh, 1vh) * 75);
+$accnat-header-br-y-sm: calc(var(--vh, 1vh) * 90);
 $accnat-about-tr-y-cf: $accnat-header-height-cf - $accnat-header-br-y;
 
 /* COLORS */
