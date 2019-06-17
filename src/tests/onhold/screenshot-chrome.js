@@ -48,9 +48,10 @@ CDP(async function(client) {
         nodeId: documentNodeId,
       })
 
-      const {
+      let {
         model: { height },
       } = await DOM.getBoxModel({ nodeId: bodyNodeId })
+      height = Math.max(viewport[1], Math.ceil(height))
       await Emulation.setVisibleSize({ width: device.width, height: height })
       await Emulation.setDeviceMetricsOverride({
         width: device.width,
