@@ -17,16 +17,22 @@ runTestCafe()
     const ff_t_p_scaleFactor1_touchT = await new Firefox_Temp_Profile(
       await freePort(),
     ).generatePreferences({ scaleFactor: 1, touch: true })
-    const ff_t_p_scaleFactor2_touchF = await new Firefox_Temp_Profile(
+    const ff_t_p_scaleFactor2_touchT = await new Firefox_Temp_Profile(
+      await freePort(),
+    ).generatePreferences({ scaleFactor: 1, touch: true })
+    const ff_t_p_scaleFactor3_touchF = await new Firefox_Temp_Profile(
       await freePort(),
     ).generatePreferences({ scaleFactor: 2, touch: false })
 
     return runner
       .browsers([
-        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;mobile=true;touch=false",
-        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;mobile=true;touch=true",
-        `firefox:headless:marionettePort=${ff_t_p_scaleFactor1_touchT.marionettePort} -profile ${ff_t_p_scaleFactor1_touchT.profileDir.name} -width=1280 -height=1024 -scaleFactor=1 -touch=true`,
-        `firefox:headless:marionettePort=${ff_t_p_scaleFactor2_touchF.marionettePort} -profile ${ff_t_p_scaleFactor2_touchF.profileDir.name} -width=1280 -height=1024 -scaleFactor=2 -touch=false`,
+        // "chrome:headless:emulation:width=320;height=480;scaleFactor=1;mobile=true;touch=true --no-sandbox --disable-gpu",
+        // "chrome:headless:emulation:width=600;height=1024;scaleFactor=1;mobile=true;touch=true --no-sandbox --disable-gpu",
+        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;mobile=true;touch=false --no-sandbox --disable-gpu",
+        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;mobile=true;touch=true --no-sandbox --disable-gpu",
+        // `firefox:headless:marionettePort=${ff_t_p_scaleFactor1_touchT.marionettePort} -profile ${ff_t_p_scaleFactor1_touchT.profileDir.name} -width=600 -height=1024 -scaleFactor=1 -touch=true`,
+        `firefox:headless:marionettePort=${ff_t_p_scaleFactor2_touchT.marionettePort} -profile ${ff_t_p_scaleFactor2_touchT.profileDir.name} -width=1280 -height=1024 -scaleFactor=1 -touch=true`,
+        `firefox:headless:marionettePort=${ff_t_p_scaleFactor3_touchF.marionettePort} -profile ${ff_t_p_scaleFactor3_touchF.profileDir.name} -width=1280 -height=1024 -scaleFactor=2 -touch=false`,
       ])
       .concurrency(1)
       .reporter([
@@ -49,13 +55,13 @@ runTestCafe()
       )
       .src(["src/tests/index-test.js"])
       .run({
-        assertionTimeout: 7000,
-        selectorTimeout: 50000,
+        assertionTimeout: 5000,
+        selectorTimeout: 5000,
         debugMode: false,
-        speed: 1.0,
+        speed: 1,
         stopOnFirstFail: false,
         skipJsErrors: true,
-        pageLoadTimeout: 8000,
+        pageLoadTimeout: 5000,
         quarantineMode: false,
       })
   })
