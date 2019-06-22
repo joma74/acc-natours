@@ -8,6 +8,10 @@ before_install:
   - yarn global add netlify-cli
   - env | sort
 
+branches:
+  except:
+    - testcafe-pngslow-issue
+
 cache:
   yarn: true
   directories:
