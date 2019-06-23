@@ -28,8 +28,8 @@ runTestCafe()
       .browsers([
         // "chrome:headless:emulation:width=320;height=480;scaleFactor=1;mobile=true;touch=true --no-sandbox --disable-gpu",
         // "chrome:headless:emulation:width=600;height=1024;scaleFactor=1;mobile=true;touch=true --no-sandbox --disable-gpu",
-        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;mobile=true;touch=false --no-sandbox --disable-gpu",
-        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;mobile=true;touch=true --no-sandbox --disable-gpu",
+        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;mobile=true;touch=false --no-sandbox",
+        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;mobile=true;touch=true --no-sandbox",
         // `firefox:headless:marionettePort=${ff_t_p_scaleFactor1_touchT.marionettePort} -profile ${ff_t_p_scaleFactor1_touchT.profileDir.name} -width=600 -height=1024 -scaleFactor=1 -touch=true`,
         `firefox:headless:marionettePort=${ff_t_p_scaleFactor2_touchT.marionettePort} -profile ${ff_t_p_scaleFactor2_touchT.profileDir.name} -width=1280 -height=1024 -scaleFactor=1 -touch=true`,
         `firefox:headless:marionettePort=${ff_t_p_scaleFactor3_touchF.marionettePort} -profile ${ff_t_p_scaleFactor3_touchF.profileDir.name} -width=1280 -height=1024 -scaleFactor=2 -touch=false`,

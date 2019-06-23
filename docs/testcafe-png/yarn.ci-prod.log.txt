@@ -1,0 +1,302 @@
+[2K[1G[2m$ run-s -l build serventest-prod[22m
+[36m[build          ] [39m$ run-s clean-dist clean-work-prod _build check-bundlesize
+[36m[build          ] [39m$ del-cli 'dist/*'
+[36m[build          ] [39m$ del-cli 'target/reports-prod' 'build/*' '!*/yarn.*.log'
+[36m[build          ] [39m$ webpack --config=config/webpack/webpack.prod.config.js --profile --bail --display-error-details
+[36m[build          ] [39m[hardsource:producti] Deleted 24 MB. Using 0 MB of disk space.
+[36m[build          ] [39m[hardsource:producti] Tracking node dependencies with: yarn.lock.
+[36m[build          ] [39m[hardsource:producti] Reading from cache producti...
+[36m[build          ] [39m$ bundlesize
+[36m[build          ] [39m PASS  ./dist/vendor.c8dfec.js: 63.26KB < maxSize 65KB (no compression) 
+[36m[build          ] [39m
+[36m[build          ] [39m PASS  ./dist/app.6f4c85.js: 21.39KB < maxSize 22KB (no compression) 
+[36m[build          ] [39m
+[36m[build          ] [39m PASS  ./dist/wp-runtime.51d20a.js: 1.06KB < maxSize 1.5KB (no compression) 
+[36m[build          ] [39m
+[36m[build          ] [39m PASS  ./dist/assets/css/app.0da64a.css: 27.4KB < maxSize 30KB (no compression) 
+[36m[build          ] [39m
+[32m[serventest-prod] [39m$ cross-env NODE_ENV=production start-server-and-test serve-prod http-get://localhost:$npm_package_config_app_svrprod_port/index.html testcafe-prod
+[32m[serventest-prod] [39mstarting server using command "npm run serve-prod"
+[32m[serventest-prod] [39mand when url "http-get://localhost:6073/index.html" is responding
+[32m[serventest-prod] [39mrunning tests using command "npm run testcafe-prod"
+[32m[serventest-prod] [39m
+[32m[serventest-prod] [39m> acc-natours@0.0.1 serve-prod /home/joma/entwicklung/design/acc-natours
+[32m[serventest-prod] [39m> json-server build/db.json --quiet --port $npm_package_config_app_svrprod_port --static dist
+[32m[serventest-prod] [39m
+[32m[serventest-prod] [39m
+[32m[serventest-prod] [39m> acc-natours@0.0.1 testcafe-prod /home/joma/entwicklung/design/acc-natours
+[32m[serventest-prod] [39m> cross-env NODE_ENV=production node -r esm src/tests/run-testcafe
+[32m[serventest-prod] [39m
+[32m[serventest-prod] [39m Running tests in:
+[32m[serventest-prod] [39m - HeadlessChrome 75.0.3770 / Linux 0.0.0
+[32m[serventest-prod] [39m - HeadlessChrome 75.0.3770 / Linux 0.0.0
+[32m[serventest-prod] [39m - Firefox 67.0.0 / Ubuntu 0.0.0
+[32m[serventest-prod] [39m - Firefox 67.0.0 / Ubuntu 0.0.0
+[32m[serventest-prod] [39m
+[32m[serventest-prod] [39m Index_Page_Test
+[32m[serventest-prod] [39m - chrome_linux_1280x1024_1_false
+[32m[serventest-prod] [39m   - undefined
+[32m[serventest-prod] [39m - chrome_linux_1280x1024_2_true
+[32m[serventest-prod] [39m   - undefined
+[32m[serventest-prod] [39m - firefox_ubuntu_1280x1024_1_true
+[32m[serventest-prod] [39m   - /tmp/testcafe-ext/firefox-profile-3774Zl9YedYgiH6x
+[32m[serventest-prod] [39m - firefox_ubuntu_1285x1024_2_false
+[32m[serventest-prod] [39m   - /tmp/testcafe-ext/firefox-profile-3774patqR0sI7Xy5
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1280x1024_1_true/header.png: 776.750ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_1_false/header.png: 2033.717ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1280x1024_1_true/header.png: 698.324ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1280x1024_1_true/header.png: 7.528ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1280x1024_1_true/header.png: 795.657ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_1_false/header.png: 1382.462ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_1_false/header.png: 7.106ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1280x1024_1_true/header.png: 1138.655ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1280x1024_1_true/header.png: 15.828ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_1_false/header.png: 1096.932ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_1_false/header.png: 715.804ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_1_false/header.png: 2.472ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1280x1024_1_true/header.png: 804.586ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1285x1024_2_false/header.png: 3251.473ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_2_true/header.png: 6771.356ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_1_false/header.png: 1693.425ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1285x1024_2_false/header.png: 1908.569ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1285x1024_2_false/header.png: 42.802ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1280x1024_1_true/section-about.png: 1756.148ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1280x1024_1_true/section-about.png: 304.910ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1280x1024_1_true/section-about.png: 7.866ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1280x1024_1_true/section-about.png: 436.238ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1280x1024_1_true/section-about.png: 383.824ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1280x1024_1_true/section-about.png: 0.174ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1285x1024_2_false/header.png: 2331.194ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_1_false/section-about.png: 871.270ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1280x1024_1_true/section-about.png: 459.494ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_2_true/header.png: 3900.810ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_2_true/header.png: 73.953ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_1_false/section-about.png: 2087.590ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_1_false/section-about.png: 2.147ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_1_false/section-about.png: 440.960ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1285x1024_2_false/header.png: 3183.349ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1285x1024_2_false/header.png: 0.157ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1280x1024_1_true/section-features.png: 657.069ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_1_false/section-about.png: 917.106ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_1_false/section-about.png: 0.207ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1280x1024_1_true/section-features.png: 795.204ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1280x1024_1_true/section-features.png: 4.969ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_2_true/header.png: 3679.669ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_1_false/section-about.png: 744.201ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1280x1024_1_true/section-features.png: 574.775ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1285x1024_2_false/header.png: 2118.061ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1280x1024_1_true/section-features.png: 808.280ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1280x1024_1_true/section-features.png: 0.245ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1280x1024_1_true/section-features.png: 612.747ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_2_true/header.png: 2510.160ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_2_true/header.png: 0.256ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1280x1024_1_true/section-tours.png: 419.530ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1280x1024_1_true/section-tours.png: 413.386ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1280x1024_1_true/section-tours.png: 5.575ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1285x1024_2_false/section-about.png: 2026.794ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_1_false/section-features.png: 2353.189ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1280x1024_1_true/section-tours.png: 776.330ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_2_true/header.png: 2195.041ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1280x1024_1_true/section-tours.png: 536.273ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1280x1024_1_true/section-tours.png: 0.122ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_1_false/section-features.png: 906.605ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_1_false/section-features.png: 4.147ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1280x1024_1_true/section-tours.png: 524.529ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_1_false/section-features.png: 530.843ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1285x1024_2_false/section-about.png: 2231.186ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1285x1024_2_false/section-about.png: 44.027ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_1_false/section-features.png: 1880.026ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_1_false/section-features.png: 0.121ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1285x1024_2_false/section-about.png: 1393.007ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_1_false/section-features.png: 558.371ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1280x1024_1_true/section-tours-card-hovered.png: 352.012ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1285x1024_2_false/section-about.png: 1549.293ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1285x1024_2_false/section-about.png: 0.193ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1280x1024_1_true/section-tours-card-hovered.png: 1220.718ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1280x1024_1_true/section-tours-card-hovered.png: 5.559ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1280x1024_1_true/section-tours-card-hovered.png: 643.409ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_1_false/section-tours.png: 958.941ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1280x1024_1_true/section-tours-card-hovered.png: 523.165ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1280x1024_1_true/section-tours-card-hovered.png: 0.138ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1285x1024_2_false/section-about.png: 1505.696ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_1_false/section-tours.png: 848.908ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_1_false/section-tours.png: 45.900ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1280x1024_1_true/section-tours-card-hovered.png: 856.742ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_2_true/section-about.png: 4269.637ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_1_false/section-tours.png: 636.899ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_1_false/section-tours.png: 584.889ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_1_false/section-tours.png: 0.144ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_1_false/section-tours.png: 585.002ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_2_true/section-about.png: 1841.386ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_2_true/section-about.png: 58.784ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1280x1024_1_true/section-stories.png: 2219.721ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1285x1024_2_false/section-features.png: 2388.909ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1280x1024_1_true/section-stories.png: 727.545ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1280x1024_1_true/section-stories.png: 3.394ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_2_true/section-about.png: 2276.214ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1280x1024_1_true/section-stories.png: 591.030ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1280x1024_1_true/section-stories.png: 548.164ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1280x1024_1_true/section-stories.png: 0.161ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_1_false/section-tours-card-hovered.png: 956.268ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1285x1024_2_false/section-features.png: 2248.893ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1285x1024_2_false/section-features.png: 21.971ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1280x1024_1_true/section-stories.png: 1559.200ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_2_true/section-about.png: 2724.322ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_2_true/section-about.png: 0.155ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_1_false/section-tours-card-hovered.png: 2129.636ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_1_false/section-tours-card-hovered.png: 5.088ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_1_false/section-tours-card-hovered.png: 529.322ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1285x1024_2_false/section-features.png: 2361.548ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_1_false/section-tours-card-hovered.png: 491.416ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_1_false/section-tours-card-hovered.png: 0.191ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_2_true/section-about.png: 1470.568ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_1_false/section-tours-card-hovered.png: 463.339ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1285x1024_2_false/section-features.png: 1806.076ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1285x1024_2_false/section-features.png: 0.181ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1280x1024_1_true/section-stories-jack-hovered.png: 850.823ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1280x1024_1_true/section-stories-jack-hovered.png: 799.419ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1280x1024_1_true/section-stories-jack-hovered.png: 6.461ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1280x1024_1_true/section-stories-jack-hovered.png: 904.806ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1285x1024_2_false/section-features.png: 2100.649ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1280x1024_1_true/section-stories-jack-hovered.png: 667.068ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1280x1024_1_true/section-stories-jack-hovered.png: 0.228ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_1_false/section-stories.png: 2396.976ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1280x1024_1_true/section-stories-jack-hovered.png: 902.156ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_1_false/section-stories.png: 1529.268ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_1_false/section-stories.png: 7.366ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_1_false/section-stories.png: 922.231ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1285x1024_2_false/section-tours.png: 2211.749ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1280x1024_1_true/section-book.png: 1431.308ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_1_false/section-stories.png: 1316.414ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_1_false/section-stories.png: 0.194ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1280x1024_1_true/section-book.png: 854.972ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1280x1024_1_true/section-book.png: 6.089ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_1_false/section-stories.png: 1162.352ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1280x1024_1_true/section-book.png: 724.484ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1285x1024_2_false/section-tours.png: 2538.468ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1285x1024_2_false/section-tours.png: 42.178ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_2_true/section-features.png: 9648.555ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1280x1024_1_true/section-book.png: 2323.855ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1280x1024_1_true/section-book.png: 0.161ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1285x1024_2_false/section-tours.png: 1987.320ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1280x1024_1_true/section-book.png: 623.975ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1285x1024_2_false/section-tours.png: 1472.064ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1285x1024_2_false/section-tours.png: 0.208ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_1_false/section-stories-jack-hovered.png: 1949.765ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1280x1024_1_true/footer.png: 401.819ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_2_true/section-features.png: 3452.709ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_2_true/section-features.png: 38.613ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1285x1024_2_false/section-tours.png: 2732.974ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1280x1024_1_true/footer.png: 2529.395ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1280x1024_1_true/footer.png: 5.492ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_1_false/section-stories-jack-hovered.png: 3282.969ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_1_false/section-stories-jack-hovered.png: 2.615ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1280x1024_1_true/footer.png: 928.316ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1280x1024_1_true/footer.png: 482.572ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1280x1024_1_true/footer.png: 0.213ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_1_false/section-stories-jack-hovered.png: 1123.845ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1280x1024_1_true/footer.png: 551.553ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_2_true/section-features.png: 3969.447ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_1_false/section-stories-jack-hovered.png: 950.531ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_1_false/section-stories-jack-hovered.png: 0.203ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1285x1024_2_false/section-tours-card-hovered.png: 1730.730ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_1_false/section-stories-jack-hovered.png: 869.734ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_2_true/section-features.png: 2402.798ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_2_true/section-features.png: 0.119ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1285x1024_2_false/section-tours-card-hovered.png: 2188.462ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1285x1024_2_false/section-tours-card-hovered.png: 72.867ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_2_true/section-features.png: 1964.149ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_1_false/section-book.png: 1952.077ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1285x1024_2_false/section-tours-card-hovered.png: 1571.471ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_1_false/section-book.png: 432.482ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_1_false/section-book.png: 4.818ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_1_false/section-book.png: 776.808ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1285x1024_2_false/section-tours-card-hovered.png: 1585.326ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1285x1024_2_false/section-tours-card-hovered.png: 0.177ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_1_false/section-book.png: 928.515ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_1_false/section-book.png: 0.185ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_1_false/section-book.png: 612.666ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1285x1024_2_false/section-tours-card-hovered.png: 1252.119ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_2_true/section-tours.png: 2463.795ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_2_true/section-tours.png: 1177.949ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_2_true/section-tours.png: 37.578ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_1_false/footer.png: 1893.796ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_1_false/footer.png: 324.946ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_1_false/footer.png: 6.499ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_2_true/section-tours.png: 1714.794ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_1_false/footer.png: 456.926ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1285x1024_2_false/section-stories.png: 2627.057ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_1_false/footer.png: 892.558ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_1_false/footer.png: 0.108ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_2_true/section-tours.png: 1497.381ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_2_true/section-tours.png: 0.151ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_1_false/footer.png: 578.915ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1285x1024_2_false/section-stories.png: 1807.456ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1285x1024_2_false/section-stories.png: 34.910ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_2_true/section-tours.png: 1883.090ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1285x1024_2_false/section-stories.png: 1344.476ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1285x1024_2_false/section-stories.png: 886.735ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1285x1024_2_false/section-stories.png: 0.095ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1285x1024_2_false/section-stories.png: 1302.506ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_2_true/section-tours-card-hovered.png: 1645.995ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_2_true/section-tours-card-hovered.png: 940.083ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_2_true/section-tours-card-hovered.png: 38.293ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_2_true/section-tours-card-hovered.png: 1033.810ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_2_true/section-tours-card-hovered.png: 791.927ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_2_true/section-tours-card-hovered.png: 0.137ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_2_true/section-tours-card-hovered.png: 852.940ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1285x1024_2_false/section-stories-jack-hovered.png: 1910.586ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1285x1024_2_false/section-stories-jack-hovered.png: 985.973ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1285x1024_2_false/section-stories-jack-hovered.png: 41.796ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1285x1024_2_false/section-stories-jack-hovered.png: 1869.389ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1285x1024_2_false/section-stories-jack-hovered.png: 1562.460ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1285x1024_2_false/section-stories-jack-hovered.png: 0.240ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_2_true/section-stories.png: 5325.901ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1285x1024_2_false/section-stories-jack-hovered.png: 2074.258ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_2_true/section-stories.png: 1657.667ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_2_true/section-stories.png: 41.321ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_2_true/section-stories.png: 1893.638ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_2_true/section-stories.png: 1292.215ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_2_true/section-stories.png: 0.165ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1285x1024_2_false/section-book.png: 2156.436ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1285x1024_2_false/section-book.png: 954.895ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1285x1024_2_false/section-book.png: 42.694ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_2_true/section-stories.png: 2713.320ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1285x1024_2_false/section-book.png: 1620.653ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1285x1024_2_false/section-book.png: 1129.122ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1285x1024_2_false/section-book.png: 0.141ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1285x1024_2_false/section-book.png: 1375.152ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js firefox_ubuntu_1285x1024_2_false/footer.png: 1137.416ms
+[32m[serventest-prod] [39mreadPng@base.js firefox_ubuntu_1285x1024_2_false/footer.png: 875.146ms
+[32m[serventest-prod] [39mcropDimensions@base.js firefox_ubuntu_1285x1024_2_false/footer.png: 39.815ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_2_true/section-stories-jack-hovered.png: 5362.514ms
+[32m[serventest-prod] [39mwritePng@base.js firefox_ubuntu_1285x1024_2_false/footer.png: 1412.680ms
+[32m[serventest-prod] [39mreadPng@capturer.js firefox_ubuntu_1285x1024_2_false/footer.png: 999.415ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js firefox_ubuntu_1285x1024_2_false/footer.png: 0.156ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_2_true/section-stories-jack-hovered.png: 2057.183ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_2_true/section-stories-jack-hovered.png: 39.250ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js firefox_ubuntu_1285x1024_2_false/footer.png: 2044.731ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_2_true/section-stories-jack-hovered.png: 1602.458ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_2_true/section-stories-jack-hovered.png: 1055.967ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_2_true/section-stories-jack-hovered.png: 0.129ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_2_true/section-stories-jack-hovered.png: 1139.965ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_2_true/section-book.png: 2078.840ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_2_true/section-book.png: 838.892ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_2_true/section-book.png: 23.026ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_2_true/section-book.png: 1118.568ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_2_true/section-book.png: 862.336ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_2_true/section-book.png: 0.095ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_2_true/section-book.png: 1130.867ms
+[32m[serventest-prod] [39mgetScreenshotData@base.js chrome_linux_1280x1024_2_true/footer.png: 1043.638ms
+[32m[serventest-prod] [39mreadPng@base.js chrome_linux_1280x1024_2_true/footer.png: 596.769ms
+[32m[serventest-prod] [39mcropDimensions@base.js chrome_linux_1280x1024_2_true/footer.png: 27.462ms
+[32m[serventest-prod] [39mwritePng@base.js chrome_linux_1280x1024_2_true/footer.png: 864.454ms
+[32m[serventest-prod] [39mreadPng@capturer.js chrome_linux_1280x1024_2_true/footer.png: 621.974ms
+[32m[serventest-prod] [39mcropDimensions@capturer.js chrome_linux_1280x1024_2_true/footer.png: 0.123ms
+[32m[serventest-prod] [39mgenerateThumbnail@capturer.js chrome_linux_1280x1024_2_true/footer.png: 729.033ms
+[32m[serventest-prod] [39m ✓ take_screenshots (screenshots:
+[32m[serventest-prod] [39m /home/joma/entwicklung/design/acc-natours/target/reports-prod/screenshots/Index_Page_Test/take_screenshots)
+[32m[serventest-prod] [39m
+[32m[serventest-prod] [39m
+[32m[serventest-prod] [39m 1 passed (1m 57s)
+[32m[serventest-prod] [39mTests failed: 0
