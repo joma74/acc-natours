@@ -1,6 +1,7 @@
 import { default as runTestCafe } from "testcafe"
 import { default as freePort } from "get-port"
 import Firefox_Temp_Profile from "./utils/firefox-temp-profile"
+import FirefoxBrowserConfig from "./utils/firefox-browser-config"
 
 const ENVMODE = require("../../config/env/ENVMODE")
 
@@ -14,19 +15,15 @@ runTestCafe()
     testcafe = tc
     const runner = testcafe.createRunner()
 
-    const ff_t_p_scaleFactor1_touchT = await new Firefox_Temp_Profile(
-      await freePort(),
-    ).generatePreferences({ scaleFactor: 1, touch: true })
-    const ff_t_p_scaleFactor2_touchF = await new Firefox_Temp_Profile(
-      await freePort(),
-    ).generatePreferences({ scaleFactor: 2, touch: false })
-
     return runner
       .browsers([
         "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;mobile=true;touch=false",
         "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;mobile=true;touch=true",
-        `firefox:headless:marionettePort=${ff_t_p_scaleFactor1_touchT.marionettePort} -profile ${ff_t_p_scaleFactor1_touchT.profileDir.name} -width=1280 -height=1024 -scaleFactor=1 -touch=true`,
-        `firefox:headless:marionettePort=${ff_t_p_scaleFactor2_touchF.marionettePort} -profile ${ff_t_p_scaleFactor2_touchF.profileDir.name} -width=1280 -height=1024 -scaleFactor=2 -touch=false`,
+        (await new FirefoxBrowserConfig.Builder().build()).print(),
+        (await new FirefoxBrowserConfig.Builder()
+          .withScaleFactor(2)
+          .withoutTouch()
+          .build()).print(),
       ])
       .concurrency(1)
       .reporter([
