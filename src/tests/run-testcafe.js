@@ -1,6 +1,4 @@
 import { default as runTestCafe } from "testcafe"
-import { default as freePort } from "get-port"
-import Firefox_Temp_Profile from "./utils/firefox-temp-profile"
 import FirefoxBrowserConfig from "./utils/firefox-browser-config"
 
 const ENVMODE = require("../../config/env/ENVMODE")

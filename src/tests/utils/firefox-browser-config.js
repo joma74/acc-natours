@@ -37,6 +37,8 @@ export default class FirefoxBrowserConfig {
       headless: this.headless,
       touch: this.touch,
       scaleFactor: this.scaleFactor,
+      width: this.width,
+      height: this.height,
       marionettePort:
         this.ff_profile != null ? this.ff_profile.marionettePort : null,
       profileDir:
@@ -45,17 +47,20 @@ export default class FirefoxBrowserConfig {
   }
 
   print() {
+    let browserString
+    let configJson = this.toJSON()
     if (this.headless) {
-      return render(
-        "firefox:headless:marionettePort={{{ marionettePort }}} -profile={{{ profileDir }}} -width={{{ width }}} -height={{{ height }}} -scaleFactor={{{ scaleFactor }}} -touch={{{ touch }}}",
-        this.toJSON(),
+      browserString = render(
+        "firefox:headless:marionettePort={{{ marionettePort }}} -profile {{{ profileDir }}} -width={{{ width }}} -height={{{ height }}} -scaleFactor={{{ scaleFactor }}} -touch={{{ touch }}}",
+        configJson,
       )
     } else {
-      return render(
+      browserString = render(
         "firefox -profile={{{ profileDir }}} -width={{{ width }}} -height={{{ height }}} -scaleFactor={{{ scaleFactor }}} -touch={{{ touch }}}",
-        this.toJSON(),
+        configJson,
       )
     }
+    return browserString
   }
 
   static get Builder() {
