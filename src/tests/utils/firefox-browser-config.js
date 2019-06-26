@@ -1,6 +1,5 @@
 import Firefox_Temp_Profile from "./firefox-temp-profile"
 import { default as freePort } from "get-port"
-import { render } from "./templater"
 
 export default class FirefoxBrowserConfig {
   /**
@@ -13,23 +12,23 @@ export default class FirefoxBrowserConfig {
     this.scaleFactor = config.scaleFactor
     this.width = config.width
     this.height = config.height
-    if (this.headless) {
-      this.ff_profile = await new Firefox_Temp_Profile(
-        await freePort(),
-      ).generatePreferences({
-        scaleFactor: this.scaleFactor,
-        touch: this.touch,
-      })
-    }
+    this.ff_profile = await new Firefox_Temp_Profile(
+      await freePort(),
+    ).generatePreferences({
+      scaleFactor: this.scaleFactor,
+      touch: this.touch,
+    })
+    this.marionettePort = this.ff_profile.marionettePort
+    this.profileDir = this.ff_profile.profileDir
     return this
   }
 
   getMarionettePort() {
-    return this.ff_profile != null ? this.ff_profile.marionettePort : null
+    return this.marionettePort
   }
 
   getProfileDir() {
-    return this.ff_profile != null ? this.ff_profile.profileDir.name : null
+    return this.profileDir
   }
 
   toJSON() {
@@ -39,26 +38,17 @@ export default class FirefoxBrowserConfig {
       scaleFactor: this.scaleFactor,
       width: this.width,
       height: this.height,
-      marionettePort:
-        this.ff_profile != null ? this.ff_profile.marionettePort : null,
-      profileDir:
-        this.ff_profile != null ? this.ff_profile.profileDir.name : null,
+      marionettePort: this.marionettePort,
+      profileDir: this.profileDir,
     }
   }
 
   print() {
     let browserString
-    let configJson = this.toJSON()
     if (this.headless) {
-      browserString = render(
-        "firefox:headless:marionettePort={{{ marionettePort }}} -profile {{{ profileDir }}} -width={{{ width }}} -height={{{ height }}} -scaleFactor={{{ scaleFactor }}} -touch={{{ touch }}}",
-        configJson,
-      )
+      browserString = `firefox:headless:marionettePort=${this.marionettePort} -profile ${this.profileDir} -width=${this.width} -height=${this.height} -scaleFactor=${this.scaleFactor} -touch=${this.touch}`
     } else {
-      browserString = render(
-        "firefox -profile={{{ profileDir }}} -width={{{ width }}} -height={{{ height }}} -scaleFactor={{{ scaleFactor }}} -touch={{{ touch }}}",
-        configJson,
-      )
+      browserString = `firefox -profile=${this.profileDir} -width=${this.width} -height=${this.height} -scaleFactor=${this.scaleFactor} -touch=${this.touch}`
     }
     return browserString
   }
