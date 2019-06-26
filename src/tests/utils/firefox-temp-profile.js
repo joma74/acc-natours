@@ -30,14 +30,14 @@ export default class Firefox_Temp_Profile {
       prefix: namePrefix + "-",
       keep: false,
       unsafeCleanup: true,
-    })
+    }).name
   }
 
   /**
    * @param {{scaleFactor?: number, touch?: boolean, disableMultiprocessing?: boolean}} config
    */
   async generatePreferences(config = {}) {
-    const prefsFileName = path.join(this.profileDir.name, "user.js")
+    const prefsFileName = path.join(this.profileDir, "user.js")
 
     let prefs = [
       'user_pref("browser.link.open_newwindow.override.external", 2);',
