@@ -12,19 +12,23 @@ export default class FirefoxBrowserConfig {
     this.scaleFactor = config.scaleFactor
     this.width = config.width
     this.height = config.height
-    this.ff_profile = await new Firefox_Temp_Profile(
-      await freePort(),
+    /**
+     * @type {number}
+     */
+    this.automationPort = config.presetAutomationPort || (await freePort())
+    this.ff_profile = new Firefox_Temp_Profile(
+      this.automationPort,
     ).generatePreferences({
       scaleFactor: this.scaleFactor,
       touch: this.touch,
     })
-    this.marionettePort = this.ff_profile.marionettePort
+    this.automationPort = this.ff_profile.marionettePort
     this.profileDir = this.ff_profile.profileDir
     return this
   }
 
-  getMarionettePort() {
-    return this.marionettePort
+  getAutomationPort() {
+    return this.automationPort
   }
 
   getProfileDir() {
@@ -38,15 +42,15 @@ export default class FirefoxBrowserConfig {
       scaleFactor: this.scaleFactor,
       width: this.width,
       height: this.height,
-      marionettePort: this.marionettePort,
+      automationPort: this.automationPort,
       profileDir: this.profileDir,
     }
   }
 
-  print() {
+  output() {
     let browserString
     if (this.headless) {
-      browserString = `firefox:headless:marionettePort=${this.marionettePort} -profile ${this.profileDir} -width=${this.width} -height=${this.height} -scaleFactor=${this.scaleFactor} -touch=${this.touch}`
+      browserString = `firefox:headless:marionettePort=${this.automationPort} -profile ${this.profileDir} -width=${this.width} -height=${this.height} -scaleFactor=${this.scaleFactor} -touch=${this.touch}`
     } else {
       browserString = `firefox -profile=${this.profileDir} -width=${this.width} -height=${this.height} -scaleFactor=${this.scaleFactor} -touch=${this.touch}`
     }
@@ -65,6 +69,8 @@ class FirefoxBrowserConfigBuilder {
     this.scaleFactor = 1
     this.width = 1280
     this.height = 1024
+    /** @type {number | undefined} */
+    this.presetAutomationPort = undefined
   }
 
   withHeadless() {
@@ -110,8 +116,21 @@ class FirefoxBrowserConfigBuilder {
     this.height = pixels
     return this
   }
+  /**
+   *
+   * @param {number} automationPort
+   */
+  withPresetPort(automationPort) {
+    this.presetAutomationPort = automationPort
+    return this
+  }
+
+  withoutPresetPort() {
+    this.presetAutomationPort = undefined
+    return this
+  }
 
   async build() {
-    return await new FirefoxBrowserConfig().init(this)
+    return new FirefoxBrowserConfig().init(this)
   }
 }
