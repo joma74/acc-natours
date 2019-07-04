@@ -36,7 +36,7 @@ export default class Firefox_Temp_Profile {
   /**
    * @param {{scaleFactor?: number, touch?: boolean, disableMultiprocessing?: boolean}} config
    */
-  async generatePreferences(config = {}) {
+  generatePreferences(config = {}) {
     const prefsFileName = path.join(this.profileDir, "user.js")
 
     let prefs = [
@@ -99,7 +99,7 @@ export default class Firefox_Temp_Profile {
       ])
     }
 
-    await fs.writeFileSync(prefsFileName, prefs.join("\n"))
+    fs.writeFileSync(prefsFileName, prefs.join("\n"))
 
     return this
   }
