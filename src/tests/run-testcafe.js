@@ -17,11 +17,11 @@ runTestCafe()
       .browsers([
         "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;mobile=true;touch=false",
         "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;mobile=true;touch=true",
-        (await new FirefoxBrowserConfig.Builder().build()).print(),
+        (await new FirefoxBrowserConfig.Builder().build()).output(),
         (await new FirefoxBrowserConfig.Builder()
           .withScaleFactor(2)
           .withoutTouch()
-          .build()).print(),
+          .build()).output(),
       ])
       .concurrency(1)
       .reporter([
