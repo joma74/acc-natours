@@ -16,14 +16,20 @@ runTestCafe()
 
     return runner
       .browsers([
-        (await new ChromeBrowserConfig.Builder().build()).output(),
         (await new ChromeBrowserConfig.Builder()
-          .withScaleFactor(2)
+          .withWidth(600)
+          .build()).output(),
+        (await new ChromeBrowserConfig.Builder()
+          .withWidth(601)
+          .withScaleFactor(1)
           .withoutTouch()
           .build()).output(),
-        (await new FirefoxBrowserConfig.Builder().build()).output(),
         (await new FirefoxBrowserConfig.Builder()
-          .withScaleFactor(2)
+          .withWidth(600)
+          .build()).output(),
+        (await new FirefoxBrowserConfig.Builder()
+          .withWidth(601)
+          .withScaleFactor(1)
           .withoutTouch()
           .build()).output(),
       ])
