@@ -1,5 +1,6 @@
 import { default as runTestCafe } from "testcafe"
 import FirefoxBrowserConfig from "./utils/firefox-browser-config"
+import ChromeBrowserConfig from "./utils/chrome-browser-config"
 
 const ENVMODE = require("../../config/env/ENVMODE")
 
@@ -15,8 +16,11 @@ runTestCafe()
 
     return runner
       .browsers([
-        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=1;mobile=true;touch=false",
-        "chrome:headless:emulation:width=1280;height=1024;scaleFactor=2;mobile=true;touch=true",
+        (await new ChromeBrowserConfig.Builder().build()).output(),
+        (await new ChromeBrowserConfig.Builder()
+          .withScaleFactor(2)
+          .withoutTouch()
+          .build()).output(),
         (await new FirefoxBrowserConfig.Builder().build()).output(),
         (await new FirefoxBrowserConfig.Builder()
           .withScaleFactor(2)
