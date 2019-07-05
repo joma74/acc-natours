@@ -1,6 +1,7 @@
-const HEIGHT_RUNINFO_RE = /(?:-height=)([0-9]+|$)/
-const WIDTH_RUNINFO_RE = /(?:-width=)([0-9]+|$)/
-const TOUCH_RUNINFO_RE = /(?:-touch=)(.*?)(?=\s|$)/
+const HEIGHT_RUNINFO_RE = /(?:height=)([0-9]+|$)/
+const WIDTH_RUNINFO_RE = /(?:width=)([0-9]+|$)/
+const TOUCH_RUNINFO_RE = /(?:touch=)(.*?)(?=\s|$)/
+const SCALEFACTOR_RUNINFO_RE = /(?:scaleFactor=)(.*?)(?=\s|$)/
 const PROFILE_RUNINFO_RE = /(?:-profile\s)(.*?)(?=\s|$)/
 const BROWSER_RUNINFO_RE = /^(\w+)(?=\s|:|$)/
 const CHROME_RUNINFO_RE = /^(chrome)/
@@ -13,6 +14,7 @@ const FIREFOX_RUNINFO_RE = /^(firefox)/
  *      height: number | undefined;
  *      width: number | undefined;
  *      profileDir: string | undefined;
+ *      scaleFactor: number | undefined;
  *   }} RunArgsBrowser - the cli args of the current browser
  */
 
@@ -41,19 +43,19 @@ const FIREFOX_RUNINFO_RE = /^(firefox)/
  * @return {Promise<RunArgsBrowser>} runArgsBrowser
  */
 const evaluateRunArgsBrowser = async function(t) {
+  /**
+   * @type {RunArgsBrowser}
+   */
   const result = {}
 
   const runArgsBrowser = await t.testRun.browserConnection.browserInfo.alias
 
   result.height = evalRegexAsInt(HEIGHT_RUNINFO_RE, runArgsBrowser)
-  /**
-   * @type {number | undefined}
-   */
+
   result.width = evalRegexAsInt(WIDTH_RUNINFO_RE, runArgsBrowser)
 
-  /**
-   * @type {boolean | undefined}
-   */
+  result.scaleFactor = evalRegexAsInt(SCALEFACTOR_RUNINFO_RE, runArgsBrowser)
+
   result.isTouchEnabled = evalRegexAsBoolean(TOUCH_RUNINFO_RE, runArgsBrowser)
 
   result.browserName = evalRegexAsString(BROWSER_RUNINFO_RE, runArgsBrowser)
@@ -68,14 +70,14 @@ const evaluateRunArgsBrowser = async function(t) {
    * - chrome  width=1280 +15 corr
    * - firefox width=1280 +10 corr
    */
-  if (result && result.width) {
-    if (CHROME_RUNINFO_RE.test(runArgsBrowser)) {
-      result.width = result.width + 15
-    }
-    if (FIREFOX_RUNINFO_RE.test(runArgsBrowser)) {
-      result.width = result.width + 10
-    }
-  }
+  //   if (result && result.width) {
+  //     if (CHROME_RUNINFO_RE.test(runArgsBrowser)) {
+  //       result.width = result.width + 15
+  //     }
+  //     if (FIREFOX_RUNINFO_RE.test(runArgsBrowser)) {
+  //       result.width = result.width + 10
+  //     }
+  //   }
 
   return result
 }
