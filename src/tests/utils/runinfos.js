@@ -64,21 +64,6 @@ const evaluateRunArgsBrowser = async function(t) {
     result.profileDir = evalRegexAsString(PROFILE_RUNINFO_RE, runArgsBrowser)
   }
 
-  /**
-   * The opening dimensions are never the returned screenshot sizes.
-   * Found out that
-   * - chrome  width=1280 +15 corr
-   * - firefox width=1280 +10 corr
-   */
-  //   if (result && result.width) {
-  //     if (CHROME_RUNINFO_RE.test(runArgsBrowser)) {
-  //       result.width = result.width + 15
-  //     }
-  //     if (FIREFOX_RUNINFO_RE.test(runArgsBrowser)) {
-  //       result.width = result.width + 10
-  //     }
-  //   }
-
   return result
 }
 
