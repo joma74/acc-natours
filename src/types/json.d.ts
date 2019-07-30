@@ -1,4 +1,4 @@
-type AnyJson = boolean | number | string | null | JsonArray | JsonMap
+type AnyJson = boolean | number | string | null | undefined | JsonArray | JsonMap
 interface JsonMap {
   [key: string]: AnyJson
 }
