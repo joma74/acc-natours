@@ -67,10 +67,10 @@ fixture("Index_Page_Test")
 
     const runValuesBrowser = { ...dpr, ...clientDimensions, isTouchEnabled }
     const screenshotLeafDirName = renderSelectedWithReplacementsAsFileName(
-      "{{ ua.family }}_{{ ua.os.family }}_{{ browser.width }}x{{ browser.height}}_{{ browser.dpr }}_{{ browser.isTouchEnabled }}",
+      "{{ ua.family }}_{{ ua.os.family }}_{{ browser.width }}x{{ browser.height }}_mob#{{ runArgs.mobile }}_dpr#{{ browser.dpr }}_tou#{{ browser.isTouchEnabled }}",
       [{ searchMask: "headless", replaceMask: "" }],
       { ua },
-      { browser: runValuesBrowser },
+      { browser: runValuesBrowser, runArgs: runArgsBrowser },
     )
     /**
      * @type {import("./utils/runinfos").RunInfoCtx}

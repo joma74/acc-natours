@@ -1,8 +1,9 @@
 const HEIGHT_RUNINFO_RE = /(?:height=)([0-9]+|$)/
 const WIDTH_RUNINFO_RE = /(?:width=)([0-9]+|$)/
-const TOUCH_RUNINFO_RE = /(?:touch=)(.*?)(?=\s|$)/
-const SCALEFACTOR_RUNINFO_RE = /(?:scaleFactor=)(.*?)(?=\s|$)/
-const PROFILE_RUNINFO_RE = /(?:-profile\s)(.*?)(?=\s|$)/
+const MOBILE_RE = /(?:mobile=)(.*?)(?=\s|;|$)/
+const TOUCH_RUNINFO_RE = /(?:touch=)(.*?)(?=\s|;|$)/
+const SCALEFACTOR_RUNINFO_RE = /(?:scaleFactor=)(.*?)(?=\s|;|$)/
+const PROFILE_RUNINFO_RE = /(?:-profile\s)(.*?)(?=\s|;|$)/
 const BROWSER_RUNINFO_RE = /^(\w+)(?=\s|:|$)/
 const CHROME_RUNINFO_RE = /^(chrome)/
 const FIREFOX_RUNINFO_RE = /^(firefox)/
@@ -10,6 +11,7 @@ const FIREFOX_RUNINFO_RE = /^(firefox)/
 /**
  * @typedef {{
  *      browserName: string | undefined;
+ *      mobile: boolean | undefined;
  *      isTouchEnabled: boolean | undefined;
  *      height: number | undefined;
  *      width: number | undefined;
@@ -53,6 +55,8 @@ const evaluateRunArgsBrowser = async function(t) {
   result.height = evalRegexAsInt(HEIGHT_RUNINFO_RE, runArgsBrowser)
 
   result.width = evalRegexAsInt(WIDTH_RUNINFO_RE, runArgsBrowser)
+
+  result.mobile = evalRegexAsBoolean(MOBILE_RE, runArgsBrowser)
 
   result.scaleFactor = evalRegexAsInt(SCALEFACTOR_RUNINFO_RE, runArgsBrowser)
 

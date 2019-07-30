@@ -9,6 +9,7 @@ export default class FirefoxBrowserConfig {
   async init(config) {
     this.headless = config.isHeadless
     this.touch = config.isTouchDevice
+    this.mobile = config.isMobile
     this.scaleFactor = config.scaleFactor
     this.width = config.width
     this.height = config.height
@@ -39,6 +40,7 @@ export default class FirefoxBrowserConfig {
     return {
       headless: this.headless,
       touch: this.touch,
+      mobile: this.mobile,
       scaleFactor: this.scaleFactor,
       width: this.width,
       height: this.height,
@@ -50,9 +52,9 @@ export default class FirefoxBrowserConfig {
   output() {
     let browserString
     if (this.headless) {
-      browserString = `firefox:headless:marionettePort=${this.automationPort} -profile ${this.profileDir} -width=${this.width} -height=${this.height} -scaleFactor=${this.scaleFactor} -touch=${this.touch}`
+      browserString = `firefox:headless:marionettePort=${this.automationPort} -profile ${this.profileDir} -width=${this.width} -height=${this.height} -scaleFactor=${this.scaleFactor} -touch=${this.touch} -mobile=${this.mobile}`
     } else {
-      browserString = `firefox -profile=${this.profileDir} -width=${this.width} -height=${this.height} -scaleFactor=${this.scaleFactor} -touch=${this.touch}`
+      browserString = `firefox -profile=${this.profileDir} -width=${this.width} -height=${this.height} -scaleFactor=${this.scaleFactor} -touch=${this.touch}  -mobile=${this.mobile}`
     }
     return browserString
   }
@@ -66,6 +68,7 @@ class FirefoxBrowserConfigBuilder {
   constructor() {
     this.isHeadless = true
     this.isTouchDevice = true
+    this.isMobile = false
     this.scaleFactor = 1
     this.width = 1280
     this.height = 1024

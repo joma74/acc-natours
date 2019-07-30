@@ -45,7 +45,7 @@ export default class ChromeBrowserConfig {
     if (this.emulation) {
       browserString =
         browserString +
-        `:emulation:width=${this.width};height=${this.height};scaleFactor=${this.scaleFactor};touch=${this.touch}`
+        `:emulation:width=${this.width};height=${this.height};mobile=${this.mobile};scaleFactor=${this.scaleFactor};touch=${this.touch}`
       if (this.automationPort) {
         browserString = browserString + `;cdpPort=${this.automationPort}`
       }
