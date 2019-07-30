@@ -58,17 +58,17 @@ const renderFullAsFileName = function(ua) {
  *
  * @param userAgentTemplate {string}
  * @param uaTagValues { { ua : UserAgentInfos} } user agent infos
- * @param otherTagValues {...AnyJson}
+ * @param otherTagValues {AnyJson}
  * @returns the filename-safe sanitized user agent string to-lower-cased
  */
 const renderSelectedAsFileName = function(
   userAgentTemplate,
   uaTagValues,
-  ...otherTagValues
+  otherTagValues,
 ) {
   const rendered = render(
     userAgentTemplate,
-    Object.assign(uaTagValues, ...otherTagValues),
+    Object.assign(uaTagValues, otherTagValues),
   )
   /**
    * @type {string}
@@ -83,19 +83,19 @@ const renderSelectedAsFileName = function(
  * @param userAgentTemplate {string}
  * @param replacements { { searchMask: string, replaceMask: string}[] }
  * @param uaTagValues { { ua : UserAgentInfos} } user agent infos
- * @param otherTagValues {...AnyJson}
+ * @param otherTagValues {AnyJson}
  * @returns the filename-safe sanitized user agent string to-lower-cased
  */
 const renderSelectedWithReplacementsAsFileName = function(
   userAgentTemplate,
   replacements,
   uaTagValues,
-  ...otherTagValues
+  otherTagValues,
 ) {
   var sanitizedFilename = renderSelectedAsFileName(
     userAgentTemplate,
     uaTagValues,
-    ...otherTagValues,
+    otherTagValues,
   )
   replacements.forEach(function(value) {
     var regEx = new RegExp(value.searchMask, "ig")
