@@ -9,7 +9,7 @@ browser setups
 - at different Touch Modes
 - at different Device Types(Mobile or Desktop)
 
-The application is really a single HTML page with sections summing up to multiples of `100 vh`(CSS for "hundredths of the viewport height"). But each section is not exactly `100 vh`( A point that i have a look at later).
+The application is really a single HTML page with sections summing up to multiples of `100 vh`(CSS for "hundredths of the viewport height"). But each section is not exactly `100 vh`(A point that i have a look at later).
 
 Target browsers are chrome and firefox(FF), as i prefer to be bound to desktop browsers available on
 Linux(so no Mac or Windows). Also as cloud based CIs for Windows and Mac are not so easily supported and you have to take extra care in your project setup e.g. regarding file paths.
@@ -30,13 +30,15 @@ Now into the course of how my implementation run
 2. How to write test
 3. How to take screenshot
 
+Finally i compiled some other observations, which go into the last chapter Other
+
 # How To Configure Browser Setup
 
 First takeaway for me was that by only supplying browser CLI arguments ala chrome's `window-size` do
 not get you something when it comes to above browser setup list. That meant for
 chrome to check out the emulation options wrapped by testcafe, which cover all of the above browser setup requirements.
 
-But on firefox i was first clueless - there is no CLI for emulation mode. So i prepared an own FF profile prior to FF startup. Along with the automatic removal of the tmp profile(which btw did not work consistently as does testcafe's), I did some amount of copying testcafe's firefox profile handling procedure (Enhancement #1).
+But on firefox i was first clueless - there is no CLI for emulation mode. So i prepared an own FF profile prior to startup. Along with the automatic removal of the tmp profile(which btw did not work consistently as does testcafe's), I did some amount of copying testcafe's firefox profile handling procedure (Enhancement #1).
 
 On that way i also converted from package.json driven testcafe parameters to testcafe's programmatic
 runTestCafe approach. As the browsers array therein was initially not pretty either, i wrapped that in a Builder pattern (Enhancement #2) with my sensible defaults and hiding/harmonizing browser setups e.g.
@@ -47,7 +49,7 @@ runTestCafe approach. As the browsers array therein was initially not pretty eit
 
 Where `output()` renders the browser configuration to the per testcafe expected string format.
 
-_[Rant] That `await` before `new` is so cruel as anything in Node that is trapped by using a single async function anywhere below. And wants to continue sync again._
+_[Rant] That `await` before `new` is so cruel as anything in Node that is trapped by using a single async function anywhere below - and wants to continue sync again._
 
 Still, how to set width/height for the media breakpoints in FF were not clear to me. `t.resizeWindow` documents itself as `Sets the browser window size.` How does that help to meet the viewport size?
 
@@ -57,17 +59,17 @@ Tried to make sense out of that one's documentation at
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDeviceMetricsOverride.
 Describes iteself as
 
-> `...window.screen.width, window.screen.height, window.innerWidth, window.innerHeight, ...`
+> `Overrides the values of device screen dimensions(window.screen.width, window.screen.height, window.innerWidth, window.innerHeight, ...`
 
 Whaaaat? For me it looked like, and after researching still is, a complete specification naming disaster followed by a browser vendor interpretation disaster.
 
-Following along i tried to make sense out of
-https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVisibleSize. `Resizes the frame/viewport of the page.` Whaaaat? _Which is btw currently marked as "experimental" and
-"deprecated".(Issue #1)_
+Along i tried to make sense out of
+https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVisibleSize. `Resizes the frame/viewport of the page. ...` Whaaaat? _Which is btw currently marked as "experimental" and
+"deprecated"(Issue #1)._
 
 Out of those two and other references - of whom i would like to highlight https://www.quirksmode.org/blog/archives/2013/12/desktop_media_q.html - i chrocheted a mental model, which boils down to
 
-```js
+```
                  window.innerWidth x window.innerHeight
                  = The browser's inner window
 ```
@@ -76,7 +78,7 @@ where this includes the width/height of the eventual scrollbar(s). This one woul
 
 While the viewport - a special term for a conceptual rectangle area that does not change while zooming, but only somewhat setable via the HTML `meta viewport` tag -
 
-```js
+```
                 document.documentElement.clientWidth x document.documentElement.clientHeight
                 = The browser's inner window's viewport
 ```
@@ -96,42 +98,41 @@ availableWidth: screen.availWidth,
 availableHeight: screen.availHeight
 ```
 
-Then it calls FF's `getWindowRect` (which i assume to be `window.outerWidth`), calculates the diff between `currentRect.width/height` and `window.innerWidth/Height` and adds that to the width/height given to `t.resizeWindow` and sends that via marionette's setWindowRect(which eventually succeeds, see sources about cases where that value is too small or too big).
+Then it calls FF's `getWindowRect` (which i assume to be `window.outerWidth`), calculates the diff between `currentRect.width/height` and `window.innerWidth/Height` and adds that to the width/height given to `t.resizeWindow` and sends that via marionette's `setWindowRect`(which eventually succeeds, see sources about cases where that value is too small or too big).
 
 _If this conclusion is right, i vote that t.resizeWindow should be aliased renamed (resizeInnerWindow), documented as such and sensible variants (outer,...) should be built into testcafe(Issue #2)_
 
-And so one can expect to have `window.innerWidth/Height` been set via `t.resizeWindow` - which is the same as we accomplished via CDP's `setDeviceMetricsOverride`. Interferes with chrome emulation mode? Nope TBD
+And so one can expect to have `window.innerWidth/Height` been set via `t.resizeWindow` - which is the same as we accomplished via CDP's `setDeviceMetricsOverride`.
 
 But still, will I never have the viewport related media query kicking in FF? To check on that, turned out that resizing at the 0/+1 pixel cases on one of my media query width's, the media query kicked in?!?!
 
 Turns out that https://www.quirksmode.org/blog/archives/2013/12/desktop_media_q.html also made the following related observation about some desktop browser vendors
 
-> The width and height media queries are no longer slaved to
-> document.documentElement.clientWidth/Height.
-> Instead, they take their cues from window.innerWidth/Height. This means desktop browsers now treat
-> these media queries differently than mobile browsers.
+> The width and height media queries are no longer slaved to `document.documentElement.clientWidth/Height`. Instead, they take their cues from `window.innerWidth/Height`. This means desktop browsers now treat these media queries differently than mobile browsers.
 
 You can observe this effect with your chrome or FF browser by opening
 https://www.quirksmode.org/css/tests/mediaqueries/width.html, which still proves what was written in
 2013! Hmmm. In chrome's Toggle Device Mode, the result of https://www.quirksmode.org/css/tests/mediaqueries/width.html changes when you toggle the Device Type from desktop to mobile. In FF in Responsive Design Mode, the result changes too. So, FF's Responsive Design Mode == Chrome's Device Type's Mobile mode? Dunno FF, anyone anywhere documented?
 
-So, to use `t.resizeWindow` seems to be working for FF. But wait a second, if the same test should run under chrome and FF, does `t.resizeWindow` for FF interfere with chrome in emulation mode? Turns out that i was in luck again. `t.resizeWindow` for chrome in emulation mode syncs with the set parameters.
+So, using `t.resizeWindow` seems to be working for FF. But wait a second, if the same test should run under chrome and FF, does `t.resizeWindow` for FF interfere with chrome in emulation mode? Turns out that i was in luck again. `t.resizeWindow` for chrome in emulation mode syncs with the set parameters.
 
 # How to write test
 
-Overall point is that, inside your test, you have no access to the arguments of the run or the configuration of the browser currently run. Examples where this would be beneficial
+Overall point is that, inside your test, you have no access to the args of the run (the ones used in `runTestCafe`) or the configuration of the browser instance currently run. Examples where this would be beneficial
 
 - set viewport width and height (see chapter "How To Configure Browser Setup")
-- check that the configuration of the browser setup aligns to the current browser
+- check that the configuration of the browser setup aligns to the related current browser instance
 - build a subdirectory for screenshots for each running browser instance
 
-Infos from the running testcafe configuration to current live data - that is all about options, browser instance and current test are already orderly parsed and evaluated, held in sync by testcafe and is (i assume) unit tested. But these infos are not (officially) accessible for the end user, meaning effort and code duplication.
+Infos from the run - that is all about args, browser instance and current test are already orderly parsed and evaluated - are held in sync by testcafe and are expected to be properly unit tested. But these infos are not (officially) accessible for the end user, meaning effort of dabbling live code and source code and leads to overall bad practices(code duplication or reaching into not public API).
 
-Additionally there is also an API lacking, between `runTestCafe` and the current test(Enhancement #3). Let me show you an example of usage: As explained before, for FF i need to call `t.resizeWindow` with a height and width. Therefore i put the run arguments on the testcafe browser configuration, even, like `scaleFactor` or `touch`, they do not exist as FF CLI params. But are enacted via building a FF profile.
+So i presume that there are public APIs lacking. Let me show you two examples of usage.
+
+First one, as explained before, is for FF i need to call `t.resizeWindow` with a height and width. Therefore i put the run arguments on the testcafe browser configuration, even, like `scaleFactor` or `touch`, they do not exist as FF CLI params. But first, are enacted for building a proper FF profile.
 
 `"firefox:headless:marionettePort=42939 -profile /tmp/testcafe-ext/firefox-profile-309573pwGWM1c30Pe -width=600 -height=1024 -scaleFactor=2 -touch=true -mobile=false"`
 
-Then, in my test i do
+Secondly, in my test i do
 
 ```js
 const runArgsBrowser = await evaluateRunArgsBrowser(t)
@@ -163,7 +164,63 @@ const evaluateRunArgsBrowser = async function(t) {
   ...
 ```
 
-As you can see in `evaluateRunArgsBrowser`, i dabbled into testcafe interna and parsed the line(can't remember where, but i saw testcafe code that does that kind of parsing already).
+As you can see in `evaluateRunArgsBrowser`, i dabbled into testcafe's not public API and parsed the browser run args myself. Can't remember where, but i saw testcafe code that does exactly that kind of parsing already.
+
+Second example of usage was organizing screenshots into folders respective to the browser instance under test. Could not employ testcafe's screenshot pattern for this. Finally dabbled again into testcafe's not public API and modeled a folder path from test and testcase down to the browser instance setup under test, including user agent info(also mostly a duplication of what testcafe already implemented). See the following result
+
+```
+joma@edison:target $ tree
+.
+├── reports-dev
+│   ├── report.xml
+│   └── screenshots
+│       └── Index_Page_Test
+│           └── take_screenshots
+│               ├── chrome_linux_600x1024_mob#true_dpr#1_tou#true
+│               │   ├── footer.png
+│               │   ├── header.png
+│...
+│               │   ├── section-tours.png
+│               │   └── thumbnails
+...
+│               ├── chrome_linux_601x1024_mob#true_dpr#1_tou#false
+│               │   ├── footer.png
+│               │   ├── header.png
+│...
+│               │   ├── section-tours.png
+│               │   └── thumbnails
+...
+│               ├── firefox_ubuntu_590x1024_mob#false_dpr#1_tou#true
+│               │   ├── footer.png
+│               │   ├── header.png
+│...
+│               │   ├── section-tours.png
+│               │   └── thumbnails
+...
+│               └── firefox_ubuntu_591x1024_mob#false_dpr#1_tou#false
+│                   ├── footer.png
+│                   ├── header.png
+│...
+│                   ├── section-tours.png
+│                   └── thumbnails
+...
+└── reports-prod
+    ├── report.xml
+    └── screenshots
+        └── Index_Page_Test
+            └── take_screenshots
+                ├── chrome_linux_600x1024_mob#true_dpr#1_tou#true
+                │   ├── footer.png
+                │   ├── header.png
+│...
+                │   ├── section-tours.png
+                │   └── thumbnails
+...
+                ├── chrome_linux_601x1024_mob#true_dpr#1_tou#false
+                │   ├── footer.png
+...
+...
+```
 
 # How to take screenshot
 
@@ -189,30 +246,32 @@ Example #2
 
 ## Testcafe Under-The-Hood
 
-Another point about my understanding of testcafe is that - as one might presume falsely by now speaking at length about CDP and marionette - testcafe is not just yet another wrapper over Chrome's CDP or FF's Marionette. Many of the other testcafe commands are routed via a JS proxy(hammerhead) directly into/onto the browser runnning the application under test. In the whole documentation of testcafe this point is never mentioned and AFAIK very unique.
+Another point about my understanding of testcafe is that - as one might presume falsely by now speaking at length about CDP and Marionette - testcafe is not just yet another wrapper over Chrome's CDP or FF's Marionette.
 
-Would love to hear about the architectural decision process and pros and cons. Or why it does not relate to the w3c driver protocol, or where it does at least. This would be beneficial for decisions about the ins and outs when evaluating.
+Many of the other testcafe commands are routed via a JS proxy(hammerhead) directly into/onto the browser instance runnning the application under test. In the whole documentation of testcafe this point is never mentioned and AFAIK very unique.
+
+Would love to hear from tescafe folks about their architectural decision process and detailed pros and cons comparing to w3c driver spec or other competitive products. This would be beneficial for decisions about the ins and outs when evaluating or proposing for an adoption.
 
 ## Testcafe Supports Only Latest Browsers
 
 Also lacking is a more prominent section about why testcafe supports only the latest browser
-versions.
+versions. As above, this would be beneficial for decisions about the ins and outs when evaluating or proposing for an adoption.
 
 ## Testcafe Delivers ES3 Code
 
-Why testcafe delivers transpiled es3 code? `Promises` are resolved to some promisify framework :frowning:, whatever that does. Thing is, it makes debugging testcafe for me quite difficult. While delivered with source mappings, this is rather bothersome, from initial setting breakpoints till the source mapping is recognized to funny line jumps while debugging to stepping through nested technical crutch sources i am not interested in.
+Why does testcafe deliver transpiled es3 code? `Promises` are resolved to some promisify framework :frowning:, whatever that does. Thing is, it makes debugging testcafe for me quite difficult. While delivered with source mappings, this is rather bothersome, from initial setting breakpoints till the source mapping is recognized to funny line jumps while debugging to stepping through nested technical crutch sources i am not interested in.
 
 ## Provide ESM for node
 
-Testcafe already uses `esm` underneath. Would love support for es6 modules in node for my tests too. Had to learn to run my runTestCafe via `node -r esm src/tests/run-testcafe`.
+Testcafe already uses `esm` underneath. Would think support for es6 modules in node for my tests too. Had to learn to run my runTestCafe via `node -r esm src/tests/run-testcafe`. Why not defaulting?
 
 ## Enhance Logging
 
-Tracing what testcafe does while running a test is - well - not existing. Some debug level that shows timestamped console messages like "Starting browser", "Started browser", "Taking screenshot".
+Tracing what testcafe does while running a test in between is - well - not existing. Proposal is some debug level that shows timestamped console messages like "Starting browser", "Started browser", "Taking screenshot" with proper relation to test and browser instance.
 
 ## Make Browser Window Assignable To Current Run
 
-If you debug tests with more than one browser, one can not deduct which browser belongs to the current instance of the test. See also "Enhance Logging".
+If you debug tests with more than one browser, one can not deduct which browser belongs to the current instance of the test. Proper relation with logging chalk color and browser window chrome color, by PID and debugging port ... See also "Enhance Logging".
 
 ## Reporting, Esp xunit
 
