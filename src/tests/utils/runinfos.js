@@ -13,8 +13,8 @@ const FIREFOX_RUNINFO_RE = /^(firefox)/
  *      browserName: string | undefined;
  *      mobile: boolean | undefined;
  *      isTouchEnabled: boolean | undefined;
- *      height: number | undefined;
- *      width: number | undefined;
+ *      windowInnerHeight: number | undefined;
+ *      windowInnerWidth: number | undefined;
  *      profileDir: string | undefined;
  *      scaleFactor: number | undefined;
  *   }} RunArgsBrowser - the cli args of the current browser
@@ -22,8 +22,8 @@ const FIREFOX_RUNINFO_RE = /^(firefox)/
 
 /**
  * @typedef {{
- *      width: number;
- *      height: number;
+ *      viewportWidth: number;
+ *      viewportHeight: number;
  *      dpr: number;
  *      isTouchEnabled: boolean;
  * }} RunValuesBrowser - the runtime values of the current browser
@@ -52,9 +52,9 @@ const evaluateRunArgsBrowser = async function(t) {
 
   const runArgsBrowser = await t.testRun.browserConnection.browserInfo.alias
 
-  result.height = evalRegexAsInt(HEIGHT_RUNINFO_RE, runArgsBrowser)
+  result.windowInnerHeight = evalRegexAsInt(HEIGHT_RUNINFO_RE, runArgsBrowser)
 
-  result.width = evalRegexAsInt(WIDTH_RUNINFO_RE, runArgsBrowser)
+  result.windowInnerWidth = evalRegexAsInt(WIDTH_RUNINFO_RE, runArgsBrowser)
 
   result.mobile = evalRegexAsBoolean(MOBILE_RE, runArgsBrowser)
 
@@ -77,8 +77,11 @@ const evaluateRunArgsBrowser = async function(t) {
  * @param {RunArgsBrowser} runArgsBrowser
  */
 const resizeToRunInfoDimensions = async function(t, runArgsBrowser) {
-  if (runArgsBrowser.width && runArgsBrowser.height) {
-    await t.resizeWindow(runArgsBrowser.width, runArgsBrowser.height)
+  if (runArgsBrowser.windowInnerWidth && runArgsBrowser.windowInnerHeight) {
+    await t.resizeWindow(
+      runArgsBrowser.windowInnerWidth,
+      runArgsBrowser.windowInnerHeight,
+    )
   }
 }
 

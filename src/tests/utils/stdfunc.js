@@ -17,8 +17,8 @@ const readDevicePixelRatio = ClientFunction(() => {
 
 const readClientDimensions = ClientFunction(() => {
   return {
-    width: document.documentElement.clientWidth,
-    height: document.documentElement.clientHeight,
+    viewportWidth: document.documentElement.clientWidth,
+    viewportHeight: document.documentElement.clientHeight,
   }
 })
 

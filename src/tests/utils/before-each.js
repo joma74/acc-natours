@@ -5,7 +5,7 @@ import {
 import {
   readUserAgent,
   readDevicePixelRatio,
-  readClientDimensions,
+  readClientDimensions as readViewportDimensions,
   readIsTouchEnabled,
 } from "./stdfunc"
 
@@ -28,21 +28,21 @@ const beforeEach = async (t) => {
   let ua
   /** @type { {dpr: number}} */
   let dpr
-  /** @type { {width: number, height: number}} */
-  let clientDimensions
+  /** @type { {viewportWidth: number, viewportHeight: number}} */
+  let viewportDimensions
   /** @type {boolean} */
   let isTouchEnabled
   //
   await Promise.all([
     parseUserAgentAsJson(await readUserAgent()),
     await readDevicePixelRatio(),
-    await readClientDimensions(),
+    await readViewportDimensions(),
     await readIsTouchEnabled(),
   ])
     .then((values) => {
       ua = values[0]
       dpr = values[1]
-      clientDimensions = values[2]
+      viewportDimensions = values[2]
       isTouchEnabled = values[3]
     })
     .catch((e) => {
@@ -56,16 +56,16 @@ const beforeEach = async (t) => {
     // @ts-ignore
     dpr === undefined ||
     // @ts-ignore
-    clientDimensions === undefined ||
+    viewportDimensions === undefined ||
     // @ts-ignore
     isTouchEnabled === undefined
   ) {
     throw new Error("Some of the read infos are not available, aborting.")
   }
 
-  const runValuesBrowser = { ...dpr, ...clientDimensions, isTouchEnabled }
+  const runValuesBrowser = { ...dpr, ...viewportDimensions, isTouchEnabled }
   const screenshotLeafDirName = renderSelectedWithReplacementsAsFileName(
-    "{{ ua.family }}_{{ ua.os.family }}_{{ browser.width }}x{{ browser.height }}_mob#{{ runArgs.mobile }}_dpr#{{ browser.dpr }}_tou#{{ browser.isTouchEnabled }}",
+    "{{ ua.family }}_{{ ua.os.family }}_{{ browser.viewportWidth }}x{{ browser.viewportHeight }}_mob#{{ runArgs.mobile }}_dpr#{{ browser.dpr }}_tou#{{ browser.isTouchEnabled }}",
     [{ searchMask: "headless", replaceMask: "" }],
     { ua },
     { browser: runValuesBrowser, runArgs: runArgsBrowser },
