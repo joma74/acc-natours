@@ -1,95 +1,14 @@
-import {
-  parseUserAgentAsJson,
-  renderSelectedWithReplacementsAsFileName,
-} from "./utils/useragent"
 import { scrollTo } from "./utils/scroll"
-import {
-  readUserAgent,
-  readDevicePixelRatio,
-  readClientDimensions,
-  readIsTouchEnabled,
-} from "./utils/stdfunc"
 import { selectImg } from "./utils/img-elm"
 import { takeScreenshotAtRunInfoContext } from "./utils/screenshot"
-import {
-  resizeToRunInfoDimensions,
-  setRunInfoCtx,
-  getRunInfoCtx,
-  evaluateRunArgsBrowser,
-} from "./utils/runinfos"
-import path from "path"
+import { getRunInfoCtx } from "./utils/runinfos"
+import { beforeEach } from "./utils/before-each"
 
 const ENVAPPSRVPORT = require("../../config/env/ENVAPPSRVPORT")
 
 fixture("Index_Page_Test")
   .beforeEach(async (t) => {
-    const runArgsBrowser = await evaluateRunArgsBrowser(t)
-    await resizeToRunInfoDimensions(t, runArgsBrowser)
-
-    /** @type {import("./utils/useragent").UserAgentInfos}  */
-    let ua
-    /** @type { {dpr: number}} */
-    let dpr
-    /** @type { {width: number, height: number}} */
-    let clientDimensions
-    /** @type {boolean} */
-    let isTouchEnabled
-    //
-    await Promise.all([
-      parseUserAgentAsJson(await readUserAgent()),
-      await readDevicePixelRatio(),
-      await readClientDimensions(),
-      await readIsTouchEnabled(),
-    ])
-      .then((values) => {
-        ua = values[0]
-        dpr = values[1]
-        clientDimensions = values[2]
-        isTouchEnabled = values[3]
-      })
-      .catch((e) => {
-        throw e
-      })
-    //
-
-    if (
-      // @ts-ignore
-      ua === undefined ||
-      // @ts-ignore
-      dpr === undefined ||
-      // @ts-ignore
-      clientDimensions === undefined ||
-      // @ts-ignore
-      isTouchEnabled === undefined
-    ) {
-      throw new Error("Some of the read infos are not available, aborting.")
-    }
-
-    const runValuesBrowser = { ...dpr, ...clientDimensions, isTouchEnabled }
-    const screenshotLeafDirName = renderSelectedWithReplacementsAsFileName(
-      "{{ ua.family }}_{{ ua.os.family }}_{{ browser.width }}x{{ browser.height }}_mob#{{ runArgs.mobile }}_dpr#{{ browser.dpr }}_tou#{{ browser.isTouchEnabled }}",
-      [{ searchMask: "headless", replaceMask: "" }],
-      { ua },
-      { browser: runValuesBrowser, runArgs: runArgsBrowser },
-    )
-    /**
-     * @type {import("./utils/runinfos").RunInfoCtx}
-     */
-    const runInfoCtx = {
-      ua,
-      runValuesBrowser,
-      screenshotLeafDirName,
-      screenshotDir: path.join(
-        t.testRun.opts.screenshotPath,
-        screenshotLeafDirName,
-      ),
-      runArgsBrowser,
-    }
-    //
-    setRunInfoCtx(t, runInfoCtx)
-    //
-    console.log(" - " + runInfoCtx.screenshotLeafDirName + "")
-    console.log("   - " + runInfoCtx.runArgsBrowser.profileDir + "")
+    await beforeEach(t)
   })
   .page(`http://localhost:${ENVAPPSRVPORT.get()}/index.html`)
 
@@ -102,7 +21,7 @@ fixture("Index_Page_Test")
     t.testRun.browserConnection.browserConnectionGateway.connections.FTY84uC.id
 
     t.testRun.browserConnection.browserConnectionGateway.connections.FTY84uC.id
-   */
+*/
 test("take_screenshots", async (t) => {
   await t.wait(500) // animation
   //
