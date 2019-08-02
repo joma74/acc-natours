@@ -166,7 +166,7 @@ const evaluateRunArgsBrowser = async function(t) {
 
 As you can see in `evaluateRunArgsBrowser`, i dabbled into testcafe's not public API and parsed the browser run args myself. Can't remember where, but i saw testcafe code that does exactly that kind of parsing already.
 
-Second example of usage was organizing screenshots into folders respective to the browser instance under test. Could not employ testcafe's screenshot pattern for this. Finally dabbled again into testcafe's not public API and modeled a folder path from test and testcase down to the browser instance setup under test, including user agent info(also mostly a duplication of what testcafe already implemented). See the following result
+Second example of usage was organizing screenshots into folders respective to the browser instance under test. Could not employ testcafe's screenshot pattern for this. Finally dabbled again into testcafe's not public API and modeled a folder path from test and testcase down to the browser instance setup under test, including user agent info(also mostly a duplication of what testcafe already implemented). See following for result
 
 ```
 joma@edison:target $ tree
