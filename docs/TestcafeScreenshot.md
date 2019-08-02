@@ -228,7 +228,7 @@ TBD
 
 # Other
 
-## Browser Setup And It's Relation To Testcafe Behaviours Are Lacking Documentation
+## Document Browser Setup In Relation To Testcafe Behaviours
 
 As can be seen in the pargraphs of the Browser Setup chapter, overall testcafe lacks documentation under which condition which behaviour is shown in which browser vendor. Read e.g.
 
@@ -244,24 +244,24 @@ Example #2
 
 > Starting FF in non-headless mode, testcafe does not allow you to set a marionette port to it's options. Which it should offer, if you define an own FF's profile. Instead, a testcafe's own marionette client with some other port is opened.
 
-## Testcafe Under-The-Hood
+## Explain Testcafe Under-The-Hood
 
-Another point about my understanding of testcafe is that - as one might presume falsely by now speaking at length about CDP and Marionette - testcafe is not just yet another wrapper over Chrome's CDP or FF's Marionette.
+Another point about my understanding of testcafe is that - as one might presume falsely by now speaking at length about Chrome's CDP or FF's Marionette - testcafe is not just yet another wrapper over those.
 
-Many of the other testcafe commands are routed via a JS proxy(hammerhead) directly into/onto the browser instance runnning the application under test. In the whole documentation of testcafe this point is never mentioned and AFAIK very unique.
+Many of the other testcafe commands are routed via a JS proxy(hammerhead) directly into/onto the browser instance running the application under test. In the whole documentation of testcafe this point is never mentioned and AFAIK is very unique.
 
 Would love to hear from tescafe folks about their architectural decision process and detailed pros and cons comparing to w3c driver spec or other competitive products. This would be beneficial for decisions about the ins and outs when evaluating or proposing for an adoption.
 
-## Testcafe Supports Only Latest Browsers
+## Explain Testcafe Supports Only Latest Browsers
 
 Also lacking is a more prominent section about why testcafe supports only the latest browser
-versions. As above, this would be beneficial for decisions about the ins and outs when evaluating or proposing for an adoption.
+versions. As above, this would be beneficial for decisions.
 
-## Testcafe Delivers ES3 Code
+## Evalute Need That Testcafe Delivers ES3 Code
 
 Why does testcafe deliver transpiled es3 code? `Promises` are resolved to some promisify framework :frowning:, whatever that does. Thing is, it makes debugging testcafe for me quite difficult. While delivered with source mappings, this is rather bothersome, from initial setting breakpoints till the source mapping is recognized to funny line jumps while debugging to stepping through nested technical crutch sources i am not interested in.
 
-## Provide ESM for node
+## Provide ESM For Node
 
 Testcafe already uses `esm` underneath. Would think support for es6 modules in node for my tests too. Had to learn to run my runTestCafe via `node -r esm src/tests/run-testcafe`. Why not defaulting?
 
@@ -273,11 +273,111 @@ Tracing what testcafe does while running a test in between is - well - not exist
 
 If you debug tests with more than one browser, one can not deduct which browser belongs to the current instance of the test. Proper relation with logging chalk color and browser window chrome color, by PID and debugging port ... See also "Enhance Logging".
 
-## Reporting, Esp xunit
+## Test Report Esp Xunit Flavor Does Tell You Not Enough
+
+From the below test report of a contrived test - can you guess which browser setup did fail? How does that browser agent identifier(`Chrome 76.0.3809 / Linux 0.0.0`) relate to my browser setup t.i. was it `chrome_linux_600x1024_mob#true_dpr#1_tou#true` or `chrome_linux_601x1024_mob#true_dpr#1_tou#false` that broke?
+
+How can i undefault the folder placement of the error screenshot? If there occur two of them under the same browser agent identifier, they would have overridden each other.
+
+I would not prefer the result of all browsers accumulated into one testcase. I think this is called a parameterized test. So
+
+- How about a report per browser paramater?
+- Or put the browser parameters to the test behind in the test name e.g.
+
+```xml
+<testcase classname="Index_Page_Test" name="take_screenshots (Chrome_76.0.3809_Linux_0.0.0_mob#false_dpr#1_tou#false)" >...</testcase>
+<testcase classname="Index_Page_Test" name="take_screenshots (Chrome_76.0.3809_Linux_0.0.0_mob#false_dpr#1_tou#true)" >...</testcase>
+```
+
+Also let users define the testsuite name.
+
+Then, user defined properties would be nice e.g.
+
+```xml
+<properties>
+    <property name="mobile" value="true"/>
+    <property name="devicePixelRatio" value="2"/>
+    <property name="touch" value="true"/>
+    <property name="screenshots" value="/home/joma/entwicklung/design/acc-natours/target/reports-prod/screenshots/Index_Page_Test/take_screenshots/firefox_ubuntu_591x1024_mob#false_dpr#1_tou#false"/>
+    <property name="browserId" value="Qs4wd5"/>
+    <property name="browserName" value="firefox"/>
+    <property name="browserVersion" value="68.0.0"/>
+    ...
+</properties>
+```
+
+For logging reasons above, it makes sense to grab console error and std out to the report too.
+
+Wondering why is one in tge report counted as failure, and the other as error? And only one error screenshot `target/reports-prod/screenshots/Index_Page_Test/take_screenshots/HeadlessChrome_76.0.3809_Linux_0.0.0/errors/1.png` is taken. Or should that be named failure screenshot?
+
+```xml
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuite name="TestCafe Tests: Chrome 76.0.3809 / Linux 0.0.0, HeadlessChrome 76.0.3809 / Linux 0.0.0, Firefox 68.0.0 / Ubuntu 0.0.0, Firefox 68.0.0 / Ubuntu 0.0.0" tests="1" failures="1" skipped="0" errors="1" time="38.697" timestamp="Fri, 02 Aug 2019 19:13:30 GMT" >
+  <testcase classname="Index_Page_Test" name="take_screenshots (screenshots: /home/joma/entwicklung/design/acc-natours/target/reports-prod/screenshots/Index_Page_Test/take_screenshots)" time="38.628">
+    <failure>
+    <![CDATA[
+      1) AssertionError: expected false to be truthy
+
+         Browser: Firefox 68.0.0 / Ubuntu 0.0.0
+         Screenshot:
+      /home/joma/entwicklung/design/acc-natours/target/reports-prod/screenshots/Index_Page_Test/take_screenshots/Firefox_68.0.0_Ubuntu_0.0.0/errors/1.png
+
+            50 |  await scrollTo(t, "body > main > section.section-tours")
+            51 |
+            52 |  await takeScreenshotAtRunInfoContext(t, "section-tours.png")
+            53 |
+            54 |  if (getRunInfoCtx(t).runArgsBrowser.isTouchEnabled == false) {
+          > 55 |    await t.expect(false).ok()
+            56 |  }
+            57 |
+            58 |  await t.hover(
+            59 |    "body > main > section.section-tours > div.row > div:nth-child(1) > div.card",
+            60 |  )
+
+            at ok (/home/joma/entwicklung/design/acc-natours/src/tests/index-test.js:55:27)
+
+      2) AssertionError: expected false to be truthy
+
+         Browser: HeadlessChrome 76.0.3809 / Linux 0.0.0
+         Screenshot:
+      /home/joma/entwicklung/design/acc-natours/target/reports-prod/screenshots/Index_Page_Test/take_screenshots/HeadlessChrome_76.0.3809_Linux_0.0.0/errors/1.png
+
+            50 |  await scrollTo(t, "body > main > section.section-tours")
+            51 |
+            52 |  await takeScreenshotAtRunInfoContext(t, "section-tours.png")
+            53 |
+            54 |  if (getRunInfoCtx(t).runArgsBrowser.isTouchEnabled == false) {
+          > 55 |    await t.expect(false).ok()
+            56 |  }
+            57 |
+            58 |  await t.hover(
+            59 |    "body > main > section.section-tours > div.row > div:nth-child(1) > div.card",
+            60 |  )
+
+            at ok (/home/joma/entwicklung/design/acc-natours/src/tests/index-test.js:55:27)
+    ]]>
+    </failure>
+  </testcase>
+</testsuites>
+```
 
 ## Auto Fetch Standard DOM Properties Per HTML Element Type
 
-What to fetch for eg HTMLImageElement see `lib.dom.ts`. Do not know if there is a performance or memory penalty.
+What to fetch for eg HTMLImageElement; see `lib.dom.ts` for properties.
+
+```js
+/** Provides special properties and methods for manipulating <img> elements. */
+interface HTMLImageElement extends HTMLElement {
+    ...
+    readonly complete: boolean;
+    readonly naturalHeight: number;
+    src: string;
+    srcset: string;
+    ...
+}
+```
+
+Do not know if there is a performance or memory penalty.
 
 ## Debugging Chrome in headless mode should be allowed
 
@@ -287,7 +387,11 @@ Chrome allows more than one session, so even in headless mode i wanted to use it
 
 I know, the TS hints make this look like complete madness. And it is.
 
-```
+## Make displayment of testcafe's debug footer configureable
+
+Happens that i am testing for dimensions that are wider/higher than is available on the screen. Browsers seem to always open so that their top is within bounds of the screen. As the debug footer being at the bottom, i often have to move the browser window to access to the actions on the debug footer.
+
+```js
 /**
  * Selects
  *
@@ -316,16 +420,16 @@ const selectImg = async (imgSelector) => {
 
 Usage
 
-```
+```js
 const about_comp_img_3 = await selectImg(
-    "body > main > section.section-about > div.row > div:nth-child(2) > div > img.composition__photo.composition__photo--p3",
-  )
+  "body > main > section.section-about > div.row > div:nth-child(2) > div > img.composition__photo.composition__photo--p3",
+)
 
-  await t.expect(about_comp_img_3.complete).ok()
+await t.expect(about_comp_img_3.complete).ok()
 
-  if (getRunInfoCtx(t).runValuesBrowser.dpr >= 2) {
-    await t.expect(about_comp_img_3.currentSrc).contains("nat-3-large.")
-  } else {
-    await t.expect(about_comp_img_3.currentSrc).contains("nat-3.")
-  }
+if (getRunInfoCtx(t).runValuesBrowser.dpr >= 2) {
+  await t.expect(about_comp_img_3.currentSrc).contains("nat-3-large.")
+} else {
+  await t.expect(about_comp_img_3.currentSrc).contains("nat-3.")
+}
 ```
