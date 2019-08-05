@@ -16,7 +16,7 @@ Linux(so no Mac or Windows). Also as cloud based CIs for Windows and Mac are not
 
 Additionally, the project for the app has have two different Delivery Modes: Dev Mode and Prod Mode. Dev Mode is based on webpack-dev-server with hot reload. Prod Mode is physically compiled and served from a single dir. Beyond Dev Mode being served by a quite different base than Prod Mode, Dev Mode has a Mode dependent POSTCSS option which shows a visually translucent 32x32px grid in the browser.
 
-To reiterate my use case with testcafe: Check for some combinations of
+My use case with testcafe: Check for some combinations of
 
 - browser settings
 - browser vendors
@@ -53,7 +53,7 @@ _[Rant] That `await` before `new` is so cruel as anything in Node that is trappe
 
 Still, how to set width/height for the media breakpoints in FF were not clear to me. `t.resizeWindow` documents itself as `Sets the browser window size.` How does that help to meet the viewport size?
 
-To peek how all this is handled with chrome I discovered testcafe's `setEmulationBounds` using Chrome Developer Protocols's(CDP) `setDeviceMetricsOverride` and `setVisibleSize`.
+To peek how all this is handled with chrome I discovered testcafe's `setEmulationBounds` using CDP's `setDeviceMetricsOverride` and `setVisibleSize`.
 
 Tried to make sense out of that one's documentation at
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setDeviceMetricsOverride.
@@ -224,7 +224,43 @@ joma@edison:target $ tree
 
 # How to take screenshot
 
-TBD
+The overall goal was to take a screenshot of each section. So i implemented it as a command pairs per section of
+
+```js
+await scrollTo(t, "body > main > section.section-about")
+
+await takeScreenshotAtRunInfoContext(t, "section-about.png")
+```
+
+Where `scrollTo` includes an assertion of whether the selected element exists and then uses browser dom's `elm.scrollIntoView(options)` via a `ClientFunction` to per default center the selected element on the browser window. And `takeScreenshotAtRunInfoContext` essentially evalutes the path the resulting scrensshot image should be taken to(see above organisation of the screenshot folder structure).
+
+## Screenshot Image Can Have Smaller Dimensions Than Requested By Browser Setup
+
+What i first observed is that the returned screenshot images did pixelwise not match the desired Media Breakpoint width, but where smaller. First i thought that there is something going wrong and that i have to adjust to programmatically. Then is understood that screenshots where delivered by testcafe without the scrollbars. At least if there is some browser info about an active displayed browser scrollbar, so i think testcafe is accounting for `document.documentElement.clientWidth`.
+
+I wrote "At least" as i have proof that chrome in emulation mode does display a scrollbar, which seems not to be accounted for as scrollbar. It's overlaying above the display and is shown or not shown according to some chrome intern behaviour.
+
+![Chrome Screenshot with Scrollbar](ssWithScrollbar-chrome_linux_600x1024_mob-true_dpr-1_tou-true_small.png)
+
+For all of this i feel a relevant testcafe documentation is missing.
+
+In the course of this i would like to discuss what the arguments for deciding to not include scrollbars in screenshot were on testcafe's team.
+
+My argument is that scrollbars are part of the interface, even design(yes, you can style those afaik non-standardized) and definitely user experience. Scrollbars are part of the factual expression of the display. Excluding those from screenshots is like dismissing characters of the log request message after the 100th, just because someone thought her editor's maximal line length is 97.
+
+I would see both behaviours as option in the screenshot API.
+
+## Screenshot API For Fullscreen And Element
+
+Here i propose screenshot facilities that screenshots the full page or a selected element, so to screenshot not only what is displayed in the actual browser window's viewport.
+
+As of writing i know that current browsers Chrome and FF support full page screenshots via CDP and Marionette.
+
+FF does it's job pretty well, while totally undocumented. I changed the code in testcafe to use an additional parameter to the FF's screenshot call(lost the code after an update, but may reconstruct it on demand). Got the full page screenshot immediately, and as far as i can say - regarding sticky positioned elements and my multi `vh` app - looked correct to me.
+
+Chrome, on the other side, does it's job not so very well. First, there is no direct function call, you have to be in Emulation mode and fiddle around with Emualtion related calls and parameters. And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport layout size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app.
+
+TBC
 
 # Other
 
@@ -246,7 +282,7 @@ Example #2
 
 ## Explain Testcafe Under-The-Hood
 
-Another point about my understanding of testcafe is that - as one might presume falsely by now speaking at length about Chrome's CDP or FF's Marionette - testcafe is not just yet another wrapper over those.
+Another point about my understanding of testcafe is that - as one might presume falsely by now speaking at length about Chrome's CDP 1.3(as of writing) or FF's Marionette ?.?(latest, do not know) - testcafe is not just yet another wrapper over those.
 
 Many of the other testcafe commands are routed via a JS proxy(hammerhead) directly into/onto the browser instance running the application under test. In the whole documentation of testcafe this point is never mentioned and AFAIK is very unique.
 
@@ -261,17 +297,17 @@ versions. As above, this would be beneficial for decisions.
 
 Why does testcafe deliver transpiled es3 code? `Promises` are resolved to some promisify framework :frowning:, whatever that does. Thing is, it makes debugging testcafe for me quite difficult. While delivered with source mappings, this is rather bothersome, from initial setting breakpoints till the source mapping is recognized to funny line jumps while debugging to stepping through nested technical crutch sources i am not interested in.
 
-## Provide ESM For Node
+## Provide ESM For User Test
 
-Testcafe already uses `esm` underneath. Would think support for es6 modules in node for my tests too. Had to learn to run my runTestCafe via `node -r esm src/tests/run-testcafe`. Why not defaulting?
+Testcafe already uses `esm` underneath. Would like support for es6 modules in node for my tests too. Had to learn to run my runTestCafe via `node -r esm src/tests/run-testcafe`. Why not defaulting?
 
 ## Enhance Logging
 
 Tracing what testcafe does while running a test in between is - well - not existing. Proposal is some debug level that shows timestamped console messages like "Starting browser", "Started browser", "Taking screenshot" with proper relation to test and browser instance.
 
-## Make Browser Window Assignable To Current Run
+## Make Browser Window Relateable To Current Run
 
-If you debug tests with more than one browser, one can not deduct which browser belongs to the current instance of the test. Proper relation with logging chalk color and browser window chrome color, by PID and debugging port ... See also "Enhance Logging".
+If you debug tests with more than one browser, one can not relate which browser belongs to the current instance of the test. Proper relation with logging chalk color and browser window chrome color, by PID and debugging port ... See also "Enhance Logging".
 
 ## Test Report Esp Xunit Flavor Does Tell You Not Enough
 
@@ -381,15 +417,13 @@ Do not know if there is a performance or memory penalty.
 
 ## Debugging Chrome in headless mode should be allowed
 
-Chrome allows more than one session, so even in headless mode i wanted to use it.
+Chrome allows more than one session, so even in headless mode i was in need to use it. I know that this imposes a certain risk, t.i. having debug statements while running the test in CI. Would like to discuss that.
 
 ## Support more TS type flowing
 
-I know, the TS hints make this look like complete madness. And it is.
+I know, the following TS hints make this look like complete madness. And it is. But it makes usage so more fool proof.
 
-## Make displayment of testcafe's debug footer configureable
-
-Happens that i am testing for dimensions that are wider/higher than is available on the screen. Browsers seem to always open so that their top is within bounds of the screen. As the debug footer being at the bottom, i often have to move the browser window to access to the actions on the debug footer.
+Perhaps testcafe can offer some built-in support for such.
 
 ```js
 /**
@@ -433,3 +467,7 @@ if (getRunInfoCtx(t).runValuesBrowser.dpr >= 2) {
   await t.expect(about_comp_img_3.currentSrc).contains("nat-3.")
 }
 ```
+
+## Make display position of testcafe's debug footer configureable
+
+Happens that i am testing for browser dimensions that are wider/higher than is available on the screen. Browsers seem to always open so that their top is within bounds of the screen. As the debug footer being at the bottom, i often have to move the browser window to access to the actions on the debug footer.
