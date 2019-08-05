@@ -4,7 +4,7 @@ const argv = require("minimist")(process.argv.slice(2))
 const fs = require("fs")
 
 const targetURL = argv.url || "http://localhost:6073/" // "https://jonathanmh.com"
-const viewport = [1280, 1024]
+const viewport = [600, 1024]
 const screenshotDelay = 4000 // ms
 const fullPage = argv.fullPage || true
 
@@ -15,19 +15,23 @@ if (fullPage) {
 /**
  * google-chrome --headless --hide-scrollbars --remote-debugging-port=9222 --disable-gpu
  */
-CDP(async function(client) {
-  const { DOM, Emulation, Network, Page, Runtime } = client
+CDP(async function(
+  /** @type {import("src/types/chrome-remote-interface/protocol-proxy-api").default.ProtocolApi}  */ client,
+) {
+  const { Browser, DOM, Emulation, Network, Page } = client
 
   // Enable events on domains we are interested in.
   await Page.enable()
   await DOM.enable()
   await Network.enable()
 
+  console.log(await Browser.getVersion())
+
   // change these for your tests or make them configurable via argv
   var device = {
     width: viewport[0],
     height: viewport[1],
-    deviceScaleFactor: 2,
+    deviceScaleFactor: 1,
     mobile: true,
     fitWindow: false,
   }
