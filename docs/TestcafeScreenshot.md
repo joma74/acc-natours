@@ -258,7 +258,12 @@ As of writing i know that current browsers Chrome and FF support full page scree
 
 FF does it's job pretty well, while totally undocumented. I changed the code in testcafe to use an additional parameter to the FF's screenshot call(lost the code after an update, but may reconstruct it on demand). Got the full page screenshot immediately, and as far as i can say - regarding sticky positioned elements and my multi `vh` app - looked correct to me.
 
-Chrome, on the other side, does it's job not so very well. First, there is no direct function call, you have to be in Emulation mode and fiddle around with Emualtion related calls and parameters. And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport layout size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app.
+Chrome, on the other side, does it's job not so very well. First, there is no direct function call, you have to be in Emulation mode and fiddle around with Emualtion related calls and parameters. And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app(see left image). With a height that normally covers all of my sections(see right image).
+
+![Chrome Screenshot Full Page VH Brutally Sized](chrome-fullpage-screenshot-vh-brutallySized.png)
+![Chrome Screenshot Full Page VH Patched](chrome-fullpage-screenshot-vh-patched.png)
+
+P.S. There is a Chromium Issue about this that is turned down with 'wont fix'.
 
 TBC
 
