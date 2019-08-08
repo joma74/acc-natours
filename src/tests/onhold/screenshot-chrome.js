@@ -27,47 +27,37 @@ CDP(async function(
 
   console.log(await Browser.getVersion())
 
-  // change these for your tests or make them configurable via argv
-  var device = {
-    width: viewport[0],
-    height: viewport[1],
-    deviceScaleFactor: 1,
-    mobile: true,
-    fitWindow: false,
-  }
-
-  // set viewport and visible size
-  await Emulation.setDeviceMetricsOverride(device)
-  await Emulation.setVisibleSize({ width: viewport[0], height: viewport[1] })
-
-  await Page.navigate({ url: targetURL })
-
   Page.loadEventFired(async () => {
-    if (fullPage) {
-      const {
-        root: { nodeId: documentNodeId },
-      } = await DOM.getDocument()
-      const { nodeId: bodyNodeId } = await DOM.querySelector({
-        selector: "body",
-        nodeId: documentNodeId,
-      })
-
-      let {
-        model: { height },
-      } = await DOM.getBoxModel({ nodeId: bodyNodeId })
-      height = Math.max(viewport[1], Math.ceil(height))
-      await Emulation.setVisibleSize({ width: device.width, height: height })
-      await Emulation.setDeviceMetricsOverride({
-        width: device.width,
+    // document.documentElement.style.setProperty('--vh', "10.24px");
+    // evaluate full height
+    const {
+      root: { nodeId: documentNodeId },
+    } = await DOM.getDocument()
+    const { nodeId: bodyNodeId } = await DOM.querySelector({
+      selector: "body",
+      nodeId: documentNodeId,
+    })
+    let {
+      model: { height },
+    } = await DOM.getBoxModel({ nodeId: bodyNodeId })
+    height = Math.max(viewport[1], Math.ceil(height))
+    // set viewport and visible size
+    await Emulation.setDeviceMetricsOverride({
+      width: viewport[0],
+      height: height,
+      deviceScaleFactor: 1,
+      fitWindow: false,
+      mobile: true,
+      dontSetVisibleSize: false,
+      viewport: {
+        x: 0,
+        y: 0,
+        width: viewport[0],
         height: height,
-        screenWidth: device.width,
-        screenHeight: height,
-        deviceScaleFactor: 2,
-        fitWindow: false,
-        mobile: true,
-      })
-      await Emulation.setPageScaleFactor({ pageScaleFactor: 1 })
-    }
+        scale: 1,
+      },
+    })
+    await Emulation.setPageScaleFactor({ pageScaleFactor: 1 })
   })
 
   setTimeout(async function() {
