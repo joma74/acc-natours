@@ -23,11 +23,14 @@ _0.1_ What it is about: Visually testing a literally single page application tha
 
 by screenshot to see if the app works visually as expected.
 
-_0.6_ Now into the course of how my implementation run
+_0.6_ Now into the course of how my implementation should have run
 
 1. How to configure Browser Setup
 2. How to write test
 3. How to take screenshot
+4. How to automatically compare the actual screenshot against an expected base image
+
+Currently i never came to the fourth point, as alone the first three were a time consuming and did not work as intended.
 
 _0.7_ Finally i compiled some other observations, which go into the last chapter 'Other'
 
@@ -249,7 +252,7 @@ _4.5_ My argument is that scrollbars are part of the interface, even design(yes,
 
 _4.6_ I would see both behaviours as options in the screenshot API.
 
-## 5 Screenshot API For Fullscreen And Element
+## 5 Screenshot API For Fullscreen
 
 _5.1_ Here i propose screenshot facilities that screenshots the full page or a selected element, so to screenshot not only what is displayed in the actual browser window's viewport.
 
@@ -257,12 +260,42 @@ _5.2_ As of writing i know that current browsers Chrome and FF support full page
 
 _5.3_ FF does it's job pretty well, while totally undocumented. I changed the code in testcafe to use an additional parameter to the FF's screenshot call(lost the code after an update, but may reconstruct it on demand). Got the full page screenshot immediately, and as far as i can say - regarding sticky positioned elements and my multi `vh` app - looked correct to me.
 
-_5.4_ Chrome, on the other side, does it's job not so very well. First, there is no direct function call, you have to be in Emulation mode and fiddle around with Emualtion related calls and parameters. And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app - see image on the left. With a height that normally covers all of my sections and what is expected - see image on the right.
+_5.4_ Chrome, on the other side, does it's job not so very well. First, there is no direct function call, you have to be in Emulation mode and fiddle around with Emualtion related calls and parameters(see above described usage of `setDeviceMetricsOverride`). And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app - see image on the left. With a height that normally covers all of my sections and what is expected - see image on the right.
 
 ![Chrome Screenshot Full Page VH Brutally Sized](chrome-fullpage-screenshot-vh-brutallySized.png)
 ![Chrome Screenshot Full Page VH Patched](chrome-fullpage-screenshot-vh-patched.png)
 
-_5.5_ P.S. There is a Chromium Issue about this that is turned down with 'wont fix'.
+_5.5_ _P.S.1 There are Chromium Issues about this that are all turned down with 'wont fix'. See https://crbug.com/761136 for example._
+
+_5.6_ _P.S.2 I observed the same behaviour as above when using the option 'Capture full size screenshot' inside Chrome. As being not documented, or at least not able without digging deeper, i presume that 'Capture full size screenshot' internally uses `setDeviceMetricsOverride`_
+
+Workaround i found is only by refactoring the app's css to grind all `vh` values over one single css variable. So i made a special css variable `--vh`, which, by default, get's a aliased value of 'the real `1vh`'&copy;&reg;
+
+```css
+$accnat-header-height-cf-sm: calc(var(--vh, 1vh) * 100);
+```
+
+So to scheme for further enablement of a full page screenshot in Chrome, just before when i would be about taking a screenshot, i first would measure the actual value of `1vh`
+
+```js
+const actualVh = window.innerHeight / 100
+```
+
+and then set this css variable e.g.
+
+```js
+document.documentElement.style.setProperty("--vh", actualVh + "px")
+```
+
+After taking a screenshot, i would unset the css variable
+
+```js
+document.documentElement.style.removeProperty("--vh")
+```
+
+This situation and workaround is not proper, and in my situation of the app i feel this comes very close to a show stopper. Else, it must be noted, that taking an actual screenshot is slow. And taking a full page screenshot, is therefore even slower. I assume that it is proportional to the pixel dimensions of the resulting image. But maybe there is more to it, like the browser having to render sections that where not calculated because not shown before.
+
+## Discussion About Usage Of Full Page Screenshot
 
 TBC
 
