@@ -260,7 +260,7 @@ _5.2_ As of writing i know that current browsers Chrome and FF support full page
 
 _5.3_ FF does it's job pretty well, while totally undocumented. I changed the code in testcafe to use an additional parameter to the FF's screenshot call(lost the code after an update, but may reconstruct it on demand). Got the full page screenshot immediately, and as far as i can say - regarding sticky positioned elements and my multi `vh` app - looked correct to me.
 
-_5.4_ Chrome, on the other side, does it's job not so very well. First, there is no direct function call, you have to be in Emulation mode and fiddle around with Emualtion related calls and parameters(see above described usage of `setDeviceMetricsOverride`). And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app - see image on the left. With a height that normally covers all of my sections and what is expected - see image on the right.
+_5.4_ Chrome, on the other side, does it's job not very well. First, there is no direct function call, you have to be in Emulation mode and fiddle around with Emualtion related calls and parameters(see above described usage of `setDeviceMetricsOverride`). And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app - see image on the left. With a height that normally covers all of my sections and what is expected - see image on the right.
 
 ![Chrome Screenshot Full Page VH Brutally Sized](chrome-fullpage-screenshot-vh-brutallySized.png)
 ![Chrome Screenshot Full Page VH Patched](chrome-fullpage-screenshot-vh-patched.png)
@@ -268,6 +268,8 @@ _5.4_ Chrome, on the other side, does it's job not so very well. First, there is
 _5.5_ _P.S.1 There are Chromium Issues about this that are all turned down with 'wont fix'. See https://crbug.com/761136 for example._
 
 _5.6_ _P.S.2 I observed the same behaviour as above when using the option 'Capture full size screenshot' inside Chrome. As being not documented, or at least not able without digging deeper, i presume that 'Capture full size screenshot' internally uses `setDeviceMetricsOverride`_
+
+_5.7_ _P.S.3 Only when hardware accleration in chrome is set to off, are screenshots returned reliable(else transparent image) and with the intended height(sic!)_
 
 Workaround i found is only by refactoring the app's css to grind all `vh` values over one single css variable. So i made a special css variable `--vh`, which, by default, get's a aliased value of 'the real `1vh`'&copy;&reg;
 
@@ -293,7 +295,7 @@ After taking a screenshot, i would unset the css variable
 document.documentElement.style.removeProperty("--vh")
 ```
 
-This situation and workaround is not proper, and in my situation of the app i feel this comes very close to a show stopper. Else, it must be noted, that taking an actual screenshot is slow. And taking a full page screenshot, is therefore even slower. I assume that it is proportional to the pixel dimensions of the resulting image. But maybe there is more to it, like the browser having to render sections that where not calculated because not shown before.
+This situation and workaround is not proper, and in my situation of the app i feel this comes very close to a show stopper. Else, it must be noted, that taking an actual screenshot is slow. And taking a full page screenshot, is therefore even slower. The perfromance penalty on my setup is between one and two seconds. I assume that it is proportional to the pixel dimensions of the resulting image. But maybe there is more to it, like the browser having to render sections that where not calculated because not shown before.
 
 ## Discussion About Usage Of Full Page Screenshot
 
