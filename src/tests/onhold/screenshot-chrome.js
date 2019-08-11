@@ -1,16 +1,11 @@
 // @ts-nocheck
 const CDP = require("chrome-remote-interface")
-const argv = require("minimist")(process.argv.slice(2))
+const delay = require("delay")
 const fs = require("fs")
 
-const targetURL = argv.url || "http://localhost:6073/" // "https://jonathanmh.com"
-const viewport = [600, 1024]
-const screenshotDelay = 4000 // ms
-const fullPage = argv.fullPage || true
+const viewportUnderTest = [600, 1024]
 
-if (fullPage) {
-  console.log("will capture full page")
-}
+console.log("will capture full page")
 
 /**
  * google-chrome --headless --hide-scrollbars --remote-debugging-port=9222 --disable-gpu
@@ -18,63 +13,133 @@ if (fullPage) {
 CDP(async function(
   /** @type {import("src/types/chrome-remote-interface/protocol-proxy-api").default.ProtocolApi}  */ client,
 ) {
-  const { Browser, DOM, Emulation, Network, Page } = client
+  const { Browser, DOM, Emulation, Network, Page, Runtime } = client
 
   // Enable events on domains we are interested in.
   await Page.enable()
   await DOM.enable()
   await Network.enable()
 
-  console.log(await Browser.getVersion())
+  console.log(
+    "Browser under test is: " + JSON.stringify(await Browser.getVersion()),
+  )
 
-  Page.loadEventFired(async () => {
-    // document.documentElement.style.setProperty('--vh', "10.24px");
-    // evaluate full height
-    const {
-      root: { nodeId: documentNodeId },
-    } = await DOM.getDocument()
-    const { nodeId: bodyNodeId } = await DOM.querySelector({
-      selector: "body",
-      nodeId: documentNodeId,
-    })
-    let {
-      model: { height },
-    } = await DOM.getBoxModel({ nodeId: bodyNodeId })
-    height = Math.max(viewport[1], Math.ceil(height))
-    // set viewport and visible size
-    await Emulation.setDeviceMetricsOverride({
-      width: viewport[0],
-      height: height,
-      deviceScaleFactor: 1,
-      fitWindow: false,
-      mobile: true,
-      dontSetVisibleSize: false,
-      viewport: {
-        x: 0,
-        y: 0,
-        width: viewport[0],
-        height: height,
-        scale: 1,
-      },
-    })
-    await Emulation.setPageScaleFactor({ pageScaleFactor: 1 })
+  // set viewport according to test viewport
+  await Emulation.setDeviceMetricsOverride({
+    width: viewportUnderTest[0],
+    height: viewportUnderTest[1],
+    deviceScaleFactor: 0,
+    mobile: false,
+    dontSetVisibleSize: false,
+    viewport: {
+      x: 0,
+      y: 0,
+      width: viewportUnderTest[0],
+      height: viewportUnderTest[1],
+      scale: 1,
+    },
+  })
+  let bodyBoxModel = await evaluateBodyBox(DOM)
+  console.log(
+    `body height before vh grinding is ${bodyBoxModel.model.height} px`,
+  )
+
+  // now evaluate the current vh
+  const actualVh = (await Runtime.evaluate({
+    expression: `window.innerHeight / 100`,
+  })).result.value
+
+  console.log(`1 vh has been evaluated to ${actualVh}px`)
+  // and grind that as css property
+  await Runtime.evaluate({
+    expression: `document.documentElement.style.setProperty('--vh', "${actualVh}px");`,
+  })
+  // now get the height of the grinded body
+  bodyBoxModel = await evaluateBodyBox(DOM)
+  let heightForScreenshot = Math.max(
+    viewportUnderTest[1],
+    Math.ceil(bodyBoxModel.model.height),
+  )
+  console.log(`body height after vh grinding is ${heightForScreenshot} px`)
+
+  // set viewport according to full page screenshot viewport
+  await Emulation.setDeviceMetricsOverride({
+    width: viewportUnderTest[0],
+    height: heightForScreenshot,
+    deviceScaleFactor: 0,
+    mobile: false,
+    dontSetVisibleSize: false,
+    viewport: {
+      x: 0,
+      y: 0,
+      width: viewportUnderTest[0],
+      height: heightForScreenshot,
+      scale: 1,
+    },
   })
 
-  setTimeout(async function() {
-    const screenshot = await Page.captureScreenshot({
-      format: "png",
-      fromSurface: false, // false delivers stable results
-    })
-    const buffer = new Buffer(screenshot.data, "base64")
-    fs.writeFile("desktop.png", buffer, "base64", function(err) {
-      if (err) {
-        console.error(err)
-      } else {
-        console.log("Screenshot saved")
-      }
-    })
-    client.close()
-  }, screenshotDelay)
+  bodyBoxModel = await evaluateBodyBox(DOM)
+  console.log(
+    `body height after viewport resizing to height for screenshot of ${heightForScreenshot} px has been evaluated to ${bodyBoxModel.model.height} px`,
+  )
+  console.log(
+    `height of visualViewport of layout metrics is ${
+      (await Page.getLayoutMetrics()).visualViewport.clientHeight
+    } px`,
+  )
+
+  let screenshot = await Page.captureScreenshot({
+    format: "png",
+    fromSurface: false, // false delivers stable results
+    quality: 100,
+  })
+  const buffer = Buffer.from(screenshot.data, "base64")
+  fs.writeFile("desktop.png", buffer, "base64", function(err) {
+    if (err) {
+      console.error(err)
+    } else {
+      console.log("Screenshot saved")
+    }
+  })
+  // finally, unset the vh property
+  await Runtime.evaluate({
+    expression: `document.documentElement.style.removeProperty("--vh")`,
+  })
+  // and restore the viewport under test
+  await Emulation.setDeviceMetricsOverride({
+    width: viewportUnderTest[0],
+    height: viewportUnderTest[1],
+    deviceScaleFactor: 0,
+    mobile: false,
+    dontSetVisibleSize: false,
+    viewport: {
+      x: 0,
+      y: 0,
+      width: viewportUnderTest[0],
+      height: viewportUnderTest[1],
+      scale: 1,
+    },
+  })
+  client.close()
 }).on("error", (err) => {
   console.error("Cannot connect to browser:", err)
 })
+
+/**
+ *
+ * @param { import("src/types/chrome-remote-interface/protocol-proxy-api").default.DOMApi } DOM
+ * @param {number} delayMS
+ */
+async function evaluateBodyBox(DOM, delayMS = 1000) {
+  await delay(delayMS)
+  const {
+    root: { nodeId: documentNodeId },
+  } = await DOM.getDocument()
+  const { nodeId: bodyNodeId } = await DOM.querySelector({
+    selector: "body",
+    root: { nodeId: documentNodeId },
+    nodeId: documentNodeId,
+  })
+  const boxModel = await DOM.getBoxModel({ nodeId: bodyNodeId })
+  return boxModel
+}

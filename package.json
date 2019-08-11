@@ -101,6 +101,7 @@
     "cross-env": "^5.2.0",
     "css-loader": "^0.28.7",
     "del-cli": "^1.1.0",
+    "delay": "^4.3.0",
     "esm": "^3.2.25",
     "extract-text-webpack-plugin": "^3.0.2",
     "extracted-loader": "^1.0.7",
