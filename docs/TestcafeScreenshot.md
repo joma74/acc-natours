@@ -269,33 +269,37 @@ _5.5_ _P.S.1 There are Chromium Issues about this that are all turned down with 
 
 _5.6_ _P.S.2 I observed the same behaviour as above when using the option 'Capture full size screenshot' inside Chrome. As being not documented, or at least not able without digging deeper, i presume that 'Capture full size screenshot' internally uses `setDeviceMetricsOverride`_
 
-_5.7_ _P.S.3 Only when hardware accleration in chrome is set to off, are screenshots returned reliable(else transparent image) and with the intended height(sic!)_
+_5.7_ _P.S.3 Only when hardware accleration in chrome via settings is set to off, are screenshots returned reliable(else transparent image) and with the intended height(sic!)_
 
-Workaround i found is only by refactoring the app's css to grind all `vh` values over one single css variable. So i made a special css variable `--vh`, which, by default, get's a aliased value of 'the real `1vh`'&copy;&reg;
+_5.8_ Workaround i found is only by refactoring the app's css to grind all `vh` values over one single css variable. So i made a special css variable `--vh`, which, by default, get's a aliased value of 'the real `1vh`'&copy;&reg;
 
 ```css
 $accnat-header-height-cf-sm: calc(var(--vh, 1vh) * 100);
 ```
 
-So to scheme for further enablement of a full page screenshot in Chrome, just before when i would be about taking a screenshot, i first would measure the actual value of `1vh`
+_5.9_ So to scheme for further enablement of a full page screenshot in Chrome, just before when i am about taking a screenshot, i evaluate the body's bounding box for further assertion(see below).
+
+Then I first measure the actual value of `1vh`
 
 ```js
 const actualVh = window.innerHeight / 100
 ```
 
-and then set this css variable e.g.
+_5.10_ and then set this css variable e.g.
 
 ```js
 document.documentElement.style.setProperty("--vh", actualVh + "px")
 ```
 
-After taking a screenshot, i would unset the css variable
+_5.10_ and then evaluate the body's bounding box again. I assert that the height of the body's bounding box before is the same as just taken.
+
+_5.11_ After taking the screenshot, i unset the css variable
 
 ```js
 document.documentElement.style.removeProperty("--vh")
 ```
 
-This situation and workaround is not proper, and in my situation of the app i feel this comes very close to a show stopper. Else, it must be noted, that taking an actual screenshot is slow. And taking a full page screenshot, is therefore even slower. The perfromance penalty on my setup is between one and two seconds. I assume that it is proportional to the pixel dimensions of the resulting image. But maybe there is more to it, like the browser having to render sections that where not calculated because not shown before.
+_5.12_ This situation and workaround for Chrome is not proper, and in my situation of the app i feel this comes very close to a show stopper. Else, it must be noted, that taking an actual screenshot is slow. And taking a full page screenshot, i presume therefore to get even slower. The perfromance penalty on my setup is between one and two seconds per screenshot.
 
 ## Discussion About Usage Of Full Page Screenshot
 
@@ -305,17 +309,17 @@ TBC
 
 ## 6.1 Document Browser Setup In Relation To Testcafe Behaviours
 
-As can be seen in the pargraphs of the Browser Setup chapter, overall testcafe lacks documentation under which condition which behaviour is shown in which browser vendor. Read e.g.
+_6.1.1_ As can be seen in the pargraphs of the Browser Setup chapter, overall testcafe lacks documentation under which condition which behaviour is shown in which browser vendor. Read e.g.
 
 - chrome with and without emulation
 - FF with and without marionette port and/or with and without own profile
 - other browsers without a built-in browser plugin
 
-Example #1
+_6.1.2_ Example #1
 
 > Starting FF via testcafe defining an own profile, testcafe will not use FF's marionette protocol. One has to set the marionette port explicitly on the command line.
 
-Example #2
+_6.1.3_ Example #2
 
 > Starting FF in non-headless mode, testcafe does not allow you to set a marionette port to it's options. Which it should offer, if you define an own FF's profile. Instead, a testcafe's own marionette client with some other port is opened.
 
