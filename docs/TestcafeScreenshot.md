@@ -262,7 +262,9 @@ _5.0.3_ FF does it's job pretty well, while totally undocumented. I changed the 
 
 _5.0.4_ Chrome, on the other side, does it's job not very well. First, there is no direct function call, you have to be in Emulation mode and fiddle around with Emulation related calls and parameters(see above described usage of `setDeviceMetricsOverride`).
 
-_5.0.5_ And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app - see image on the left. With a height that normally covers all of my sections and what is expected - see image on the right.
+_5.0.5_ And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app - see image on the left.
+
+_5.0.6_ With a height that normally covers all of my sections and what is expected - see image on the right.
 
 ![Chrome Screenshot Full Page VH Brutally Sized](chrome-fullpage-screenshot-vh-brutallySized.png)
 ![Chrome Screenshot Full Page VH Patched](chrome-fullpage-screenshot-vh-patched.png)
@@ -305,7 +307,7 @@ _5.2.2_ Issue #3 Only when hardware accleration in chrome is set to off, are scr
 
 _5.2.3_ Issue #4 A pure change via `setDeviceMetricsOverride` for height and viewport height does trigger a change in width(sic!), so that the layout changes. This happens on one of my systems, same code on another system, does not. Even when hardware accleration is set to off.
 
-_5.2.4_ This situations and workarounds are not proper, and in my situation of the app i feel this comes very close to a show stopper.
+_5.2.4_ This issues and workarounds are not proper, and in my situation of the app i feel this comes very close to a show stopper.
 
 ## Discussion About Usage Of Full Page Screenshot
 
