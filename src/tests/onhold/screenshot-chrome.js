@@ -45,6 +45,7 @@ CDP(async function(
   console.log(
     `body height before vh grinding is ${bodyBoxModel.model.height} px`,
   )
+  await takeScreenshot(Page, "01-reset-start")
 
   // now evaluate the current vh
   const actualVh = (await Runtime.evaluate({
@@ -63,6 +64,7 @@ CDP(async function(
     Math.ceil(bodyBoxModel.model.height),
   )
   console.log(`body height after vh grinding is ${heightForScreenshot} px`)
+  await takeScreenshot(Page, "02-after-grinding")
 
   // set viewport according to full page screenshot viewport
   await Emulation.setDeviceMetricsOverride({
@@ -89,20 +91,8 @@ CDP(async function(
       (await Page.getLayoutMetrics()).visualViewport.clientHeight
     } px`,
   )
+  await takeScreenshot(Page, "03-fullpage-screenshot")
 
-  let screenshot = await Page.captureScreenshot({
-    format: "png",
-    fromSurface: false, // false delivers stable results
-    quality: 100,
-  })
-  const buffer = Buffer.from(screenshot.data, "base64")
-  fs.writeFile("desktop.png", buffer, "base64", function(err) {
-    if (err) {
-      console.error(err)
-    } else {
-      console.log("Screenshot saved")
-    }
-  })
   // finally, unset the vh property
   await Runtime.evaluate({
     expression: `document.documentElement.style.removeProperty("--vh")`,
@@ -122,6 +112,7 @@ CDP(async function(
       scale: 1,
     },
   })
+  await takeScreenshot(Page, "04-reset-end")
   client.close()
 }).on("error", (err) => {
   console.error("Cannot connect to browser:", err)
@@ -129,10 +120,34 @@ CDP(async function(
 
 /**
  *
+ * @param { import("src/types/chrome-remote-interface/protocol-proxy-api").default.PageApi } DOM
+ * @param {string} fileName
+ * @param {number} delayMS
+ */
+async function takeScreenshot(Page, fileName = "desktop", delayMS = 500) {
+  await delay(delayMS)
+  let screenshot = await Page.captureScreenshot({
+    format: "png",
+    fromSurface: false,
+    quality: 100,
+  })
+  const buffer = Buffer.from(screenshot.data, "base64")
+  const filePath = "target/" + fileName + ".png"
+  fs.writeFile(filePath, buffer, "base64", function(err) {
+    if (err) {
+      console.error(err)
+    } else {
+      console.log(`Screenshot ${filePath} saved`)
+    }
+  })
+}
+
+/**
+ *
  * @param { import("src/types/chrome-remote-interface/protocol-proxy-api").default.DOMApi } DOM
  * @param {number} delayMS
  */
-async function evaluateBodyBox(DOM, delayMS = 1000) {
+async function evaluateBodyBox(DOM, delayMS = 500) {
   await delay(delayMS)
   const {
     root: { nodeId: documentNodeId },
