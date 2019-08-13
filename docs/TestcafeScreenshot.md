@@ -303,9 +303,9 @@ _5.2.2_ Issue #3 Only when hardware accleration in chrome is set to off, are scr
 
 ![Chrome Screenshot Full Page When Hardwareacc On Then Too Short](chrome-fullpage-hardwareacc-on-then-too-short.png)
 
-_5.2.3_ Issue #4 A pure change via `setDeviceMetricsOverride` for height and viewport height does on one of my systems triggers a change in width, so that the layout changes. Same code on another does not. Even when hardware accleration in chrome is set to off.
+_5.2.3_ Issue #4 A pure change via `setDeviceMetricsOverride` for height and viewport height does trigger a change in width(sic!), so that the layout changes. This happens on one of my systems, same code on another system, does not. Even when hardware accleration is set to off.
 
-_5.2.4_ This situation and workaround is not proper, and in my situation of the app i feel this comes very close to a show stopper. Else, it must be noted, that taking an actual screenshot is slow. And taking a full page screenshot, is therefore even slower.
+_5.2.4_ This situations and workarounds are not proper, and in my situation of the app i feel this comes very close to a show stopper.
 
 ## Discussion About Usage Of Full Page Screenshot
 
