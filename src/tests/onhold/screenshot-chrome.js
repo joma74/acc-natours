@@ -19,17 +19,19 @@ CDP(async function(
   await Page.enable()
   await DOM.enable()
   await Network.enable()
+  await Runtime.enable()
 
   console.log(
     "Browser under test is: " + JSON.stringify(await Browser.getVersion()),
   )
 
+  const isDeviceTypeMobile = false
   // set viewport according to test viewport
   await Emulation.setDeviceMetricsOverride({
     width: viewportUnderTest[0],
     height: viewportUnderTest[1],
     deviceScaleFactor: 0,
-    mobile: false,
+    mobile: isDeviceTypeMobile,
     dontSetVisibleSize: false,
     viewport: {
       x: 0,
@@ -67,7 +69,7 @@ CDP(async function(
     width: viewportUnderTest[0],
     height: heightForScreenshot,
     deviceScaleFactor: 0,
-    mobile: false,
+    mobile: isDeviceTypeMobile,
     dontSetVisibleSize: false,
     viewport: {
       x: 0,
@@ -110,7 +112,7 @@ CDP(async function(
     width: viewportUnderTest[0],
     height: viewportUnderTest[1],
     deviceScaleFactor: 0,
-    mobile: false,
+    mobile: isDeviceTypeMobile,
     dontSetVisibleSize: false,
     viewport: {
       x: 0,
