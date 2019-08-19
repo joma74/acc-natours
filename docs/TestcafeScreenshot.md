@@ -31,7 +31,7 @@ _0.6_ Now into the course of how my implementation should have run
 
 Currently i never came to the fourth point, as alone the first three were a time consuming and did not work as intended.
 
-_0.7_ Finally i compiled some other observations regarding testcafe, which go into the last chapter 'Other'
+_0.7_ Finally i compiled some other observations and questions regarding testcafe, which went into the last chapter 'Other'
 
 # 1 How To Configure Browser Setup
 
