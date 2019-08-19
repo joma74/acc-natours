@@ -310,6 +310,8 @@ _5.2.4_ This issues and workarounds are not proper, and in my situation of the a
 
 ## Discussion About Usage Of Full Page Screenshot
 
+I am thinking of two applications for screenshots: First application is a screenshot as percieved by the user in her browser. This is what the actual screenshot facility is already
+
 Issue - When full page screenshot is taken, scrollbars disappear. This is a conceptual problem.
 
 # 6 Other
