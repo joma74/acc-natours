@@ -26,7 +26,7 @@ html {
     /* 1rem = 10px; 10px/16px= 62.5% */
     font-size: 62.5%;
   }
-  @media (--tablet-port) {
+  @media (--phone) {
     /* 1rem = 8px; 8px/16px= 50% */
     font-size: 50%;
   }
