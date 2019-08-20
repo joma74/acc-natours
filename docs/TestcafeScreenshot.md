@@ -8,14 +8,13 @@ _0.1_ What it is about: Visually testing a literally single page application tha
 - at different Touch Modes
 - at different Device Types(Mobile or Desktop)
 
-  _0.2_ The application is really a single HTML page with sections summing up to multiples of `100 vh`(CSS for "hundredths of the viewport height"). But each section is not exactly `100 vh`(A point that i have a look at later).
+_0.2_ The application is really a single HTML page with sections summing up to multiples of `100 vh`(CSS for "hundredths of the viewport height"). But each section is not exactly `100 vh`(A point that i have a look at later).
 
-  _0.3_ Target browsers are chrome and firefox(FF), as i prefer to be bound to desktop browsers available on
-  Linux(so no Mac or Windows). Also as cloud based CIs for Windows and Mac are not so commonly supported and you have to take extra care for those in your project setup e.g. regarding file paths.
+_0.3_ Target browsers are chrome and firefox(FF), as i prefer to be bound to desktop browsers available on Linux(so no Mac or Windows). Also as cloud based CIs for Windows and Mac are not so commonly supported and you have to take extra care for those in your project setup e.g. regarding file paths.
 
-  _0.4_ Additionally, the project for the app has have two different Delivery Modes: Dev Mode and Prod Mode. Dev Mode is based on webpack-dev-server with hot reload. Prod Mode is physically compiled and served from a single dir. Beyond Dev Mode being served by a quite different base than Prod Mode, Dev Mode has a Mode dependent POSTCSS option which shows a visually translucent 32x32px grid in the browser.
+_0.4_ Additionally, the project for the app has have two different Delivery Modes: Dev Mode and Prod Mode. Dev Mode is based on webpack-dev-server with hot reload. Prod Mode is physically compiled and served from a single dir. Beyond Dev Mode being served by a quite different base than Prod Mode, Dev Mode has a Mode dependent POSTCSS option which shows a visually translucent 32x32px grid in the browser.
 
-  _0.5_ My use case with testcafe: Check for some combinations of
+_0.5_ My use case with testcafe: Check for some combinations of
 
 - browser settings
 - browser vendors
@@ -32,7 +31,7 @@ _0.6_ Now into the course of how my implementation should have run
 
 Currently i never came to the fourth point, as alone the first three were a time consuming and did not work as intended.
 
-_0.7_ Finally i compiled some other observations, which go into the last chapter 'Other'
+_0.7_ Finally i compiled some other observations and questions regarding testcafe, which went into the last chapter 'Other'
 
 # 1 How To Configure Browser Setup
 
@@ -226,7 +225,7 @@ joma@edison:target $ tree
 
 # 3 How to take screenshot
 
-_3.1_ The overall goal was to take a screenshot of each section. So i implemented it as a command pairs per section of
+_3.1_ The overall goal was to take a screenshot of each section. So i implemented it as a command pairs per section of like
 
 ```js
 await scrollTo(t, "body > main > section.section-about")
@@ -238,7 +237,7 @@ _3.2_ Where `scrollTo` includes an assertion of whether the selected element exi
 
 ## 4 Screenshot Image Can Have Smaller Dimensions Than Requested By Browser Setup
 
-_4.1_ What i first observed is that the returned screenshot images did pixelwise not match the desired Media Breakpoint width, but where smaller. First i thought that there is something going wrong and that i have to adjust to programmatically. Then is understood that screenshots where delivered by testcafe without the scrollbars. At least if there is some browser info about an active displayed browser scrollbar, so i think testcafe is accounting for `document.documentElement.clientWidth`.
+_4.1_ What i first observed is that the returned screenshot images did pixelwise not match the desired Media Breakpoint width, but where smaller. First i thought that there is something going wrong and that i have to adjust to programmatically. Then i understood that screenshots were delivered by testcafe without the scrollbars. At least if there is some browser info about an active displayed browser scrollbar, so i think testcafe is accounting for `document.documentElement.clientWidth`.
 
 _4.2_ I wrote "At least" as i have proof that chrome in emulation mode does display a scrollbar, which seems not to be accounted for as scrollbar. It's overlaying above the display and is shown or not shown according to some chrome intern behaviour.
 
@@ -303,7 +302,7 @@ _5.2.0_ Issue #1 There are Chromium Issues about `setDeviceMetricsOverride` affe
 
 _5.2.1_ Issue #2 I observed the same behaviour as Issue #1 when using the option 'Capture full size screenshot' via Chrome Developer Tools. As being not documented, or at least not able without digging deeper, i presume that 'Capture full size screenshot' internally uses `setDeviceMetricsOverride`.
 
-_5.2.2_ Issue #3 Only when hardware accleration in chrome is set to off, are screenshots returned reliable(else transparent or black image) and with the intended height(sic!, otherwise see following image). For this, Chrome may be started into this mode also via the CLI `--disable-gpu` parameter.
+_5.2.2_ Issue #3 Only when hardware accleration in Chrome is set to off, are screenshots returned reliable(else transparent or black image) and with the intended height(sic!, otherwise see following image; compare that to the expected image above, the one to the right). For this, Chrome may be started into this mode also via the CLI `--disable-gpu` parameter.
 
 ![Chrome Screenshot Full Page When Hardwareacc On Then Too Short](chrome-fullpage-hardwareacc-on-then-too-short.png)
 
@@ -312,6 +311,8 @@ _5.2.3_ Issue #4 A pure change via `setDeviceMetricsOverride` for height and vie
 _5.2.4_ This issues and workarounds are not proper, and in my situation of the app i feel this comes very close to a show stopper.
 
 ## Discussion About Usage Of Full Page Screenshot
+
+I am thinking of two applications for screenshots: First application is a screenshot as percieved by the user in her browser. This is what the actual screenshot facility is already
 
 Issue - When full page screenshot is taken, scrollbars disappear. This is a conceptual problem.
 
