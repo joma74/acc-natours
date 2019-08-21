@@ -29,20 +29,18 @@ _0.6_ Now into the course of how my implementation should have run
 3. How to take screenshot
 4. How to automatically compare the actual screenshot against an expected base image
 
-Currently i never came to the fourth point, as alone the first three were a time consuming and did not work as intended.
+Currently i never came to the fourth point, as alone the first three were time consuming and did not work as intended.
 
 _0.7_ Finally i compiled some other observations and questions regarding testcafe, which went into the last chapter 'Other'
 
 # 1 How To Configure Browser Setup
 
-_1.1_ First takeaway for me was that by only supplying browser CLI arguments ala chrome's `window-size` do
-not get you something when it comes to above browser setup list. That meant for
+_1.1_ First takeaway for me was that by only supplying browser CLI arguments ala chrome's `window-size` do not get you something when it comes to above browser setup list. That meant for
 chrome to check out the emulation options wrapped by testcafe, which cover all of the above browser setup requirements.
 
 _1.2_ But on firefox i was first clueless - there is no CLI for emulation mode. So i prepared an own FF profile prior to startup. Along with the automatic removal of the tmp profile(which btw did not work consistently as does testcafe's), I did some amount of copying testcafe's firefox profile handling procedure (Enhancement #1).
 
-_1.3_ On that way i also converted from package.json driven testcafe parameters to testcafe's programmatic
-runTestCafe approach. As the browsers array therein was initially not pretty either, i wrapped that in a Builder pattern (Enhancement #2) with my sensible defaults and hiding/harmonizing browser setups e.g.
+_1.3_ On that way i also converted from package.json driven testcafe parameters to testcafe's programmatic runTestCafe approach. As the browsers array therein was initially not pretty either, i wrapped that in a Builder pattern (Enhancement #2) with my sensible defaults and hiding/harmonizing browser setups e.g.
 
 ```js
 ;(await new ChromeBrowserConfig.Builder().withWidth(600).build()).output()
@@ -127,7 +125,7 @@ _2.1_ Overall point is that, inside your test, you have no access to the args of
 
 _2.2_ Infos from the run - that is all about args, browser instance and current test are already orderly parsed and evaluated - are held in sync by testcafe and are expected to be properly unit tested. But these infos are not (officially) accessible for the end user, meaning effort of dabbling live code and source code and leads to overall bad practices(code duplication or reaching into not public API).
 
-_2.3_ So i presume that there are public APIs lacking. Let me show you two examples of usage.
+_2.3_ So i presume that there are public APIs lacking(Enhancement #3). Let me show you two examples of usage.
 
 _2.4_ First one, as explained before, is for FF i need to call `t.resizeWindow` with a height and width. Therefore i put the run arguments on the testcafe browser configuration, even, like `scaleFactor` or `touch`, they do not exist as FF CLI params. But first, are enacted for building a proper FF profile.
 
@@ -243,13 +241,13 @@ _4.2_ I wrote "At least" as i have proof that chrome in emulation mode does disp
 
 ![Chrome Screenshot with Scrollbar](ssWithScrollbar-chrome_linux_600x1024_mob-true_dpr-1_tou-true_small.png) Image #1
 
-_4.3_ For all of this i feel a relevant testcafe documentation is missing.
+_4.3_ For all of this i feel a relevant testcafe documentation is missing(Enhancement #4).
 
 _4.4_ In the course of this i would like to discuss what the arguments for deciding to not include scrollbars in screenshot were on testcafe's team.
 
 _4.5_ My argument is that scrollbars are part of the interface, even design(yes, you can style those afaik non-standardized) and definitely user experience. Scrollbars are part of the factual expression of the display. Excluding those from screenshots is like dismissing characters of the log request message after the 100th, just because someone thought her editor's maximal line length is 97.
 
-_4.6_ I would see both behaviours as options in the screenshot API.
+_4.6_ I would see both behaviours as options in the screenshot API(Enhancement #5).
 
 ## 5 Screenshot API For Fullscreen
 
@@ -328,11 +326,11 @@ _5.6_ Additionally, `takeElementScreenshot` falls in between the first and the s
 
 # 6 Other
 
-## 6.1 Document Browser Setup In Relation To Testcafe Behaviours
+## 6.1 Document Browser Setup In Relation To Testcafe Behaviours (Enhancement #6)
 
-_6.1.1_ As can be seen in the pargraphs of the Browser Setup chapters, overall testcafe lacks documentation under which condition which behaviour is shown in which browser vendor.
+_6.1.1_ As can be seen in the pargraphs of the Browser Setup and Test chapters, overall testcafe lacks documentation under which condition which behaviour is shown in which browser vendor.
 
-_6.1.2_ E.g.
+_6.1.2_ Additionally e.g.
 
 - chrome with and without emulation
 - FF with and without marionette port and/or with and without own profile
@@ -401,6 +399,8 @@ _6.8.5_ Then, user defined properties would be nice e.g.
     <property name="devicePixelRatio" value="2"/>
     <property name="touch" value="true"/>
     <property name="screenshots" value="/home/joma/entwicklung/design/acc-natours/target/reports-prod/screenshots/Index_Page_Test/take_screenshots/firefox_ubuntu_591x1024_mob#false_dpr#1_tou#false"/>
+    <property name="osName" value="Ubuntu"/>
+    <property name="osVersion" value="16.04.6 LTS"/>
     <property name="browserId" value="Qs4wd5"/>
     <property name="browserName" value="firefox"/>
     <property name="browserVersion" value="68.0.0"/>
@@ -410,7 +410,7 @@ _6.8.5_ Then, user defined properties would be nice e.g.
 
 _6.8.6_ For logging reasons above, it makes sense to grab console error and std out to the report too.
 
-_6.8.7_ Wondering why is one in the report counted as failure, and the other as error? And only one error screenshot `target/reports-prod/screenshots/Index_Page_Test/take_screenshots/HeadlessChrome_76.0.3809_Linux_0.0.0/errors/1.png` is taken. Or should that be named failure screenshot?
+_6.8.7_ Wondering why is one in the report counted as failure, and the other as error? And should error screenshots be named failure screenshots?
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
