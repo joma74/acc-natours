@@ -241,7 +241,7 @@ _4.1_ What i first observed is that the returned screenshot images did pixelwise
 
 _4.2_ I wrote "At least" as i have proof that chrome in emulation mode does display a scrollbar, which seems not to be accounted for as scrollbar. It's overlaying above the display and is shown or not shown according to some chrome intern behaviour.
 
-![Chrome Screenshot with Scrollbar](ssWithScrollbar-chrome_linux_600x1024_mob-true_dpr-1_tou-true_small.png)
+![Chrome Screenshot with Scrollbar](ssWithScrollbar-chrome_linux_600x1024_mob-true_dpr-1_tou-true_small.png) Image #1
 
 _4.3_ For all of this i feel a relevant testcafe documentation is missing.
 
@@ -261,12 +261,14 @@ _5.0.3_ FF does it's job pretty well, while totally undocumented. I changed the 
 
 _5.0.4_ Chrome, on the other side, does it's job not very well. First, there is no direct function call, you have to be in Emulation mode and fiddle around with Emulation related calls and parameters(see above described usage of `setDeviceMetricsOverride`).
 
-_5.0.5_ And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app - see image on the left.
+_5.0.5_ And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app - see image #2.
 
 _5.0.6_ With a height that normally covers all of my sections and what is expected - see image on the right.
 
 ![Chrome Screenshot Full Page VH Brutally Sized](chrome-fullpage-screenshot-vh-brutallySized.png)
+Image #2
 ![Chrome Screenshot Full Page VH Patched](chrome-fullpage-screenshot-vh-patched.png)
+Image #3
 
 ### 5.1 My Chrome VH Workaround
 
@@ -302,19 +304,27 @@ _5.2.0_ Issue #1 There are Chromium Issues about `setDeviceMetricsOverride` affe
 
 _5.2.1_ Issue #2 I observed the same behaviour as Issue #1 when using the option 'Capture full size screenshot' via Chrome Developer Tools. As being not documented, or at least not able without digging deeper, i presume that 'Capture full size screenshot' internally uses `setDeviceMetricsOverride`.
 
-_5.2.2_ Issue #3 Only when hardware accleration in Chrome is set to off, are screenshots returned reliable(else transparent or black image) and with the intended height(sic!, otherwise see following image; compare that to the expected image above, the one to the right). For this, Chrome may be started into this mode also via the CLI `--disable-gpu` parameter.
+_5.2.2_ Issue #3 Only when hardware accleration in Chrome is set to off, are screenshots returned reliable(else transparent or black image) and with the intended height(sic!, otherwise see following image; compare that to the expected image #3 above). For this, Chrome may be started into this mode also via the CLI `--disable-gpu` parameter.
 
-![Chrome Screenshot Full Page When Hardwareacc On Then Too Short](chrome-fullpage-hardwareacc-on-then-too-short.png)
+![Chrome Screenshot Full Page When Hardwareacc On Then Too Short](chrome-fullpage-hardwareacc-on-then-too-short.png) Image #4
 
 _5.2.3_ Issue #4 A pure change via `setDeviceMetricsOverride` for height and viewport height does trigger a change in width(sic!), so that the layout changes. This happens on one of my systems, same code on another system, does not. Even when hardware accleration is set to off.
 
 _5.2.4_ This issues and workarounds are not proper, and in my situation of the app i feel this comes very close to a show stopper.
 
-## Discussion About Usage Of Full Page Screenshot
+## 5.3 Discussion About Application Of Full Page Screenshot
 
-I am thinking of two applications for screenshots: First application is a screenshot as percieved by the user in her browser. This is what the actual screenshot facility is already
+_5.1_ I am thinking of two applications for screenshots: First application is taking a screenshot as percieved by the user in her browser. This is what the actual screenshot facility is already achieving(while it still takes some care to get at it, see story hitherto).
 
-Issue - When full page screenshot is taken, scrollbars disappear. This is a conceptual problem.
+_5.2_ Second application is taking a screenshot as precieved by the person responsible for the web design and application.
+
+_5.3_ As can be seen on Image #1, this does tell you half of the truth(or is it more a third of the truth :). Has to take three screenshots tp cover this section, and would those, side by side, give me the right impression about the feeling of the overall design of those three cards("all fits together in some way")? I do not.
+
+_5.4_ And as application developer, whenever i update the slew of my npm dependencies, i can only hope for the best that that just did not break the appearance of my application. In my special case a single full page screenshot against a reference/gold standard would surfice to verify that.
+
+_5.5_ Maybe i do want to get a feeling of the sourroundings of the element? Maybe for documentation or presentation purposes? If there is no decent support for that, it's like saying a map is useless, because you can not look beyond the forrest.
+
+_5.6_ Additionally, `takeElementScreenshot` falls in between the first and the second application. Dependening on whether the selected element is within the current viewport or not. If it is not displayable within the viewport, i would vote for a behaviour that does deliver a screenshots of the element's bounds. Maybe a full page screenshot and then crop loss wise, and better also request browser vendors to deliver areas for screenshots(not that viewport resizing madness).
 
 # 6 Other
 
@@ -363,7 +373,7 @@ Tracing what testcafe does while running a test in between is - well - not exist
 
 If you debug tests with more than one browser, one can not relate which browser belongs to the current instance of the test. Proper relation with logging chalk color and browser window chrome color, by PID and debugging port ... See also "Enhance Logging".
 
-## \_6.8 T_est Report Esp Xunit Flavor Does Tell You Not Enough
+## 6.8 Test Report Esp Xunit Flavor Does Tell You Not Enough
 
 _6.8.1_ From the below test report of a contrived test - can you guess which Browser Setup did fail? How does that browser agent identifier(`Chrome 76.0.3809 / Linux 0.0.0`) relate to my Browser Setup t.i. was it `chrome_linux_600x1024_mob#true_dpr#1_tou#true` or `chrome_linux_601x1024_mob#true_dpr#1_tou#false` that broke?
 
