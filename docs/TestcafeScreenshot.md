@@ -1,4 +1,4 @@
-_0.1_ What it is about: Visually testing a literally single page application that reacts per CSS different to the following browser setups
+_0.1_ What it is about: Visually testing a literally single page application(see image 3) that reacts per CSS different to the following browser setups
 
 - at different Media Breakpoints based on
   - width and/or
@@ -38,9 +38,9 @@ _0.7_ Finally i compiled some other observations and questions regarding testcaf
 _1.1_ First takeaway for me was that by only supplying browser CLI arguments ala chrome's `window-size` do not get you something when it comes to above browser setup list. That meant for
 chrome to check out the emulation options wrapped by testcafe, which cover all of the above browser setup requirements.
 
-_1.2_ But on firefox i was first clueless - there is no CLI for emulation mode. So i prepared an own FF profile prior to startup. Along with the automatic removal of the tmp profile(which btw did not work consistently as does testcafe's), I did some amount of copying testcafe's firefox profile handling procedure (Enhancement #1).
+_1.2_ But on firefox i was first clueless - there is no CLI for emulation mode. So i prepared an own FF profile prior to startup. Along with the automatic removal of the tmp profile(which btw did not work consistently as does testcafe's), I did some amount of copying testcafe's firefox profile handling procedure (Enhancement 1).
 
-_1.3_ On that way i also converted from package.json driven testcafe parameters to testcafe's programmatic runTestCafe approach. As the browsers array therein was initially not pretty either, i wrapped that in a Builder pattern (Enhancement #2) with my sensible defaults and hiding/harmonizing browser setups e.g.
+_1.3_ On that way i also converted from package.json driven testcafe parameters to testcafe's programmatic runTestCafe approach. As the browsers array therein was initially not pretty either, i wrapped that in a Builder pattern (Enhancement 2) with my sensible defaults and hiding/harmonizing browser setups e.g.
 
 ```js
 ;(await new ChromeBrowserConfig.Builder().withWidth(600).build()).output()
@@ -64,7 +64,7 @@ Whaaaat? For me it looked like, and after researching still is, a complete speci
 
 _1.8_ Along i tried to make sense out of
 https://chromedevtools.github.io/devtools-protocol/tot/Emulation/#method-setVisibleSize. `Resizes the frame/viewport of the page. ...` Whaaaat? _Which is btw currently marked as "experimental" and
-"deprecated"(Issue #1)._
+"deprecated"(Issue 1)._
 
 _1.9_ Out of those two and other references - of whom i would like to highlight https://www.quirksmode.org/blog/archives/2013/12/desktop_media_q.html - i chrocheted a mental model, which boils down to
 
@@ -99,7 +99,7 @@ availableHeight: screen.availHeight
 
 _1.12_ Then it calls FF's `getWindowRect` (which i assume to be `window.outerWidth`), calculates the diff between `currentRect.width/height` and `window.innerWidth/Height` and adds that to the width/height given to `t.resizeWindow` and sends that via marionette's `setWindowRect`(which eventually succeeds, see sources about cases where that value is too small or too big).
 
-_1.13_ _If this conclusion is right, i vote that t.resizeWindow should be aliased renamed (resizeInnerWindow), documented as such and sensible variants (outer,...) should be built into testcafe(Issue #2)_
+_1.13_ _If this conclusion is right, i vote that t.resizeWindow should be aliased renamed (resizeInnerWindow), documented as such and sensible variants (outer,...) should be built into testcafe(Issue 2)_
 
 _1.14_ And so one can expect to have `window.innerWidth/Height` been set via `t.resizeWindow` - which is the same as we accomplished via CDP's `setDeviceMetricsOverride`.
 
@@ -125,7 +125,7 @@ _2.1_ Overall point is that, inside your test, you have no access to the args of
 
 _2.2_ Infos from the run - that is all about args, browser instance and current test are already orderly parsed and evaluated - are held in sync by testcafe and are expected to be properly unit tested. But these infos are not (officially) accessible for the end user, meaning effort of dabbling live code and source code and leads to overall bad practices(code duplication or reaching into not public API).
 
-_2.3_ So i presume that there are public APIs lacking(Enhancement #3). Let me show you two examples of usage.
+_2.3_ So i presume that there are public APIs lacking(Enhancement 3). Let me show you two examples of usage.
 
 _2.4_ First one, as explained before, is for FF i need to call `t.resizeWindow` with a height and width. Therefore i put the run arguments on the testcafe browser configuration, even, like `scaleFactor` or `touch`, they do not exist as FF CLI params. But first, are enacted for building a proper FF profile.
 
@@ -239,15 +239,15 @@ _4.1_ What i first observed is that the returned screenshot images did pixelwise
 
 _4.2_ I wrote "At least" as i have proof that chrome in emulation mode does display a scrollbar, which seems not to be accounted for as scrollbar. It's overlaying above the display and is shown or not shown according to some chrome intern behaviour.
 
-![Chrome Screenshot with Scrollbar](ssWithScrollbar-chrome_linux_600x1024_mob-true_dpr-1_tou-true_small.png) Image #1
+![Chrome Screenshot with Scrollbar](https://user-images.githubusercontent.com/5314859/63472294-e8f17e80-c471-11e9-8b17-e98166f9be0b.png) Image 1
 
-_4.3_ For all of this i feel a relevant testcafe documentation is missing(Enhancement #4).
+_4.3_ For all of this i feel a relevant testcafe documentation is missing(Enhancement 4).
 
 _4.4_ In the course of this i would like to discuss what the arguments for deciding to not include scrollbars in screenshot were on testcafe's team.
 
 _4.5_ My argument is that scrollbars are part of the interface, even design(yes, you can style those afaik non-standardized) and definitely user experience. Scrollbars are part of the factual expression of the display. Excluding those from screenshots is like dismissing characters of the log request message after the 100th, just because someone thought her editor's maximal line length is 97.
 
-_4.6_ I would see both behaviours as options in the screenshot API(Enhancement #5).
+_4.6_ I would see both behaviours as options in the screenshot API(Enhancement 5).
 
 ## 5 Screenshot API For Fullscreen
 
@@ -259,14 +259,14 @@ _5.0.3_ FF does it's job pretty well, while totally undocumented. I changed the 
 
 _5.0.4_ Chrome, on the other side, does it's job not very well. First, there is no direct function call, you have to be in Emulation mode and fiddle around with Emulation related calls and parameters(see above described usage of `setDeviceMetricsOverride`).
 
-_5.0.5_ And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app - see image #2.
+_5.0.5_ And second, because of how that is implemented in Chrome, the change of the height done therefore affects the viewport size(sic!), which subsequently affects the browser's `vh` calculation. So all i got was a brutally sized first section (having a size of `100 vh`) of my app - see image 2.
 
-_5.0.6_ With a height that normally covers all of my sections and what is expected - see image on the right.
+_5.0.6_ With a height that normally covers all of my sections and what is expected - see image 3.
 
-![Chrome Screenshot Full Page VH Brutally Sized](chrome-fullpage-screenshot-vh-brutallySized.png)
-Image #2
-![Chrome Screenshot Full Page VH Patched](chrome-fullpage-screenshot-vh-patched.png)
-Image #3
+![Chrome Screenshot Full Page VH Brutally Sized](https://user-images.githubusercontent.com/5314859/63472286-e2fb9d80-c471-11e9-877e-69e09f3ac98e.png)
+Image 2
+![Chrome Screenshot Full Page VH Patched](https://user-images.githubusercontent.com/5314859/63472290-e5f68e00-c471-11e9-8d20-d03aadc9da87.png)
+Image 3
 
 ### 5.1 My Chrome VH Workaround
 
@@ -298,15 +298,15 @@ document.documentElement.style.removeProperty("--vh")
 
 ### 5.2 Chrome Screenshot/DeviceMetricsOverride Issue Parade
 
-_5.2.0_ Issue #1 There are Chromium Issues about `setDeviceMetricsOverride` affecting viewport size. These are all turned down with 'wont fix'. See https://crbug.com/761136 for example.
+_5.2.0_ Issue 1 There are Chromium Issues about `setDeviceMetricsOverride` affecting viewport size. These are all turned down with 'wont fix'. See https://crbug.com/761136 for example.
 
-_5.2.1_ Issue #2 I observed the same behaviour as Issue #1 when using the option 'Capture full size screenshot' via Chrome Developer Tools. As being not documented, or at least not able without digging deeper, i presume that 'Capture full size screenshot' internally uses `setDeviceMetricsOverride`.
+_5.2.1_ Issue 2 I observed the same behaviour as Issue 1 when using the option 'Capture full size screenshot' via Chrome Developer Tools. As being not documented, or at least not able without digging deeper, i presume that 'Capture full size screenshot' internally uses `setDeviceMetricsOverride`.
 
-_5.2.2_ Issue #3 Only when hardware accleration in Chrome is set to off, are screenshots returned reliable(else transparent or black image) and with the intended height(sic!, otherwise see following image; compare that to the expected image #3 above). For this, Chrome may be started into this mode also via the CLI `--disable-gpu` parameter.
+_5.2.2_ Issue 3 Only when hardware accleration in Chrome is set to off, are screenshots returned reliable(else transparent or black image) and with the intended height(sic!, otherwise see following image; compare that to the expected image 3 above). For this, Chrome may be started into this mode also via the CLI `--disable-gpu` parameter.
 
-![Chrome Screenshot Full Page When Hardwareacc On Then Too Short](chrome-fullpage-hardwareacc-on-then-too-short.png) Image #4
+![Chrome Screenshot Full Page When Hardwareacc On Then Too Short](https://user-images.githubusercontent.com/5314859/63472253-d24b2780-c471-11e9-91c9-a12fdc48c8e5.png) Image 4
 
-_5.2.3_ Issue #4 A pure change via `setDeviceMetricsOverride` for height and viewport height does trigger a change in width(sic!), so that the layout changes. This happens on one of my systems, same code on another system, does not. Even when hardware accleration is set to off.
+_5.2.3_ Issue 4 A pure change via `setDeviceMetricsOverride` for height and viewport height does trigger a change in width(sic!), so that the layout changes. This happens on one of my systems, same code on another system, does not. Even when hardware accleration is set to off.
 
 _5.2.4_ This issues and workarounds are not proper, and in my situation of the app i feel this comes very close to a show stopper.
 
@@ -316,7 +316,7 @@ _5.1_ I am thinking of two applications for screenshots: First application is ta
 
 _5.2_ Second application is taking a screenshot as precieved by the person responsible for the web design and application.
 
-_5.3_ As can be seen on Image #1, this does tell you half of the truth(or is it more a third of the truth :). Have to take three screenshots tp cover this section. And would those, side by side, give me the right impression about the appearance of the overall design of those three cards("all fits together in some way")? I do not.
+_5.3_ As can be seen on Image 1, this does tell you half of the truth(or is it more a third of the truth :). Have to take three screenshots tp cover this section. And would those, side by side, give me the right impression about the appearance of the overall design of those three cards("all fits together in some way")? I do not.
 
 _5.4_ As application developer, whenever i update the slew of my npm dependencies, i can only hope for the best that that just did not break the appearance of my application. In my special case a single full page screenshot against a reference/gold standard would surfice to verify that.
 
@@ -326,7 +326,7 @@ _5.6_ Additionally, `takeElementScreenshot` falls in between the first and the s
 
 # 6 Other
 
-## 6.1 Document Browser Setup In Relation To Testcafe Behaviours (Enhancement #6)
+## 6.1 Document Browser Setup In Relation To Testcafe Behaviours (Enhancement 6)
 
 _6.1.1_ As can be seen in the pargraphs of the Browser Setup and Test chapters, overall testcafe lacks documentation under which condition which behaviour is shown in which browser vendor.
 
@@ -336,11 +336,11 @@ _6.1.2_ Additionally e.g.
 - FF with and without marionette port and/or with and without own profile
 - other browsers without a built-in browser plugin
 
-_6.1.3_ Example #1
+_6.1.3_ Example 1
 
 > Starting FF via testcafe defining an own profile, testcafe will not use FF's marionette protocol. One has to set the marionette port explicitly on the command line.
 
-_6.1.4_ Example #2
+_6.1.4_ Example 2
 
 > Starting FF in non-headless mode, testcafe does not allow you to set a marionette port to it's options. Which it should offer, if you define an own FF's profile. Instead, a testcafe's own marionette client with some other port is opened.
 
