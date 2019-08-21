@@ -1,4 +1,4 @@
-_0.1_ What it is about: Visually testing a literally single page application that reacts per CSS different to the following Browser Setups
+_0.1_ What it is about: Visually testing a literally single page application that reacts per CSS different to the following browser setups
 
 - at different Media Breakpoints based on
   - width and/or
@@ -16,7 +16,7 @@ _0.4_ Additionally, the project for the app has have two different Delivery Mode
 
 _0.5_ My use case with testcafe: Check for some combinations of
 
-- browser settings
+- browser setups
 - browser vendors
 - delivery modes
 
@@ -24,7 +24,7 @@ by screenshot to see if the app works visually as expected.
 
 _0.6_ Now into the course of how my implementation should have run
 
-1. How to configure Browser Setup
+1. How to configure browser setup
 2. How to write test
 3. How to take screenshot
 4. How to automatically compare the actual screenshot against an expected base image
@@ -36,13 +36,13 @@ _0.7_ Finally i compiled some other observations and questions regarding testcaf
 # 1 How To Configure Browser Setup
 
 _1.1_ First takeaway for me was that by only supplying browser CLI arguments ala chrome's `window-size` do
-not get you something when it comes to above Browser Setup list. That meant for
-chrome to check out the emulation options wrapped by testcafe, which cover all of the above Browser Setup requirements.
+not get you something when it comes to above browser setup list. That meant for
+chrome to check out the emulation options wrapped by testcafe, which cover all of the above browser setup requirements.
 
 _1.2_ But on firefox i was first clueless - there is no CLI for emulation mode. So i prepared an own FF profile prior to startup. Along with the automatic removal of the tmp profile(which btw did not work consistently as does testcafe's), I did some amount of copying testcafe's firefox profile handling procedure (Enhancement #1).
 
 _1.3_ On that way i also converted from package.json driven testcafe parameters to testcafe's programmatic
-runTestCafe approach. As the browsers array therein was initially not pretty either, i wrapped that in a Builder pattern (Enhancement #2) with my sensible defaults and hiding/harmonizing Browser Setups e.g.
+runTestCafe approach. As the browsers array therein was initially not pretty either, i wrapped that in a Builder pattern (Enhancement #2) with my sensible defaults and hiding/harmonizing browser setups e.g.
 
 ```js
 ;(await new ChromeBrowserConfig.Builder().withWidth(600).build()).output()
@@ -122,7 +122,7 @@ _1.18_ So, using `t.resizeWindow` seems to be working for FF. But wait a second,
 _2.1_ Overall point is that, inside your test, you have no access to the args of the run (the ones used in `runTestCafe`) or the configuration of the browser instance currently run. Examples where this would be beneficial
 
 - set viewport width and height (see chapter "How To Configure Browser Setup")
-- check that the configuration of the Browser Setup aligns to the related current browser instance
+- check that the configuration of the browser setup aligns to the related current browser instance
 - build a subdirectory for screenshots for each running browser instance
 
 _2.2_ Infos from the run - that is all about args, browser instance and current test are already orderly parsed and evaluated - are held in sync by testcafe and are expected to be properly unit tested. But these infos are not (officially) accessible for the end user, meaning effort of dabbling live code and source code and leads to overall bad practices(code duplication or reaching into not public API).
@@ -318,29 +318,31 @@ _5.1_ I am thinking of two applications for screenshots: First application is ta
 
 _5.2_ Second application is taking a screenshot as precieved by the person responsible for the web design and application.
 
-_5.3_ As can be seen on Image #1, this does tell you half of the truth(or is it more a third of the truth :). Has to take three screenshots tp cover this section, and would those, side by side, give me the right impression about the feeling of the overall design of those three cards("all fits together in some way")? I do not.
+_5.3_ As can be seen on Image #1, this does tell you half of the truth(or is it more a third of the truth :). Have to take three screenshots tp cover this section. And would those, side by side, give me the right impression about the appearance of the overall design of those three cards("all fits together in some way")? I do not.
 
-_5.4_ And as application developer, whenever i update the slew of my npm dependencies, i can only hope for the best that that just did not break the appearance of my application. In my special case a single full page screenshot against a reference/gold standard would surfice to verify that.
+_5.4_ As application developer, whenever i update the slew of my npm dependencies, i can only hope for the best that that just did not break the appearance of my application. In my special case a single full page screenshot against a reference/gold standard would surfice to verify that.
 
-_5.5_ Maybe i do want to get a feeling of the sourroundings of the element? Maybe for documentation or presentation purposes? If there is no decent support for that, it's like saying a map is useless, because you can not look beyond the forrest.
+_5.5_ Maybe i do want to get a feeling of the sourroundings of the element? Maybe for documentation or presentation purposes? If there is no decent support for full page screenshots, it's like saying a map is useless, because you can not look beyond the forrest.
 
-_5.6_ Additionally, `takeElementScreenshot` falls in between the first and the second application. Dependening on whether the selected element is within the current viewport or not. If it is not displayable within the viewport, i would vote for a behaviour that does deliver a screenshots of the element's bounds. Maybe a full page screenshot and then crop loss wise, and better also request browser vendors to deliver areas for screenshots(not that viewport resizing madness).
+_5.6_ Additionally, `takeElementScreenshot` falls in between the first and the second application. Dependening on whether the selected element is within the current viewport or not. If it is not displayable within the viewport, i would vote for an optional behaviour that does deliver a screenshots of the element's dimensions. Maybe a full page screenshot and then crop loss wise, and better also request browser vendors to deliver a feature for screenshot areas(not that viewport resizing madness).
 
 # 6 Other
 
 ## 6.1 Document Browser Setup In Relation To Testcafe Behaviours
 
-_6.1.1_ As can be seen in the pargraphs of the Browser Setup chapter, overall testcafe lacks documentation under which condition which behaviour is shown in which browser vendor. Read e.g.
+_6.1.1_ As can be seen in the pargraphs of the Browser Setup chapters, overall testcafe lacks documentation under which condition which behaviour is shown in which browser vendor.
+
+_6.1.2_ E.g.
 
 - chrome with and without emulation
 - FF with and without marionette port and/or with and without own profile
 - other browsers without a built-in browser plugin
 
-_6.1.2_ Example #1
+_6.1.3_ Example #1
 
 > Starting FF via testcafe defining an own profile, testcafe will not use FF's marionette protocol. One has to set the marionette port explicitly on the command line.
 
-_6.1.3_ Example #2
+_6.1.4_ Example #2
 
 > Starting FF in non-headless mode, testcafe does not allow you to set a marionette port to it's options. Which it should offer, if you define an own FF's profile. Instead, a testcafe's own marionette client with some other port is opened.
 
@@ -408,7 +410,7 @@ _6.8.5_ Then, user defined properties would be nice e.g.
 
 _6.8.6_ For logging reasons above, it makes sense to grab console error and std out to the report too.
 
-_6.8.7_ Wondering why is one in tge report counted as failure, and the other as error? And only one error screenshot `target/reports-prod/screenshots/Index_Page_Test/take_screenshots/HeadlessChrome_76.0.3809_Linux_0.0.0/errors/1.png` is taken. Or should that be named failure screenshot?
+_6.8.7_ Wondering why is one in the report counted as failure, and the other as error? And only one error screenshot `target/reports-prod/screenshots/Index_Page_Test/take_screenshots/HeadlessChrome_76.0.3809_Linux_0.0.0/errors/1.png` is taken. Or should that be named failure screenshot?
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" ?>
@@ -523,7 +525,7 @@ const about_comp_img_3 = await selectImg(
   "body > main > section.section-about > div.row > div:nth-child(2) > div > img.composition__photo.composition__photo--p3",
 )
 
-await t.expect(about_comp_img__3.c_omplete).ok()
+await t.expect(about_comp_img_3.complete).ok()
 
 if (getRunInfoCtx(t).runValuesBrowser.dpr >= 2) {
   await t.expect(about_comp_img_3.currentSrc).contains("nat-3-large.")
