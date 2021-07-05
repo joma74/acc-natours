@@ -366,9 +366,9 @@
   integrity sha512-FvUupuM3rlRsRtCN+fDudtmytGO6iHJuuRKS1Ss0pG5z8oX0diNEw94UEL7hgDbpN94rgaK5R7sWm6RrSkZuAQ==
 
 "@types/useragent@^2.1.1":
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/@types/useragent/-/useragent-2.3.0.tgz#1317511f5a47825547752952a4f3cc49603a60ed"
-  integrity sha512-DC1uD7h0MEcyra7dJXXeOWmy56tIqW7EATlYcn04KtMW3TSaZMFJArdtIdrM8aa11YvgNIzgxy6qzYu2Egr1OQ==
+  version "2.3.1"
+  resolved "https://registry.yarnpkg.com/@types/useragent/-/useragent-2.3.1.tgz#c971243faa04f50df399da35d77538ab5fabae20"
+  integrity sha512-w70ziElAVDD8lEOQ2Id3YBDE0sn2DTVA1zLB59H4kFngYoOJAIlnMkndiZFrzzHE0jmFDZ9AEWNvmeTm6Rvj9A==
 
 "@types/vfile-message@*":
   version "1.0.1"
