@@ -27,7 +27,7 @@ import { parse } from "useragent"
  * @param ua {string} a user agent string
  * @returns {UserAgentInfos} the user agent infos
  */
-const parseUserAgentAsJson = function(ua) {
+const parseUserAgentAsJson = function (ua) {
   // @ts-ignore
   return parseUserAgent(ua).toJSON()
 }
@@ -36,7 +36,7 @@ const parseUserAgentAsJson = function(ua) {
  * @param ua {string} a user agent string
  * @returns the user agent infos
  */
-const parseUserAgent = function(ua) {
+const parseUserAgent = function (ua) {
   return parse(ua)
 }
 
@@ -44,7 +44,7 @@ const parseUserAgent = function(ua) {
  * @param ua {string} a user agent string
  * @returns the filename-safe sanitized user agent string to-lower-cased
  */
-const renderFullAsFileName = function(ua) {
+const renderFullAsFileName = function (ua) {
   const userAgent = parseUserAgent(ua)
   /**
    * @type {string}
@@ -61,7 +61,7 @@ const renderFullAsFileName = function(ua) {
  * @param otherTagValues {AnyJson}
  * @returns the filename-safe sanitized user agent string to-lower-cased
  */
-const renderSelectedAsFileName = function(
+const renderSelectedAsFileName = function (
   userAgentTemplate,
   uaTagValues,
   otherTagValues,
@@ -86,7 +86,7 @@ const renderSelectedAsFileName = function(
  * @param otherTagValues {AnyJson}
  * @returns the filename-safe sanitized user agent string to-lower-cased
  */
-const renderSelectedWithReplacementsAsFileName = function(
+const renderSelectedWithReplacementsAsFileName = function (
   userAgentTemplate,
   replacements,
   uaTagValues,
@@ -97,7 +97,7 @@ const renderSelectedWithReplacementsAsFileName = function(
     uaTagValues,
     otherTagValues,
   )
-  replacements.forEach(function(value) {
+  replacements.forEach(function (value) {
     var regEx = new RegExp(value.searchMask, "ig")
     sanitizedFilename = sanitizedFilename.replace(regEx, value.replaceMask)
   })

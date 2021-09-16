@@ -123,7 +123,7 @@ const commonDevProdConfig = {
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       chunks: ["app"],
-      minChunks: function(module) {
+      minChunks: function (module) {
         if (ENVLL.isTraceEnabled()) {
           // tslint:disable-next-line:no-console
           console.debug("[vendor] " + JSON.stringify(module.resource))
@@ -152,7 +152,7 @@ const commonDevProdConfig = {
         // (default: 10 MB) big in bytes.
         sizeThreshold: 10 * 1024 * 1024,
       },
-      configHash: function() {
+      configHash: function () {
         return process.env.NODE_ENV
       },
       info: {
@@ -163,11 +163,11 @@ const commonDevProdConfig = {
       },
     }),
     new HtmlWebpackPlugin({
-      hunksSortMode: function(a, b) {
+      hunksSortMode: function (a, b) {
         const chunksNamePart = ["wp-runtime", "vendor", "app"]
         return (
-          (chunksNamePart.indexOf(a.names[0]) -
-          chunksNamePart.indexOf(b.names[0]))
+          chunksNamePart.indexOf(a.names[0]) -
+          chunksNamePart.indexOf(b.names[0])
         )
       },
       hash: false,

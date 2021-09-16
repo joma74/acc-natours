@@ -78,7 +78,7 @@ const beforeEach = async (t) => {
     runValuesBrowser,
     screenshotLeafDirName,
     screenshotDir: path.join(
-      t.testRun.opts.screenshotPath,
+      t.testRun.opts.screenshots.path,
       screenshotLeafDirName,
     ),
     runArgsBrowser,

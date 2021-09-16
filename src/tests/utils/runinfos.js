@@ -44,7 +44,7 @@ const FIREFOX_RUNINFO_RE = /^(firefox)/
  * @param {TestController} t
  * @return {Promise<RunArgsBrowser>} runArgsBrowser
  */
-const evaluateRunArgsBrowser = async function(t) {
+const evaluateRunArgsBrowser = async function (t) {
   /**
    * @type {RunArgsBrowser}
    */
@@ -76,7 +76,7 @@ const evaluateRunArgsBrowser = async function(t) {
  * @param {TestController} t
  * @param {RunArgsBrowser} runArgsBrowser
  */
-const resizeToRunInfoDimensions = async function(t, runArgsBrowser) {
+const resizeToRunInfoDimensions = async function (t, runArgsBrowser) {
   if (runArgsBrowser.windowInnerWidth && runArgsBrowser.windowInnerHeight) {
     await t.resizeWindow(
       runArgsBrowser.windowInnerWidth,
@@ -90,7 +90,7 @@ const resizeToRunInfoDimensions = async function(t, runArgsBrowser) {
  * @param {TestController} t
  * @param {RunInfoCtx} runInfoCtx
  */
-const setRunInfoCtx = function(t, runInfoCtx) {
+const setRunInfoCtx = function (t, runInfoCtx) {
   t.ctx.runInfoCtx = runInfoCtx
 }
 
@@ -99,7 +99,7 @@ const setRunInfoCtx = function(t, runInfoCtx) {
  * @param {TestController} t
  * @return {RunInfoCtx} runInfoCtx
  */
-const getRunInfoCtx = function(t) {
+const getRunInfoCtx = function (t) {
   return t.ctx.runInfoCtx
 }
 

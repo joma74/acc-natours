@@ -16,22 +16,26 @@ runTestCafe()
 
     return runner
       .browsers([
-        (await new ChromeBrowserConfig.Builder()
-          .withWidth(600)
-          .build()).output(),
-        (await new ChromeBrowserConfig.Builder()
-          .withWidth(601)
-          .withScaleFactor(1)
-          .withoutTouch()
-          .build()).output(),
-        (await new FirefoxBrowserConfig.Builder()
-          .withWidth(600)
-          .build()).output(),
-        (await new FirefoxBrowserConfig.Builder()
-          .withWidth(601)
-          .withScaleFactor(1)
-          .withoutTouch()
-          .build()).output(),
+        (
+          await new ChromeBrowserConfig.Builder().withWidth(600).build()
+        ).output(),
+        (
+          await new ChromeBrowserConfig.Builder()
+            .withWidth(601)
+            .withScaleFactor(1)
+            .withoutTouch()
+            .build()
+        ).output(),
+        (
+          await new FirefoxBrowserConfig.Builder().withWidth(600).build()
+        ).output(),
+        (
+          await new FirefoxBrowserConfig.Builder()
+            .withWidth(601)
+            .withScaleFactor(1)
+            .withoutTouch()
+            .build()
+        ).output(),
       ])
       .concurrency(1)
       .reporter([
@@ -51,6 +55,10 @@ runTestCafe()
           : process.env["npm_package_config_screenshots_prod"],
         true,
         process.env["npm_package_config_screenshot-path-pattern"],
+        // @ts-ignore
+        false,
+        // @ts-ignore
+        false,
       )
       .src(["src/tests/index-test.js"])
       .run({

@@ -10,7 +10,7 @@ console.log("will capture full page")
 /**
  * google-chrome --headless --hide-scrollbars --remote-debugging-port=9222 --disable-gpu
  */
-CDP(async function(
+CDP(async function (
   /** @type {import("src/types/chrome-remote-interface/protocol-proxy-api").default.ProtocolApi}  */ client,
 ) {
   const { Browser, DOM, Emulation, Network, Page, Runtime } = client
@@ -41,9 +41,11 @@ CDP(async function(
   await takeScreenshot(Page, "01-reset-start")
 
   // now evaluate the current vh
-  const actualVh = (await Runtime.evaluate({
-    expression: `window.innerHeight / 100`,
-  })).result.value
+  const actualVh = (
+    await Runtime.evaluate({
+      expression: `window.innerHeight / 100`,
+    })
+  ).result.value
 
   console.log(`1 vh has been evaluated to ${actualVh}px`)
   // and grind that as css property
@@ -127,7 +129,7 @@ async function takeScreenshot(Page, fileName = "desktop", delayMS = 500) {
   })
   const buffer = Buffer.from(screenshot.data, "base64")
   const filePath = "target/" + fileName + ".png"
-  fs.writeFile(filePath, buffer, "base64", function(err) {
+  fs.writeFile(filePath, buffer, "base64", function (err) {
     if (err) {
       console.error(err)
     } else {

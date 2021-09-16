@@ -500,9 +500,9 @@ Perhaps testcafe can offer some built-in support for such.
  */
 const selectImg = async (imgSelector) => {
   /** @type { SelectorAPI & HTMLImageElement} */
-  const result = await /** @type { ? } */ (Selector(
-    imgSelector,
-  )).addCustomDOMProperties({
+  const result = await /** @type { ? } */ (
+    Selector(imgSelector)
+  ).addCustomDOMProperties({
     // @ts-ignore
     complete: (/** @type {HTMLImageElement} */ el) => {
       return el.complete

@@ -7,9 +7,13 @@ interface TestRun {
 }
 
 interface TestOpts {
-  readonly screenshotPath: string
-  readonly screenshotPathPattern: string
+  readonly screenshots: ScreenshotOpts
   readonly browserInfo: any
+}
+
+interface ScreenshotOpts {
+    readonly path: string
+    readonly pathPattern: string
 }
 
 interface TestProps {

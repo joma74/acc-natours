@@ -204,7 +204,7 @@ const webpackConfig = {
     }),
 
     new webpack.optimize.CommonsChunkPlugin({
-      minChunks: function(module) {
+      minChunks: function (module) {
         if (ENVLL.isTraceEnabled()) {
           // tslint:disable-next-line:no-console
           console.debug("[vendor] " + JSON.stringify(module.resource))
@@ -281,7 +281,7 @@ const webpackConfig = {
         // (default: 10 MB) big in bytes.
         sizeThreshold: 10 * 1024 * 1024,
       },
-      configHash: function() {
+      configHash: function () {
         return process.env.NODE_ENV
       },
       info: {
