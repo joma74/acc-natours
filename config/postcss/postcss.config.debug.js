@@ -1,4 +1,4 @@
-module.exports = function(postcss) {
+module.exports = function (postcss) {
   return postcss([
     // @ts-ignore
     require("postcss-easy-import"),

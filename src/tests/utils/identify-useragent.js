@@ -8,7 +8,7 @@ const getUA = ClientFunction(() => navigator.userAgent)
  * @param ua {string} a user agent string
  * @returns the sanitized user agent string
  */
-const parseUserAgentAsFileName = function(ua) {
+const parseUserAgentAsFileName = function (ua) {
   const userAgent = parseUserAgent(ua)
   return sanitizeFilename(userAgent.toString()).replace(/\s+/g, "_")
 }
@@ -17,7 +17,7 @@ const parseUserAgentAsFileName = function(ua) {
  * @param ua {string} a user agent string
  * @returns the parsed user agent infos
  */
-const parseUserAgentAsJson = function(ua) {
+const parseUserAgentAsJson = function (ua) {
   return parseUserAgent(ua).toJSON
 }
 
@@ -25,7 +25,7 @@ const parseUserAgentAsJson = function(ua) {
  * @param ua {string} a user agent string
  * @returns the user agent infos
  */
-const parseUserAgent = function(ua) {
+const parseUserAgent = function (ua) {
   return parse(ua)
 }
 
